@@ -7,6 +7,7 @@ const CssTextField = styled(Paper)({
     backgroundColor: '#fcaea0',
     color: '#1c1d1f',
     padding: '5px',
+    marginBottom: '5px',
 });
 
 export const CustomErrorField = (props) => {

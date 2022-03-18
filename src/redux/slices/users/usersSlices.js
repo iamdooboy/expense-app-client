@@ -15,7 +15,9 @@ const UserActions = (actionType, path) => {
 
             try {
                 const { data } = await axios.post(url, userData, config);
-                localStorage.setItem('userId', JSON.stringify(data));
+                if (path === '/login') {
+                    localStorage.setItem('userId', JSON.stringify(data));
+                }
                 return data;
             } catch (error) {
                 if (!error.response) {
@@ -31,6 +33,8 @@ const UserActions = (actionType, path) => {
 };
 
 export const loginUserAction = UserActions('users/login', '/login');
+
+export const registerUserAction = UserActions('users/register', '/register');
 
 //get user from local storage
 const getUserFromStorage = localStorage.getItem('userId')
@@ -63,6 +67,33 @@ const userSlices = createSlice({
 
         //rejected login
         builder.addCase(loginUserAction.rejected, (state, action) => {
+            state.userLoading = false;
+            state.userAppError = action?.payload?.msg;
+            state.userServerError = action.error.message;
+        });
+
+        //////////////////////////////
+        ////////// REGISTER //////////
+        //////////////////////////////
+
+        //pending register
+        builder.addCase(registerUserAction.pending, (state, action) => {
+            state.userLoading = true;
+            state.userAppError = undefined;
+            state.userServerError = undefined;
+        });
+
+        //success register
+        builder.addCase(registerUserAction.fulfilled, (state, action) => {
+            console.log(action);
+            state.userData = action?.payload;
+            state.userLoading = false;
+            state.userAppError = undefined;
+            state.userServerError = undefined;
+        });
+
+        //rejected register
+        builder.addCase(registerUserAction.rejected, (state, action) => {
             state.userLoading = false;
             state.userAppError = action?.payload?.msg;
             state.userServerError = action.error.message;
