@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { NavBar } from '../components/budget/NavBar';
 import {
     createBudgetAction,
     fetchAllBudgetAction,
 } from '../redux/slices/budgets/budgetSlices';
+import { BudgetList } from '../components/budget/BudgetList';
 
 export const Home = () => {
     //wrap in useEffect to run once
@@ -19,8 +21,12 @@ export const Home = () => {
     const allBudgets = useSelector((state) => state.budgets);
     const { loading, budgetList, appError, serverError } = allBudgets;
 
-    console.log(loading, budgetList, appError, serverError);
-    return <div>hello</div>;
+    return (
+        <>
+            <NavBar />
+            <BudgetList budgetList={budgetList} />
+        </>
+    );
 
     // const submitHandler = async (event) => {
     //     event.preventDefault();
