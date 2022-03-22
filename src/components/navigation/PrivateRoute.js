@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export const PrivateRoute = ({ children }) => {
-    const loggedIn = localStorage.getItem('userId');
-
+    const loggedIn = useSelector((state) => state?.users.userData);
     return loggedIn ? children : <Navigate to='/login' />;
 };

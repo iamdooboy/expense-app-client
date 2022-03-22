@@ -38,7 +38,7 @@ export const registerUserAction = UserActions('users/register', '/register');
 
 //get user from local storage
 const getUserFromStorage = localStorage.getItem('userId')
-    ? JSON.parse(localStorage.getItem('user'))
+    ? JSON.parse(localStorage.getItem('userId'))
     : undefined;
 
 //slices
@@ -56,9 +56,8 @@ const userSlices = createSlice({
             state.userServerError = undefined;
         });
 
-        //success login
+        //fulfilled login
         builder.addCase(loginUserAction.fulfilled, (state, action) => {
-            console.log(action);
             state.userData = action?.payload;
             state.userLoading = false;
             state.userAppError = undefined;
@@ -83,9 +82,8 @@ const userSlices = createSlice({
             state.userServerError = undefined;
         });
 
-        //success register
+        //fulfilled register
         builder.addCase(registerUserAction.fulfilled, (state, action) => {
-            console.log(action);
             state.userData = action?.payload;
             state.userLoading = false;
             state.userAppError = undefined;
