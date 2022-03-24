@@ -10,32 +10,24 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 export const BudgetItem = (props) => {
     return (
         <ListItem
+            disablePadding
+            maxWidth
             sx={{
-                pt: '8px',
-                pb: '8px',
-            }}
-            disablePadding>
+                boxShadow: '4px 4px',
+                border: '1px solid',
+                margin: '10px 0 10px',
+            }}>
             <ListItemButton
                 disableGutters
                 sx={{
-                    'display': 'flex',
-                    'alignItems': 'center',
-                    'justifyContent': 'space-between',
-                    'padding': '20px',
-                    'marginRight': '0px',
-                    '&:hover': {
-                        color: 'white',
-                    },
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '20px',
+                    marginRight: '0px',
                 }}>
                 <Typography variant='h6'>{props.title}</Typography>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                        paddingRight: '15px',
-                        marginRight: '0px',
-                    }}>
+                <Box>
                     <Typography variant='h6'>{`$${props.amount.toFixed(
                         2
                     )}`}</Typography>

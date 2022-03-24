@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { NavBar } from '../components/budget/NavBar';
+import Container from '@mui/material/Container';
+import { SearchAppBar } from '../components/budget/SearchAppBar';
 import {
     createBudgetAction,
     fetchAllBudgetAction,
 } from '../redux/slices/budgets/budgetSlices';
 import { BudgetList } from '../components/budget/BudgetList';
+import img from '../img/banner.png';
 
 export const Home = () => {
     //wrap in useEffect to run once
@@ -22,10 +24,20 @@ export const Home = () => {
     const { loading, budgetList, appError, serverError } = allBudgets;
 
     return (
-        <>
-            <NavBar />
+        <Container component='main' maxWidth='md'>
+            <Box
+                component='img'
+                src={img}
+                sx={{
+                    boxShadow: '4px 4px',
+                    border: '1px solid',
+                    marginY: '10px',
+                    width: '99.99%',
+                }}
+            />
+            <SearchAppBar />
             <BudgetList budgetList={budgetList} />
-        </>
+        </Container>
     );
 
     // const submitHandler = async (event) => {

@@ -6,17 +6,15 @@ import { BudgetItem } from './BudgetItem';
 
 export const BudgetList = (props) => {
     return (
-        <Container component='main' maxWidth='md'>
-            <List disableGutters disablePadding>
-                {props.budgetList &&
-                    props.budgetList.docs.map((budget) => (
-                        <BudgetItem
-                            title={budget.title}
-                            amount={0}
-                            id={budget._id}
-                        />
-                    ))}
-            </List>
-        </Container>
+        <List>
+            {props.budgetList &&
+                props.budgetList.docs.map((budget) => (
+                    <BudgetItem
+                        title={budget.title}
+                        amount={0}
+                        id={budget._id}
+                    />
+                ))}
+        </List>
     );
 };
