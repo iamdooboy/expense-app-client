@@ -10,80 +10,150 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import { CustomButton } from '../../UI/CustomButton';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LogoutSharpIcon from '@mui/icons-material/LogoutSharp';
+import HomeSharpIcon from '@mui/icons-material/HomeSharp';
+import Stack from '@mui/material/Stack';
 
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    backgroundColor: 'white',
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
+// const Search = styled('div')(({ theme }) => ({
+//     position: 'relative',
+//     backgroundColor: 'white',
+//     marginLeft: 0,
+//     width: '100%',
+// }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     'color': 'black',
-    'border': '1px solid',
     'boxShadow': '4px 4px',
+    'border': '1px solid',
+    'boxSizing': 'border-box',
     '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
         width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            'width': '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
     },
 }));
+
+const BootstrapButton = styled(Button)({
+    'boxShadow': 'none',
+    'textTransform': 'none',
+    'fontSize': 16,
+    'padding': '6px 12px',
+    'border': '1px solid',
+    'lineHeight': 1.5,
+    'backgroundColor': '#0063cc',
+    'borderColor': '#0063cc',
+    'fontFamily': [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+    ].join(','),
+    '&:hover': {
+        backgroundColor: '#0069d9',
+        borderColor: '#0062cc',
+        boxShadow: 'none',
+    },
+    '&:active': {
+        boxShadow: 'none',
+        backgroundColor: '#0062cc',
+        borderColor: '#005cbf',
+    },
+    '&:focus': {
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+    },
+});
 
 export const SearchAppBar = () => {
     return (
         <Box sx={{ boxShadow: '4px 4px', border: '1px solid' }}>
-            <Toolbar>
-                <Typography
-                    variant='h6'
-                    noWrap
-                    component='div'
-                    sx={{
-                        flexGrow: 1,
-                        display: {
-                            xs: 'none',
-                            sm: 'block',
-                            color: 'black',
-                        },
-                    }}>
-                    Expense App
-                </Typography>
-                <CustomButton
-                    sx={{ marginRight: '10px' }}
-                    onClick={() => console.log('hello')}>
-                    Add Budget
-                </CustomButton>
-                <Search>
-                    <SearchIconWrapper>
-                        <SearchIcon style={{ color: 'black' }} />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder='Search…'
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
-                </Search>
-            </Toolbar>
+            <Grid container>
+                {/* <Grid item xs={1}>
+                    <CustomButton startIcon={<LogoutSharpIcon />} />
+                </Grid>
+                <Grid item xs={1}>
+                    <CustomButton startIcon={<DarkModeOutlinedIcon />} />
+                </Grid>
+                <Grid item xs={1}>
+                    <CustomButton startIcon={<HomeSharpIcon />} />
+                </Grid>
+                <Grid item xs={5}>
+                    <StyledInputBase placeholder='Budget Name' fullWidth />
+                </Grid>
+                <Grid item xs={3}>
+                    <CustomButton>Add Budget</CustomButton>
+                </Grid> */}
+
+                <Grid item xs={6}>
+                    <Stack
+                        direction='row'
+                        justifyContent='flex-start'
+                        alignItems='center'
+                        spacing={3}>
+                        <Grid item xs={1}>
+                            <CustomButton
+                                sx={{
+                                    minWidth: '40px',
+                                    height: '32px',
+                                    margin: '10px',
+                                }}
+                                startIcon={<LogoutSharpIcon />}
+                            />
+                        </Grid>
+                        <Grid item xs={1}>
+                            <CustomButton
+                                sx={{
+                                    minWidth: '40px',
+                                    height: '32px',
+                                    margin: '10px',
+                                }}
+                                startIcon={<DarkModeOutlinedIcon />}
+                            />
+                        </Grid>
+                        <Grid item xs={1}>
+                            <CustomButton
+                                sx={{
+                                    minWidth: '40px',
+                                    height: '32px',
+                                    margin: '10px',
+                                }}
+                                startIcon={<HomeSharpIcon />}
+                            />
+                        </Grid>
+                    </Stack>
+                </Grid>
+                <Grid item xs={6}>
+                    <Stack
+                        direction='row'
+                        justifyContent='flex-end'
+                        alignItems='center'
+                        spacing={0}>
+                        <Grid item={8}>
+                            <StyledInputBase
+                                placeholder='Budget Name'
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <CustomButton
+                                sx={{
+                                    minWidth: '70px',
+                                    height: '32px',
+                                    margin: '10px',
+                                }}>
+                                Add Budget
+                            </CustomButton>
+                        </Grid>
+                    </Stack>
+                </Grid>
+            </Grid>
         </Box>
     );
 };

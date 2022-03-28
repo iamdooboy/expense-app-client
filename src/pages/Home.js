@@ -32,7 +32,8 @@ export const Home = () => {
                     boxShadow: '4px 4px',
                     border: '1px solid',
                     marginY: '10px',
-                    width: '99.99%',
+                    boxSizing: 'border-box',
+                    width: '100%',
                 }}
             />
             <SearchAppBar />
