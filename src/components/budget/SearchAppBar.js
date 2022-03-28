@@ -25,51 +25,18 @@ import Stack from '@mui/material/Stack';
 // }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    'color': 'black',
-    'boxShadow': '4px 4px',
-    'border': '1px solid',
-    'boxSizing': 'border-box',
     '& .MuiInputBase-input': {
         // vertical padding + font size from searchIcon
-        width: '100%',
+        paddingLeft: '10px',
+        height: '32px',
+        boxSizing: 'border-box',
+        paddingTop: '0px',
+        paddingBottom: '0px',
+        border: '1px solid',
+        color: 'black',
+        boxShadow: '4px 4px',
     },
 }));
-
-const BootstrapButton = styled(Button)({
-    'boxShadow': 'none',
-    'textTransform': 'none',
-    'fontSize': 16,
-    'padding': '6px 12px',
-    'border': '1px solid',
-    'lineHeight': 1.5,
-    'backgroundColor': '#0063cc',
-    'borderColor': '#0063cc',
-    'fontFamily': [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-    ].join(','),
-    '&:hover': {
-        backgroundColor: '#0069d9',
-        borderColor: '#0062cc',
-        boxShadow: 'none',
-    },
-    '&:active': {
-        boxShadow: 'none',
-        backgroundColor: '#0062cc',
-        borderColor: '#005cbf',
-    },
-    '&:focus': {
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
-});
 
 export const SearchAppBar = () => {
     return (
@@ -96,11 +63,11 @@ export const SearchAppBar = () => {
                         direction='row'
                         justifyContent='flex-start'
                         alignItems='center'
-                        spacing={3}>
+                        spacing={2}>
                         <Grid item xs={1}>
                             <CustomButton
                                 sx={{
-                                    minWidth: '40px',
+                                    minWidth: '32px',
                                     height: '32px',
                                     margin: '10px',
                                 }}
@@ -110,7 +77,7 @@ export const SearchAppBar = () => {
                         <Grid item xs={1}>
                             <CustomButton
                                 sx={{
-                                    minWidth: '40px',
+                                    minWidth: '32px',
                                     height: '32px',
                                     margin: '10px',
                                 }}
@@ -120,7 +87,7 @@ export const SearchAppBar = () => {
                         <Grid item xs={1}>
                             <CustomButton
                                 sx={{
-                                    minWidth: '40px',
+                                    minWidth: '32px',
                                     height: '32px',
                                     margin: '10px',
                                 }}
@@ -134,23 +101,18 @@ export const SearchAppBar = () => {
                         direction='row'
                         justifyContent='flex-end'
                         alignItems='center'
-                        spacing={0}>
-                        <Grid item={8}>
-                            <StyledInputBase
-                                placeholder='Budget Name'
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <CustomButton
-                                sx={{
-                                    minWidth: '70px',
-                                    height: '32px',
-                                    margin: '10px',
-                                }}>
-                                Add Budget
-                            </CustomButton>
-                        </Grid>
+                        sx={{ paddingRight: '10px' }}>
+                        <StyledInputBase placeholder='Budget Name' />
+
+                        <CustomButton
+                            sx={{
+                                minWidth: '70px',
+                                height: '32px',
+                                margin: '10px',
+                                fontSize: '12px',
+                            }}>
+                            Add Budget
+                        </CustomButton>
                     </Stack>
                 </Grid>
             </Grid>
