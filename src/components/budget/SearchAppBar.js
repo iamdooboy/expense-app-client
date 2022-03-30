@@ -1,28 +1,17 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import Button from '@mui/material/Button';
 import { CustomButton } from '../../UI/CustomButton';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LogoutSharpIcon from '@mui/icons-material/LogoutSharp';
 import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 import Stack from '@mui/material/Stack';
-
-// const Search = styled('div')(({ theme }) => ({
-//     position: 'relative',
-//     backgroundColor: 'white',
-//     marginLeft: 0,
-//     width: '100%',
-// }));
+import { createBudgetAction } from '../../redux/slices/budgets/budgetSlices';
+import { useDispatch } from 'react-redux';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
@@ -38,26 +27,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export const SearchAppBar = () => {
-    return (
-        <Box sx={{ boxShadow: '4px 4px', border: '1px solid' }}>
-            <Grid container>
-                {/* <Grid item xs={1}>
-                    <CustomButton startIcon={<LogoutSharpIcon />} />
-                </Grid>
-                <Grid item xs={1}>
-                    <CustomButton startIcon={<DarkModeOutlinedIcon />} />
-                </Grid>
-                <Grid item xs={1}>
-                    <CustomButton startIcon={<HomeSharpIcon />} />
-                </Grid>
-                <Grid item xs={5}>
-                    <StyledInputBase placeholder='Budget Name' fullWidth />
-                </Grid>
-                <Grid item xs={3}>
-                    <CustomButton>Add Budget</CustomButton>
-                </Grid> */}
+export const SearchAppBar = (props) => {
+    const dispatch = useDispatch();
 
+    const submitHandler = async (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const budgetData = {
+            title: data.get('budget'),
+        };
+        dispatch(createBudgetAction(budgetData));
+    };
+
+    return (
+        <Box
+            component='form'
+            onSubmit={submitHandler}
+            sx={{ boxShadow: '4px 4px', border: '1px solid' }}>
+            <Grid container>
                 <Grid item xs={6}>
                     <Stack
                         direction='row'
@@ -102,9 +89,13 @@ export const SearchAppBar = () => {
                         justifyContent='flex-end'
                         alignItems='center'
                         sx={{ paddingRight: '10px' }}>
-                        <StyledInputBase placeholder='Budget Name' />
+                        <StyledInputBase
+                            name='budget'
+                            placeholder='Budget Name'
+                        />
 
                         <CustomButton
+                            type='submit'
                             sx={{
                                 minWidth: '70px',
                                 height: '32px',

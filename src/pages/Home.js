@@ -13,15 +13,14 @@ import { BudgetList } from '../components/budget/BudgetList';
 import img from '../img/banner.png';
 
 export const Home = () => {
+    const budgets = useSelector((state) => state.budgets);
     //wrap in useEffect to run once
     //if not, run infinite
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(fetchAllBudgetAction(1));
     }, [dispatch]);
-
-    const allBudgets = useSelector((state) => state.budgets);
-    const { loading, budgetList, appError, serverError } = allBudgets;
 
     return (
         <Container component='main' maxWidth='md'>
@@ -37,7 +36,7 @@ export const Home = () => {
                 }}
             />
             <SearchAppBar />
-            <BudgetList budgetList={budgetList} />
+            <BudgetList budgets={budgets} />
         </Container>
     );
 
