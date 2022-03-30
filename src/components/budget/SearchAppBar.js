@@ -28,7 +28,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export const SearchAppBar = (props) => {
+export const SearchAppBar = () => {
     const dispatch = useDispatch();
 
     const submitHandler = async (event) => {

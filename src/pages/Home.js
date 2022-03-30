@@ -31,38 +31,12 @@ export const Home = () => {
                     boxShadow: '4px 4px',
                     border: '1px solid',
                     marginY: '10px',
-<<<<<<< HEAD
-                    width: '100%',
-                    boxSizing: 'border-box',
-=======
                     boxSizing: 'border-box',
                     width: '100%',
->>>>>>> toolbar
                 }}
             />
             <SearchAppBar />
             <BudgetList budgets={budgets} />
         </Container>
     );
-
-    // const submitHandler = async (event) => {
-    //     event.preventDefault();
-    //     const data = new FormData(event.currentTarget);
-    //     const budgetData = {
-    //         title: data.get('budget'),
-    //     };
-
-    //     console.log(budgetData);
-    //     dispatch(createBudgetAction(budgetData));
-    // };
-
-    // return (
-    //     <Box component='form' onSubmit={submitHandler}>
-    //         <TextField label='budget name' name='budget' />
-    //         <Button
-    //             type='submit'
-    //             variant='contained'
-    //             sx={{ mt: 3, mb: 2 }}></Button>
-    //     </Box>
-    // );
 };
