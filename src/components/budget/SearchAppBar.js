@@ -11,6 +11,7 @@ import LogoutSharpIcon from '@mui/icons-material/LogoutSharp';
 import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 import Stack from '@mui/material/Stack';
 import { createBudgetAction } from '../../redux/slices/budgets/budgetSlices';
+import { logoutUserAction } from '../../redux/slices/users/usersSlices';
 import { useDispatch } from 'react-redux';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -53,6 +54,7 @@ export const SearchAppBar = (props) => {
                         spacing={2}>
                         <Grid item xs={1}>
                             <CustomButton
+                                onClick={() => dispatch(logoutUserAction())}
                                 sx={{
                                     minWidth: '32px',
                                     height: '32px',

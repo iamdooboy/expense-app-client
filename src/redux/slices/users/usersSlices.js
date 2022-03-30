@@ -36,6 +36,20 @@ export const loginUserAction = UserActions('users/login', '/login');
 
 export const registerUserAction = UserActions('users/register', '/register');
 
+export const logoutUserAction = createAsyncThunk(
+    'user/logout',
+    async (payload, { rejectWithValue, getState, dispatch }) => {
+        try {
+            localStorage.removeItem('userId');
+        } catch (error) {
+            if (!error?.response) {
+                throw error;
+            }
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+);
+
 //get user from local storage
 const getUserFromStorage = localStorage.getItem('userId')
     ? JSON.parse(localStorage.getItem('userId'))
@@ -95,6 +109,10 @@ const userSlices = createSlice({
             state.userLoading = false;
             state.userAppError = action?.payload?.msg;
             state.userServerError = action.error.message;
+        });
+
+        builder.addCase(logoutUserAction.fulfilled, (state, action) => {
+            state.userData = undefined;
         });
     },
 });
