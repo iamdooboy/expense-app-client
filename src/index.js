@@ -7,11 +7,8 @@ import store from './redux/store/store';
 import { theme } from './theme';
 import { ThemeProvider } from '@mui/material/styles';
 ReactDOM.render(
-    <ThemeProvider theme={theme}>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </ThemeProvider>,
-
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById('root')
 );

@@ -13,6 +13,7 @@ import Stack from '@mui/material/Stack';
 import { createBudgetAction } from '../../redux/slices/budgets/budgetSlices';
 import { logoutUserAction } from '../../redux/slices/users/usersSlices';
 import { useDispatch } from 'react-redux';
+import { changeTheme } from '../../redux/slices/theme/themeSlice';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
@@ -28,7 +29,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export const SearchAppBar = () => {
+export const SearchAppBar = (props) => {
     const dispatch = useDispatch();
 
     const submitHandler = async (event) => {
@@ -65,6 +66,13 @@ export const SearchAppBar = () => {
                         </Grid>
                         <Grid item xs={1}>
                             <CustomButton
+                                onClick={() =>
+                                    dispatch(
+                                        changeTheme({
+                                            isDarkMode: !props.isDarkMode,
+                                        })
+                                    )
+                                }
                                 sx={{
                                     minWidth: '32px',
                                     height: '32px',
