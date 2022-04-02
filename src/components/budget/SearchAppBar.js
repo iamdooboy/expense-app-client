@@ -14,20 +14,7 @@ import { createBudgetAction } from '../../redux/slices/budgets/budgetSlices';
 import { logoutUserAction } from '../../redux/slices/users/usersSlices';
 import { useDispatch } from 'react-redux';
 import { changeTheme } from '../../redux/slices/theme/themeSlice';
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    '& .MuiInputBase-input': {
-        // vertical padding + font size from searchIcon
-        paddingLeft: '10px',
-        height: '32px',
-        boxSizing: 'border-box',
-        paddingTop: '0px',
-        paddingBottom: '0px',
-        border: '1px solid',
-        color: 'black',
-        boxShadow: '4px 4px',
-    },
-}));
+import { StyledInputBase } from '../../UI/CustomInput';
 
 export const SearchAppBar = (props) => {
     const dispatch = useDispatch();
@@ -45,7 +32,11 @@ export const SearchAppBar = (props) => {
         <Box
             component='form'
             onSubmit={submitHandler}
-            sx={{ boxShadow: '4px 4px', border: '1px solid' }}>
+            sx={{
+                boxShadow: '4px 4px',
+                border: '1px solid',
+                color: 'primary.main',
+            }}>
             <Grid container>
                 <Grid item xs={6}>
                     <Stack

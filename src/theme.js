@@ -11,11 +11,15 @@ const darkTheme = createTheme({
     palette: {
         type: 'dark',
         primary: {
-            main: '#17EF97',
+            main: '#BB86FC',
         },
         secondary: {
             main: '#fafafa',
         },
+        text: {
+            primary: '#BB86FC',
+        },
+        background: '#000',
     },
 });
 const lightTheme = createTheme({

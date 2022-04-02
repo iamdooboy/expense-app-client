@@ -12,6 +12,7 @@ export const BudgetItem = (props) => {
                 boxShadow: '4px 4px',
                 border: '1px solid',
                 margin: '10px 0 10px',
+                color: 'primary.main',
             }}>
             <ListItemButton
                 disableGutters
