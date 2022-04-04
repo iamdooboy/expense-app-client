@@ -18,6 +18,10 @@ const BudgetActions = (actionType, httpMethods) => {
                 if (httpMethods === 'POST') {
                     const { data } = await axios.post(url, payload, config);
                     return data;
+                } else if (httpMethods === 'DELETE') {
+                    const newUrl = `${url}${payload}`;
+                    const { data } = await axios.delete(newUrl, config);
+                    return data;
                 } else {
                     const newUrl = `${url.slice(0, -1)}?page=${payload}`;
                     const { data } = await axios.get(newUrl, config);
@@ -40,6 +44,7 @@ export const createBudgetAction = BudgetActions('budgets/create', 'POST');
 
 export const fetchAllBudgetAction = BudgetActions('budgets/fetch', 'GET');
 
+export const deleteBudgetAction = BudgetActions('budget/delete', 'DELETE');
 // const budgetSlices = createSlice({
 //     name: 'budget',
 //     initialState: {
@@ -112,6 +117,12 @@ const budgetSlices = createSlice({
         },
         [createBudgetAction.fulfilled]: (state, action) => {
             state.push(action.payload.data);
+        },
+        [deleteBudgetAction.pending]: (state, action) => {
+            console.log('deleting budget');
+        },
+        [deleteBudgetAction.fulfilled]: (state, action) => {
+            return state.filter((budget) => budget._id !== action.payload._id);
         },
     },
 });

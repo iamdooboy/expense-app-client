@@ -6,11 +6,10 @@ import Box from '@mui/material/Box';
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
+import { deleteBudgetAction } from '../../redux/slices/budgets/budgetSlices';
+import { useDispatch } from 'react-redux';
 
 export const CustomIconButton = styled(IconButton)({
-    // '& .MuiButtonBase-root-MuiIconButton-root': {
-    //     color: 'red',
-    // },
     'margin': 0,
     '&:hover': {
         backgroundColor: 'transparent',
@@ -18,6 +17,8 @@ export const CustomIconButton = styled(IconButton)({
 });
 
 export const BudgetItem = (props) => {
+    const dispatch = useDispatch();
+
     return (
         <ListItem
             disablePadding
@@ -44,7 +45,7 @@ export const BudgetItem = (props) => {
                 </Box>
             </ListItemButton>
             <CustomIconButton
-                marginRight='0px'
+                onClick={() => dispatch(deleteBudgetAction(props.id))}
                 edge='end'
                 aria-label='delete'
                 sx={{ padding: '20px' }}>
