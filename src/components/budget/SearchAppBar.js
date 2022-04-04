@@ -17,15 +17,20 @@ import { changeTheme } from '../../redux/slices/theme/themeSlice';
 import { StyledInputBase } from '../../UI/CustomInput';
 
 export const SearchAppBar = (props) => {
+    const textInput = React.useRef(null);
+
     const dispatch = useDispatch();
 
     const submitHandler = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const budgetData = {
-            title: data.get('budget'),
-        };
-        dispatch(createBudgetAction(budgetData));
+        if (data.get('budget')) {
+            const budgetData = {
+                title: data.get('budget'),
+            };
+            dispatch(createBudgetAction(budgetData));
+            textInput.current.value = '';
+        }
     };
 
     return (
@@ -91,6 +96,7 @@ export const SearchAppBar = (props) => {
                         alignItems='center'
                         sx={{ paddingRight: '10px' }}>
                         <StyledInputBase
+                            inputRef={textInput}
                             name='budget'
                             placeholder='Budget Name'
                         />
