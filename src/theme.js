@@ -8,6 +8,15 @@ export const theme = createTheme({
 
 const darkTheme = createTheme({
     ...theme,
+    components: {
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    color: '#BB86FC',
+                },
+            },
+        },
+    },
     palette: {
         type: 'dark',
         primary: {
@@ -24,6 +33,15 @@ const darkTheme = createTheme({
 });
 const lightTheme = createTheme({
     ...theme,
+    components: {
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    color: '#000',
+                },
+            },
+        },
+    },
     palette: {
         type: 'light',
         primary: {

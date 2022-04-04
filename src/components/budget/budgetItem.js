@@ -3,6 +3,19 @@ import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
 import Box from '@mui/material/Box';
+import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
+import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
+
+export const CustomIconButton = styled(IconButton)({
+    // '& .MuiButtonBase-root-MuiIconButton-root': {
+    //     color: 'red',
+    // },
+    'margin': 0,
+    '&:hover': {
+        backgroundColor: 'transparent',
+    },
+});
 
 export const BudgetItem = (props) => {
     return (
@@ -20,7 +33,7 @@ export const BudgetItem = (props) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '20px',
+                    paddingLeft: '20px',
                     marginRight: '0px',
                 }}>
                 <Typography variant='h6'>{props.title}</Typography>
@@ -30,6 +43,13 @@ export const BudgetItem = (props) => {
                     )}`}</Typography>
                 </Box>
             </ListItemButton>
+            <CustomIconButton
+                marginRight='0px'
+                edge='end'
+                aria-label='delete'
+                sx={{ padding: '20px' }}>
+                <DeleteOutlineSharpIcon />
+            </CustomIconButton>
         </ListItem>
     );
 };
