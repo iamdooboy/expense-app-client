@@ -27,7 +27,7 @@ export const Home = () => {
             <Box sx={{ height: '100vh', bgcolor: 'background' }}>
                 <Container
                     component='main'
-                    maxWidth='md'
+                    maxWidth='lg'
                     sx={{ bgcolor: 'background' }}>
                     <Box
                         component='img'

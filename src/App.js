@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { PrivateRoute } from './components/navigation/PrivateRoute';
+import { Transactions } from './components/transaction/Transactions';
 
 function App() {
     return (
@@ -14,6 +15,13 @@ function App() {
                     element={
                         <PrivateRoute>
                             <Home />
+                        </PrivateRoute>
+                    }></Route>
+                <Route
+                    path='/transactions'
+                    element={
+                        <PrivateRoute>
+                            <Transactions />
                         </PrivateRoute>
                     }></Route>
                 <Route path='/register' element={<Register />} />

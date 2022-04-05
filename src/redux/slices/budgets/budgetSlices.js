@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BudgetActions = (actionType, httpMethods) => {
+const BudgetActions = (actionType, HttpMethod) => {
     const action = createAsyncThunk(
         actionType,
         async (payload, { rejectWithValue, getState, dispatch }) => {
@@ -15,10 +15,10 @@ const BudgetActions = (actionType, httpMethods) => {
             };
 
             try {
-                if (httpMethods === 'POST') {
+                if (HttpMethod === 'POST') {
                     const { data } = await axios.post(url, payload, config);
                     return data;
-                } else if (httpMethods === 'DELETE') {
+                } else if (HttpMethod === 'DELETE') {
                     const newUrl = `${url}${payload}`;
                     const { data } = await axios.delete(newUrl, config);
                     return data;
