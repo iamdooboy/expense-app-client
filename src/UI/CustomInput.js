@@ -13,3 +13,29 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
         boxShadow: '4px 4px',
     },
 }));
+
+export const DateInputBase = styled(InputBase)(({ theme }) => ({
+    '& .MuiInputBase-input': {
+        // vertical padding + font size from searchIcon
+        height: '50px',
+        boxSizing: 'border-box',
+        margin: '10px',
+        padding: '10px',
+        border: '1px solid',
+        boxShadow: '4px 4px',
+        cursor: 'text',
+    },
+}));
+
+export const TransactionInputBase = styled(InputBase)(({ theme }) => ({
+    '& .MuiInputBase-input': {
+        // vertical padding + font size from searchIcon
+        height: '50px',
+        boxSizing: 'border-box',
+        margin: '10px',
+        padding: '10px',
+        border: '1px solid',
+        boxShadow: '4px 4px',
+        cursor: 'text',
+    },
+}));
