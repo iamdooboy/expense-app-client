@@ -15,14 +15,20 @@ const transactionActions = (actionType, HttpMethod) => {
                 },
             };
             try {
-                const postConfig = {
-                    ...config,
-                    params: {
-                        budget: payload,
-                    },
-                };
-                const { data } = await axios.get(url, postConfig);
-                return data;
+                if (HttpMethod === 'POST') {
+                    const { data } = await axios.post(url, payload, config);
+                    console.log(data);
+                    return data;
+                } else {
+                    const postConfig = {
+                        ...config,
+                        params: {
+                            budget: payload,
+                        },
+                    };
+                    const { data } = await axios.get(url, postConfig);
+                    return data;
+                }
             } catch (error) {
                 if (!error?.response) {
                     console.log(error);
@@ -40,6 +46,11 @@ export const fetchAllTransactionAction = transactionActions(
     'GET'
 );
 
+export const createTransactionAction = transactionActions(
+    'transactions/create',
+    'POST'
+);
+
 const transactionSlices = createSlice({
     name: 'transaction',
     initialState: [],
@@ -49,6 +60,12 @@ const transactionSlices = createSlice({
         },
         [fetchAllTransactionAction.fulfilled]: (state, action) => {
             return action.payload;
+        },
+        [createTransactionAction.pending]: (state, action) => {
+            console.log('creating transaction...');
+        },
+        [createTransactionAction.fulfilled]: (state, action) => {
+            state.push(action.payload);
         },
     },
 });

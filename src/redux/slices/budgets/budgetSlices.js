@@ -116,7 +116,7 @@ const budgetSlices = createSlice({
             console.log('creating budget');
         },
         [createBudgetAction.fulfilled]: (state, action) => {
-            state.push(action.payload.data);
+            state.push(action.payload);
         },
         [deleteBudgetAction.pending]: (state, action) => {
             console.log('deleting budget');

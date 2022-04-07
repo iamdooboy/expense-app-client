@@ -9,13 +9,32 @@ import {
     CustomSubmitButton,
     CustomTransactionButton,
 } from '../../UI/CustomButton';
+import { createTransactionAction } from '../../redux/slices/transactions/transactionSlices';
+import { useDispatch } from 'react-redux';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 export const NewTransaction = () => {
+    const dispatch = useDispatch();
+    const [transactionType, setTransactionType] = useState('');
+
+    const submitHandler = async (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const transactionData = {
+            type: transactionType,
+            text: data.get('text'),
+            amount: data.get('amount'),
+            budget: '622f6e661cfe3a860f949ac0',
+            createdAt: data.get('date'),
+        };
+        dispatch(createTransactionAction(transactionData));
+    };
     return (
         <Grid item xs={3}>
             <Box
+                component='form'
+                onSubmit={submitHandler}
                 sx={{
                     height: '100vh',
                     bgcolor: 'white',
@@ -35,7 +54,8 @@ export const NewTransaction = () => {
                 <DateInputBase
                     id='date'
                     type='date'
-                    defaultValue='2017-05-24'
+                    name='date'
+                    defaultValue='2022-04-06'
                     sx={{ width: '100%' }}
                     InputLabelProps={{
                         shrink: true,
@@ -46,6 +66,7 @@ export const NewTransaction = () => {
                     justifyContent='space-between'
                     alignItems='center'>
                     <CustomTransactionButton
+                        onClick={() => setTransactionType('income')}
                         sx={{
                             boxShadow: '4px 4px',
                             border: '1px solid green',
@@ -56,6 +77,7 @@ export const NewTransaction = () => {
                         Income
                     </CustomTransactionButton>
                     <CustomTransactionButton
+                        onClick={() => setTransactionType('expense')}
                         sx={{
                             boxShadow: '4px 4px',
                             border: '1px solid red',
@@ -68,14 +90,15 @@ export const NewTransaction = () => {
                 </Stack>
                 <ButtonGroup fullWidth sx={{ boxSizing: 'border-box' }}>
                     <CustomSubmitButton
+                        type='submit'
                         sx={{
                             boxShadow: '4px 4px',
-                            border: '1px solid green',
+                            border: '1px solid',
                             borderRadius: '0px',
                             color: 'black',
                             margin: '10px',
                         }}>
-                        Income
+                        Add Transaction
                     </CustomSubmitButton>
                 </ButtonGroup>
             </Box>

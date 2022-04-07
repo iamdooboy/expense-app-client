@@ -21,7 +21,7 @@ export const SearchAppBar = (props) => {
 
     const dispatch = useDispatch();
 
-    const submitHandler = async (event) => {
+    const submitHandler = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         if (data.get('budget')) {
