@@ -1,25 +1,13 @@
 import React from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-import { darkTheme, lightTheme } from '../../theme';
+import { StyledTableCell, StyledTableRow } from '../../UI/CustomTableHead';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { SearchAppBar } from '../../components/budget/SearchAppBar';
-import List from '@mui/material/List';
-import banner_light from '../../img/banner_light.svg';
 import { TransactionItem } from './TransactionItem';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {
-    CustomTableHead,
-    StyledTableCell,
-    StyledTableRow,
-    StyledTable,
-} from '../../UI/CustomTableHead';
+import TableCell from '@mui/material/TableCell';
 
 export const TransactionList = (props) => {
     return (
@@ -38,9 +26,21 @@ export const TransactionList = (props) => {
                             <StyledTableCell align='right'>
                                 Amount
                             </StyledTableCell>
+                            <StyledTableCell align='right'>
+                                Actions
+                            </StyledTableCell>
                         </StyledTableRow>
                     </TableHead>
-                    <Box sx={{ height: '10px', bgcolor: 'transparent' }} />
+                    <TableBody>
+                        <TableRow>
+                            <TableCell
+                                sx={{
+                                    borderBottom: 'transparent',
+                                    padding: '5px',
+                                }}
+                            />
+                        </TableRow>
+                    </TableBody>
                     <TableBody>
                         {props?.transactions?.map((transaction) => (
                             <TransactionItem
@@ -49,6 +49,7 @@ export const TransactionList = (props) => {
                                 text={transaction.text}
                                 amount={transaction.amount}
                                 date={transaction.createdAt}
+                                id={transaction._id}
                             />
                         ))}
                     </TableBody>

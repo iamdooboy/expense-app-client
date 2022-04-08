@@ -1,9 +1,5 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import InputBase from '@mui/material/InputBase';
 import { CustomButton } from '../../UI/CustomButton';
 import Grid from '@mui/material/Grid';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';

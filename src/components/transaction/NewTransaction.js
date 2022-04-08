@@ -1,9 +1,7 @@
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import { DateInputBase, TransactionInputBase } from '../../UI/CustomInput';
-import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import {
     CustomSubmitButton,
@@ -65,9 +63,6 @@ export const NewTransaction = (props) => {
                     name='date'
                     defaultValue='2022-04-06'
                     sx={{ width: '100%' }}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
                 />
                 <Stack
                     direction='row'

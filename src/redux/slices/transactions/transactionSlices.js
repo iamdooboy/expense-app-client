@@ -6,7 +6,7 @@ const transactionActions = (actionType, HttpMethod) => {
         actionType,
         async (payload, { rejectWithValue, getState, dispatch }) => {
             //get user token from store
-            const url = 'http://localhost:8000/api/transactions';
+            const url = 'http://localhost:8000/api/transactions/';
             const userToken = getState().users.userData.token;
             const config = {
                 headers: {
@@ -17,6 +17,11 @@ const transactionActions = (actionType, HttpMethod) => {
             try {
                 if (HttpMethod === 'POST') {
                     const { data } = await axios.post(url, payload, config);
+                    console.log(data);
+                    return data;
+                } else if (HttpMethod === 'DELETE') {
+                    const newUrl = `${url}${payload}`;
+                    const { data } = await axios.delete(newUrl, config);
                     console.log(data);
                     return data;
                 } else {
@@ -51,6 +56,11 @@ export const createTransactionAction = transactionActions(
     'POST'
 );
 
+export const deleteTransactionAction = transactionActions(
+    'transactions/delete',
+    'DELETE'
+);
+
 const transactionSlices = createSlice({
     name: 'transaction',
     initialState: [],
@@ -66,6 +76,16 @@ const transactionSlices = createSlice({
         },
         [createTransactionAction.fulfilled]: (state, action) => {
             state.push(action.payload);
+        },
+        [deleteTransactionAction.pending]: (state, action) => {
+            console.log('deleting transaction...');
+        },
+        [deleteTransactionAction.fulfilled]: (state, action) => {
+            console.log(action.payload);
+            console.log(action.payload._id);
+            return state.filter(
+                (transaction) => transaction._id !== action.payload._id
+            );
         },
     },
 });
