@@ -46,9 +46,9 @@ export const TransactionItem = (props) => {
                     borderBottom: '1px solid',
                 }}>
                 {props.type === 'expense' ? (
-                    <ArrowCircleDownSharpIcon sx={{ color: 'red' }} />
+                    <ArrowCircleDownSharpIcon sx={{ color: 'error.main' }} />
                 ) : (
-                    <ArrowCircleUpSharpIcon sx={{ color: 'green' }} />
+                    <ArrowCircleUpSharpIcon sx={{ color: 'success.main' }} />
                 )}
             </TableCell>
             <TableCell

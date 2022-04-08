@@ -11,12 +11,13 @@ import {
 } from '../../UI/CustomButton';
 import { createTransactionAction } from '../../redux/slices/transactions/transactionSlices';
 import { useDispatch } from 'react-redux';
-
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 export const NewTransaction = (props) => {
     const dispatch = useDispatch();
     const [transactionType, setTransactionType] = useState('');
+    const textInput = useRef(null);
+    const amountInput = useRef(null);
 
     const submitHandler = async (event) => {
         event.preventDefault();
@@ -29,6 +30,8 @@ export const NewTransaction = (props) => {
             createdAt: data.get('date'),
         };
         dispatch(createTransactionAction(transactionData));
+        textInput.current.value = '';
+        amountInput.current.value = '';
     };
     return (
         <Grid item xs={3}>
@@ -43,12 +46,14 @@ export const NewTransaction = (props) => {
                     color: 'primary.main',
                 }}>
                 <TransactionInputBase
+                    inputRef={textInput}
                     autoComplete='off'
                     name='text'
                     placeholder='Text'
                     sx={{ width: '100%' }}
                 />
                 <TransactionInputBase
+                    inputRef={amountInput}
                     autoComplete='off'
                     name='amount'
                     placeholder='Amount'
