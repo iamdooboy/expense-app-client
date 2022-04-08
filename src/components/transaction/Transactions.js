@@ -6,18 +6,21 @@ import Container from '@mui/material/Container';
 import { SearchAppBar } from '../../components/budget/SearchAppBar';
 import Grid from '@mui/material/Grid';
 import banner_light from '../../img/banner_light.svg';
+import banner_dark from '../../img/banner_dark.svg';
 import Box from '@mui/material/Box';
 import { NewTransaction } from './NewTransaction';
+import { useLocation } from 'react-router-dom';
 
 export const Transactions = () => {
     const transactions = useSelector((state) => state.transactions);
     const dispatch = useDispatch();
+    const { state } = useLocation();
+    const theme = useSelector((state) => state.theme);
 
     useEffect(() => {
-        dispatch(fetchAllTransactionAction('622f6e661cfe3a860f949ac0'));
+        dispatch(fetchAllTransactionAction(state.budgetId));
     }, [dispatch]);
 
-    //return <TransactionList transactions={transactions} />;
     return (
         <Container
             component='main'
@@ -25,7 +28,7 @@ export const Transactions = () => {
             sx={{ bgcolor: 'background' }}>
             <Box
                 component='img'
-                src={banner_light}
+                src={theme.isDarkMode ? banner_dark : banner_light}
                 sx={{
                     boxShadow: '4px 4px',
                     border: '1px solid',
@@ -35,10 +38,10 @@ export const Transactions = () => {
                     color: 'primary.main',
                 }}
             />
-            <SearchAppBar />
+            <SearchAppBar isDarkMode={theme.isDarkMode} />
             <Grid container spacing={2} sx={{ marginY: '10px' }}>
                 <TransactionList transactions={transactions} />
-                <NewTransaction />
+                <NewTransaction budgetId={state.budgetId} />
             </Grid>
         </Container>
     );

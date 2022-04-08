@@ -24,7 +24,7 @@ import {
 export const TransactionList = (props) => {
     return (
         <Grid item xs={9}>
-            <Box sx={{ height: '100vh', bgcolor: 'white' }}>
+            <Box sx={{ height: '100vh', bgcolor: 'background' }}>
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                     <TableHead>
                         <StyledTableRow>

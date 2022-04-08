@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 
 import React, { useState } from 'react';
 
-export const NewTransaction = () => {
+export const NewTransaction = (props) => {
     const dispatch = useDispatch();
     const [transactionType, setTransactionType] = useState('');
 
@@ -25,7 +25,7 @@ export const NewTransaction = () => {
             type: transactionType,
             text: data.get('text'),
             amount: data.get('amount'),
-            budget: '622f6e661cfe3a860f949ac0',
+            budget: props.budgetId,
             createdAt: data.get('date'),
         };
         dispatch(createTransactionAction(transactionData));
@@ -37,16 +37,19 @@ export const NewTransaction = () => {
                 onSubmit={submitHandler}
                 sx={{
                     height: '100vh',
-                    bgcolor: 'white',
+                    bgcolor: 'background',
                     boxShadow: '4px 4px',
                     border: '1px solid',
+                    color: 'primary.main',
                 }}>
                 <TransactionInputBase
+                    autoComplete='off'
                     name='text'
                     placeholder='Text'
                     sx={{ width: '100%' }}
                 />
                 <TransactionInputBase
+                    autoComplete='off'
                     name='amount'
                     placeholder='Amount'
                     sx={{ width: '100%' }}
@@ -69,9 +72,9 @@ export const NewTransaction = () => {
                         onClick={() => setTransactionType('income')}
                         sx={{
                             boxShadow: '4px 4px',
-                            border: '1px solid green',
+                            border: '1px solid',
                             borderRadius: '0px',
-                            color: 'green',
+                            color: 'success.main',
                             margin: '10px',
                         }}>
                         Income
@@ -80,9 +83,9 @@ export const NewTransaction = () => {
                         onClick={() => setTransactionType('expense')}
                         sx={{
                             boxShadow: '4px 4px',
-                            border: '1px solid red',
+                            border: '1px solid',
                             borderRadius: '0px',
-                            color: 'red',
+                            color: 'error.main',
                             margin: '10px',
                         }}>
                         Expense
@@ -95,7 +98,7 @@ export const NewTransaction = () => {
                             boxShadow: '4px 4px',
                             border: '1px solid',
                             borderRadius: '0px',
-                            color: 'black',
+                            color: 'primary.main',
                             margin: '10px',
                         }}>
                         Add Transaction

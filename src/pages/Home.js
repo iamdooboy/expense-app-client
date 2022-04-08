@@ -7,8 +7,6 @@ import { fetchAllBudgetAction } from '../redux/slices/budgets/budgetSlices';
 import { BudgetList } from '../components/budget/BudgetList';
 import banner_light from '../img/banner_light.svg';
 import banner_dark from '../img/banner_dark.svg';
-import { ThemeProvider } from '@mui/material/styles';
-import { darkTheme, lightTheme } from '../theme';
 
 export const Home = () => {
     const budgets = useSelector((state) => state.budgets);
@@ -23,28 +21,26 @@ export const Home = () => {
     }, [dispatch]);
 
     return (
-        <ThemeProvider theme={theme.isDarkMode ? darkTheme : lightTheme}>
-            <Box sx={{ height: '100vh', bgcolor: 'background' }}>
-                <Container
-                    component='main'
-                    maxWidth='lg'
-                    sx={{ bgcolor: 'background' }}>
-                    <Box
-                        component='img'
-                        src={theme.isDarkMode ? banner_dark : banner_light}
-                        sx={{
-                            boxShadow: '4px 4px',
-                            border: '1px solid',
-                            marginY: '10px',
-                            boxSizing: 'border-box',
-                            width: '100%',
-                            color: 'primary.main',
-                        }}
-                    />
-                    <SearchAppBar isDarkMode={theme.isDarkMode} />
-                    <BudgetList budgets={budgets} />
-                </Container>
-            </Box>
-        </ThemeProvider>
+        <Box sx={{ height: '100vh', bgcolor: 'background' }}>
+            <Container
+                component='main'
+                maxWidth='lg'
+                sx={{ bgcolor: 'background' }}>
+                <Box
+                    component='img'
+                    src={theme.isDarkMode ? banner_dark : banner_light}
+                    sx={{
+                        boxShadow: '4px 4px',
+                        border: '1px solid',
+                        marginY: '10px',
+                        boxSizing: 'border-box',
+                        width: '100%',
+                        color: 'primary.main',
+                    }}
+                />
+                <SearchAppBar isDarkMode={theme.isDarkMode} />
+                <BudgetList budgets={budgets} />
+            </Container>
+        </Box>
     );
 };
