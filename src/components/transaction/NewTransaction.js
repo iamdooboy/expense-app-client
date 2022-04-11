@@ -20,10 +20,14 @@ export const NewTransaction = (props) => {
     const submitHandler = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+
         const transactionData = {
             type: transactionType,
             text: data.get('text'),
-            amount: data.get('amount'),
+            amount:
+                transactionType === 'expense'
+                    ? -1 * data.get('amount')
+                    : data.get('amount'),
             budget: props.budgetId,
             createdAt: data.get('date'),
         };

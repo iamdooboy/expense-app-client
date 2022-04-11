@@ -10,6 +10,7 @@ import banner_dark from '../../img/banner_dark.svg';
 import Box from '@mui/material/Box';
 import { NewTransaction } from './NewTransaction';
 import { useLocation } from 'react-router-dom';
+import { TransactionAppBar } from './TransactionAppBar';
 
 export const Transactions = () => {
     const transactions = useSelector((state) => state.transactions);
@@ -20,6 +21,10 @@ export const Transactions = () => {
     useEffect(() => {
         dispatch(fetchAllTransactionAction(state.budgetId));
     }, [dispatch]);
+
+    const sum = transactions?.reduce((accumulator, object) => {
+        return accumulator + object.amount;
+    }, 0);
 
     return (
         <Container
@@ -38,7 +43,11 @@ export const Transactions = () => {
                     color: 'primary.main',
                 }}
             />
-            <SearchAppBar isDarkMode={theme.isDarkMode} />
+            <TransactionAppBar
+                sum={sum}
+                title={state.title}
+                isDarkMode={theme.isDarkMode}
+            />
             <Grid container spacing={2} sx={{ marginY: '10px' }}>
                 <TransactionList transactions={transactions} />
                 <NewTransaction budgetId={state.budgetId} />

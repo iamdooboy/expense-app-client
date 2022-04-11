@@ -36,6 +36,7 @@ export const BudgetItem = (props) => {
                         replace: false,
                         state: {
                             budgetId: props.id,
+                            title: props.title,
                         },
                     })
                 }
