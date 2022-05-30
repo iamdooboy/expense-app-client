@@ -22,6 +22,17 @@ const BudgetActions = (actionType, HttpMethod) => {
                     const newUrl = `${url}${payload}`;
                     const { data } = await axios.delete(newUrl, config);
                     return data;
+                } else if (HttpMethod === 'PUT') {
+                    let newUrl;
+                    if (actionType.includes('title')) {
+                        newUrl = `${url}/title/${payload.id}`;
+                    } else if (actionType.includes('amount')) {
+                        newUrl = `${url}/amount/${payload.id}`;
+                    } else {
+                        newUrl = `${url}/edit/${payload.id}`;
+                    }
+                    const { data } = await axios.put(newUrl, payload, config);
+                    return data;
                 } else {
                     const newUrl = `${url.slice(0, -1)}?page=${payload}`;
                     const { data } = await axios.get(newUrl, config);
@@ -46,6 +57,21 @@ export const fetchAllBudgetAction = BudgetActions('budgets/fetch', 'GET');
 
 export const deleteBudgetAction = BudgetActions('budget/delete', 'DELETE');
 
+export const updateBudgetTitleAction = BudgetActions(
+    'budget/update/title',
+    'PUT'
+);
+
+export const updateBudgetAmountAction = BudgetActions(
+    'budget/update/amount',
+    'PUT'
+);
+
+export const updateBudgetEditAction = BudgetActions(
+    'budget/update/edit',
+    'PUT'
+);
+
 const budgetSlices = createSlice({
     name: 'budget',
     initialState: [],
@@ -67,6 +93,24 @@ const budgetSlices = createSlice({
         },
         [deleteBudgetAction.fulfilled]: (state, action) => {
             return state.filter((budget) => budget._id !== action.payload._id);
+        },
+        [updateBudgetTitleAction.pending]: (state, action) => {
+            console.log('updating budget title');
+        },
+        [updateBudgetTitleAction.fulfilled]: (state, action) => {
+            const foundIndex = state.findIndex(
+                (budget) => budget._id === action.payload._id
+            );
+            state.splice(foundIndex, 1, action.payload);
+        },
+        [updateBudgetEditAction.pending]: (state, action) => {
+            console.log('updating budget edit');
+        },
+        [updateBudgetEditAction.fulfilled]: (state, action) => {
+            const foundIndex = state.findIndex(
+                (budget) => budget._id === action.payload._id
+            );
+            state.splice(foundIndex, 1, action.payload);
         },
     },
 });

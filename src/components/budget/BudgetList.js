@@ -9,8 +9,10 @@ export const BudgetList = (props) => {
                 <BudgetItem
                     key={budget._id}
                     title={budget.title}
-                    amount={0}
+                    amount={budget.amount}
                     id={budget._id}
+                    edit={budget.edit}
+                    disable={props.disable}
                 />
             ))}
         </List>

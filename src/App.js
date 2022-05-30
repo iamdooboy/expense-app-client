@@ -5,7 +5,7 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { PrivateRoute } from './components/navigation/PrivateRoute';
-import { Transactions } from './components/transaction/Transactions';
+import { Transactions } from './pages/Transactions';
 import { ThemeProvider } from '@mui/material/styles';
 import { darkTheme, lightTheme } from './theme';
 

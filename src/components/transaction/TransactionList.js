@@ -12,7 +12,7 @@ import TableCell from '@mui/material/TableCell';
 export const TransactionList = (props) => {
     return (
         <Grid item xs={9}>
-            <Box sx={{ height: '100vh', bgcolor: 'background' }}>
+            <Box sx={{ bgcolor: 'background.default' }}>
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                     <TableHead>
                         <StyledTableRow>
@@ -42,16 +42,21 @@ export const TransactionList = (props) => {
                         </TableRow>
                     </TableBody>
                     <TableBody>
-                        {props?.transactions?.map((transaction) => (
-                            <TransactionItem
-                                key={transaction._id}
-                                type={transaction.type}
-                                text={transaction.text}
-                                amount={transaction.amount}
-                                date={transaction.createdAt}
-                                id={transaction._id}
-                            />
-                        ))}
+                        {props?.transactions?.map(
+                            (transaction) =>
+                                !props.loading && (
+                                    <TransactionItem
+                                        key={transaction._id}
+                                        type={transaction.type}
+                                        text={transaction.text}
+                                        amount={transaction.amount}
+                                        date={transaction.createdAt}
+                                        id={transaction._id}
+                                        edit={transaction.edit}
+                                        disable={props.disable}
+                                    />
+                                )
+                        )}
                     </TableBody>
                 </Table>
             </Box>

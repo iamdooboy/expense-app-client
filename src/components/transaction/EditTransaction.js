@@ -2,7 +2,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import { createTransactionAction } from '../../redux/slices/transactions/transactionSlices';
+import { updateTransactionAction } from '../../redux/slices/transactions/transactionSlices';
+import { changeDisableMode } from '../../redux/slices/budgets/disableSlice';
 import { useDispatch } from 'react-redux';
 import React, { useState, useRef } from 'react';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -17,16 +18,16 @@ const StyledInputBase = styled(InputBase)({
         margin: '10px',
         padding: '10px',
         border: '1px solid',
-        boxShadow: '4px 4px',
+        boxShadow: '0px',
         cursor: 'text',
     },
 });
 
-export const NewTransaction = (props) => {
+export const EditTransaction = (props) => {
     const dispatch = useDispatch();
-    const [transactionType, setTransactionType] = useState('');
     const textInput = useRef(null);
     const amountInput = useRef(null);
+    const [transactionType, setTransactionType] = useState(props.type);
 
     const handleTransactionType = (event, newTransactionType) => {
         setTransactionType(newTransactionType);
@@ -35,18 +36,26 @@ export const NewTransaction = (props) => {
     const submitHandler = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const amount = parseFloat(data.get('amount'));
 
-        const transactionData = {
+        const updatedTransactionData = {
+            id: props.id,
             type: transactionType,
             text: data.get('text'),
-            amount: transactionType === 'expense' ? -1 * amount : amount,
+            amount:
+                transactionType === 'expense'
+                    ? -1 * data.get('amount')
+                    : data.get('amount'),
             budget: props.budgetId,
             createdAt: data.get('date'),
+            edit: false,
         };
-        dispatch(createTransactionAction(transactionData));
-        textInput.current.value = '';
-        amountInput.current.value = '';
+
+        dispatch(updateTransactionAction(updatedTransactionData));
+        dispatch(
+            changeDisableMode({
+                disableMode: false,
+            })
+        );
     };
 
     return (
@@ -64,6 +73,7 @@ export const NewTransaction = (props) => {
                 }}>
                 <StyledInputBase
                     defaultValue={props.text}
+                    autoFocus={true}
                     inputRef={textInput}
                     autoComplete='off'
                     name='text'
@@ -71,6 +81,7 @@ export const NewTransaction = (props) => {
                     sx={{ width: '100%' }}
                 />
                 <StyledInputBase
+                    defaultValue={props.amount}
                     inputRef={amountInput}
                     autoComplete='off'
                     name='amount'
@@ -81,10 +92,9 @@ export const NewTransaction = (props) => {
                     id='date'
                     type='date'
                     name='date'
-                    defaultValue='2022-04-06'
+                    defaultValue={props.date}
                     sx={{ width: '100%' }}
                 />
-
                 <ToggleButtonGroup
                     value={transactionType}
                     exclusive
@@ -160,7 +170,7 @@ export const NewTransaction = (props) => {
                                 boxShadow: '0px 0px',
                             },
                         }}>
-                        Add Transaction
+                        Update Transaction
                     </Button>
                 </ButtonGroup>
             </Box>

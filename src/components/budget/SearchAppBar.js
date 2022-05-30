@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { CustomButton } from '../../UI/CustomButton';
 import Grid from '@mui/material/Grid';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LogoutSharpIcon from '@mui/icons-material/LogoutSharp';
@@ -10,7 +9,21 @@ import { createBudgetAction } from '../../redux/slices/budgets/budgetSlices';
 import { logoutUserAction } from '../../redux/slices/users/usersSlices';
 import { useDispatch } from 'react-redux';
 import { changeTheme } from '../../redux/slices/theme/themeSlice';
-import { StyledInputBase } from '../../UI/CustomInput';
+import Button from '@mui/material/Button';
+import InputBase from '@mui/material/InputBase';
+import { styled } from '@mui/material/styles';
+
+const StyledInputBase = styled(InputBase)({
+    '& .MuiInputBase-input': {
+        paddingLeft: '10px',
+        height: '32px',
+        boxSizing: 'border-box',
+        paddingTop: '0px',
+        paddingBottom: '0px',
+        border: '1px solid',
+        boxShadow: '4px 4px',
+    },
+});
 
 export const SearchAppBar = (props) => {
     const textInput = React.useRef(null);
@@ -43,10 +56,9 @@ export const SearchAppBar = (props) => {
                     <Stack
                         direction='row'
                         justifyContent='flex-start'
-                        alignItems='center'
-                        spacing={2}>
+                        alignItems='center'>
                         <Grid item xs={1}>
-                            <CustomButton
+                            <Button
                                 onClick={() => dispatch(logoutUserAction())}
                                 sx={{
                                     minWidth: '32px',
@@ -57,7 +69,7 @@ export const SearchAppBar = (props) => {
                             />
                         </Grid>
                         <Grid item xs={1}>
-                            <CustomButton
+                            <Button
                                 onClick={() =>
                                     dispatch(
                                         changeTheme({
@@ -74,7 +86,7 @@ export const SearchAppBar = (props) => {
                             />
                         </Grid>
                         <Grid item xs={1}>
-                            <CustomButton
+                            <Button
                                 sx={{
                                     minWidth: '32px',
                                     height: '32px',
@@ -97,7 +109,7 @@ export const SearchAppBar = (props) => {
                             placeholder='Budget Name'
                         />
 
-                        <CustomButton
+                        <Button
                             type='submit'
                             sx={{
                                 minWidth: '70px',
@@ -106,7 +118,7 @@ export const SearchAppBar = (props) => {
                                 fontSize: '12px',
                             }}>
                             Add Budget
-                        </CustomButton>
+                        </Button>
                     </Stack>
                 </Grid>
             </Grid>

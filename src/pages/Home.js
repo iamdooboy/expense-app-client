@@ -11,6 +11,7 @@ import banner_dark from '../img/banner_dark.svg';
 export const Home = () => {
     const budgets = useSelector((state) => state.budgets);
     const theme = useSelector((state) => state.theme);
+    const { disableMode } = useSelector((state) => state.disable);
 
     //wrap in useEffect to run once
     //if not, run infinite
@@ -21,11 +22,16 @@ export const Home = () => {
     }, [dispatch]);
 
     return (
-        <Box sx={{ height: '100vh', bgcolor: 'background' }}>
+        <Box
+            sx={{
+                height: '100vh',
+                bgcolor: 'background.default',
+                overflow: 'auto',
+            }}>
             <Container
                 component='main'
-                maxWidth='lg'
-                sx={{ bgcolor: 'background' }}>
+                maxWidth='xl'
+                sx={{ bgcolor: 'background.default' }}>
                 <Box
                     component='img'
                     src={theme.isDarkMode ? banner_dark : banner_light}
@@ -39,7 +45,7 @@ export const Home = () => {
                     }}
                 />
                 <SearchAppBar isDarkMode={theme.isDarkMode} />
-                <BudgetList budgets={budgets} />
+                <BudgetList disable={disableMode} budgets={budgets} />
             </Container>
         </Box>
     );

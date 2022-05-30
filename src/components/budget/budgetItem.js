@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteBudgetAction } from '../../redux/slices/budgets/budgetSlices';
 import { styled } from '@mui/material/styles';
-import ListItem from '@mui/material/ListItem';
+import ListItem, { listItemClasses } from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
 import Box from '@mui/material/Box';
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import IconButton from '@mui/material/IconButton';
+import EditSharpIcon from '@mui/icons-material/EditSharp';
+import {
+    updateBudgetTitleAction,
+    updateBudgetEditAction,
+} from '../../redux/slices/budgets/budgetSlices';
+import { changeDisableMode } from '../../redux/slices/budgets/disableSlice';
+import InputBase from '@mui/material/InputBase';
 
 export const CustomIconButton = styled(IconButton)({
     'margin': 0,
@@ -20,52 +27,121 @@ export const CustomIconButton = styled(IconButton)({
 export const BudgetItem = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    let budgetObj;
+
+    const updateBudget = (budgetTitle) => {
+        if (budgetTitle) {
+            budgetObj = {
+                id: props.id,
+                title: budgetTitle,
+            };
+
+            dispatch(updateBudgetTitleAction(budgetObj));
+            dispatch(
+                updateBudgetEditAction({
+                    id: props.id,
+                    edit: !props.edit,
+                })
+            );
+            dispatch(
+                changeDisableMode({
+                    disableMode: !props.disable,
+                })
+            );
+        }
+    };
+
+    const handleEnter = (event) => {
+        if (event.key === 'Enter') {
+            updateBudget(event.target.value);
+        }
+    };
+    const handleBlur = (event) => {
+        updateBudget(event.target.value);
+    };
+
     return (
-        <ListItem
-            disablePadding
-            sx={{
-                height: '60px',
-                boxShadow: '4px 4px',
-                border: '1px solid',
-                margin: '10px 0 10px',
-                color: 'primary.main',
-            }}>
-            <ListItemButton
-                onClick={() =>
-                    navigate('/transactions', {
-                        replace: false,
-                        state: {
-                            budgetId: props.id,
-                            title: props.title,
-                        },
-                    })
-                }
-                disableGutters
-                sx={{
-                    'height': '60px',
-                    'display': 'flex',
-                    'alignItems': 'center',
-                    'justifyContent': 'space-between',
-                    'paddingLeft': '20px',
-                    'marginRight': '0px',
-                    ':hover': {
-                        backgroundColor: 'transparent',
-                    },
-                }}>
-                <Typography variant='h6'>{props.title}</Typography>
-                <Box>
-                    <Typography variant='h6'>{`$${props.amount.toFixed(
-                        2
-                    )}`}</Typography>
-                </Box>
-            </ListItemButton>
-            <CustomIconButton
-                onClick={() => dispatch(deleteBudgetAction(props.id))}
-                edge='end'
-                aria-label='delete'
-                sx={{ padding: '20px' }}>
-                <DeleteOutlineSharpIcon />
-            </CustomIconButton>
-        </ListItem>
+        <>
+            {props.edit ? (
+                <ListItem
+                    sx={{
+                        transform: 'translateY(4px) translateX(4px)',
+                        boxShadow: 'none',
+                        backgroundColor: 'background.paper',
+                        pointerEvents: props.disable ? 'none' : 'auto',
+                    }}>
+                    <InputBase
+                        onBlur={handleBlur}
+                        onKeyDown={handleEnter}
+                        defaultValue={props.title}
+                        sx={{ color: 'text.secondary', fontSize: '1.25rem' }}
+                        autoFocus
+                    />
+                </ListItem>
+            ) : (
+                <ListItem
+                    disablePadding
+                    sx={{
+                        pointerEvents: props.disable ? 'none' : 'auto',
+                    }}>
+                    <ListItemButton
+                        disabled={props.disable}
+                        onClick={() =>
+                            navigate('/transactions', {
+                                replace: false,
+                                state: {
+                                    budgetId: props.id,
+                                    title: props.title,
+                                },
+                            })
+                        }
+                        disableRipple
+                        disableGutters
+                        sx={{
+                            'height': '60px',
+                            'display': 'flex',
+                            'alignItems': 'center',
+                            'justifyContent': 'space-between',
+                            'paddingLeft': '20px',
+                            'marginRight': '0px',
+                            ':hover': {
+                                backgroundColor: 'transparent',
+                            },
+                        }}>
+                        <Typography variant='h6'>{props.title}</Typography>
+                        <Box>
+                            <Typography variant='h6'>{`$${props.amount}`}</Typography>
+                        </Box>
+                    </ListItemButton>
+                    <CustomIconButton
+                        onClick={() => dispatch(deleteBudgetAction(props.id))}
+                        edge='end'
+                        aria-label='delete'
+                        sx={{ padding: '20px' }}>
+                        <DeleteOutlineSharpIcon />
+                    </CustomIconButton>
+                    <CustomIconButton
+                        onClick={() => {
+                            dispatch(
+                                updateBudgetEditAction({
+                                    id: props.id,
+                                    edit: !props.edit,
+                                })
+                            );
+                            dispatch(
+                                changeDisableMode({
+                                    disableMode: !props.disable,
+                                })
+                            );
+                        }}
+                        edge='end'
+                        aria-label='edit'
+                        sx={{ padding: '20px' }}>
+                        <EditSharpIcon />
+                    </CustomIconButton>
+                </ListItem>
+            )}
+        </>
     );
 };
