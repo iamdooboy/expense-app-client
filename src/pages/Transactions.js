@@ -39,52 +39,53 @@ export const Transactions = () => {
                 bgcolor: 'background.default',
                 overflow: 'auto',
             }}>
-            <Container
-                component='main'
-                maxWidth='xl'
-                sx={{ bgcolor: 'background.default' }}>
-                <Box
-                    component='img'
-                    src={theme.isDarkMode ? banner_dark : banner_light}
-                    sx={{
-                        boxShadow: '4px 4px',
-                        border: '1px solid',
-                        marginY: '10px',
-                        boxSizing: 'border-box',
-                        width: '100%',
-                        color: 'primary.main',
-                    }}
-                />
-
-                <TransactionAppBar
-                    balance={balance ? balance : 0}
-                    expense={expense ? expense : 0}
-                    income={income ? income : 0}
-                    title={state.title}
-                    isDarkMode={theme.isDarkMode}
-                />
-
-                <Grid container spacing={2} sx={{ marginY: '10px' }}>
-                    <TransactionList
-                        loading={loading}
-                        transactions={transactionData}
-                        disable={disableMode}
+            {!loading && (
+                <Container
+                    component='main'
+                    maxWidth='xl'
+                    sx={{ bgcolor: 'background.default' }}>
+                    <Box
+                        component='img'
+                        src={theme.isDarkMode ? banner_dark : banner_light}
+                        sx={{
+                            boxShadow: '4px 4px',
+                            border: '1px solid',
+                            marginY: '10px',
+                            boxSizing: 'border-box',
+                            width: '100%',
+                            color: 'primary.main',
+                        }}
                     />
-                    {transactionData?.some((obj) => obj.edit === true) ? (
-                        <EditTransaction
-                            id={id}
-                            edit={edit}
-                            text={text}
-                            amount={amount}
-                            date={date}
-                            type={type}
-                            budgetId={state.budgetId}
+
+                    <TransactionAppBar
+                        balance={balance ? balance : 0}
+                        expense={expense ? expense : 0}
+                        income={income ? income : 0}
+                        title={state.title}
+                        isDarkMode={theme.isDarkMode}
+                    />
+
+                    <Grid container spacing={2} sx={{ marginY: '10px' }}>
+                        <TransactionList
+                            transactions={transactionData}
+                            disable={disableMode}
                         />
-                    ) : (
-                        <NewTransaction budgetId={state.budgetId} />
-                    )}
-                </Grid>
-            </Container>
+                        {transactionData?.some((obj) => obj.edit === true) ? (
+                            <EditTransaction
+                                id={id}
+                                edit={edit}
+                                text={text}
+                                amount={amount}
+                                date={date}
+                                type={type}
+                                budgetId={state.budgetId}
+                            />
+                        ) : (
+                            <NewTransaction budgetId={state.budgetId} />
+                        )}
+                    </Grid>
+                </Container>
+            )}
         </Box>
     );
 };

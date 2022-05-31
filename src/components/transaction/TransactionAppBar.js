@@ -101,9 +101,9 @@ export const TransactionAppBar = (props) => {
                     sx={{ height: '100%', paddingX: '10px' }}>
                     <Typography>Balance: {props.balance.toFixed(2)}</Typography>
                     <Divider orientation='vertical' variant='middle' flexItem />
-                    <Typography>Expense: {props.expense.toFixed(2)}</Typography>
-                    <Divider orientation='vertical' variant='middle' flexItem />
                     <Typography>Income: {props.income.toFixed(2)}</Typography>
+                    <Divider orientation='vertical' variant='middle' flexItem />
+                    <Typography>Expense: {props.expense.toFixed(2)}</Typography>
                 </Stack>
             </Box>
         </Stack>

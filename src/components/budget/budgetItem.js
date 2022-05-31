@@ -111,7 +111,9 @@ export const BudgetItem = (props) => {
                         }}>
                         <Typography variant='h6'>{props.title}</Typography>
                         <Box>
-                            <Typography variant='h6'>{`$${props.amount}`}</Typography>
+                            <Typography variant='h6'>{`$${props.amount.toFixed(
+                                2
+                            )}`}</Typography>
                         </Box>
                     </ListItemButton>
                     <CustomIconButton

@@ -42,21 +42,18 @@ export const TransactionList = (props) => {
                         </TableRow>
                     </TableBody>
                     <TableBody>
-                        {props?.transactions?.map(
-                            (transaction) =>
-                                !props.loading && (
-                                    <TransactionItem
-                                        key={transaction._id}
-                                        type={transaction.type}
-                                        text={transaction.text}
-                                        amount={transaction.amount}
-                                        date={transaction.createdAt}
-                                        id={transaction._id}
-                                        edit={transaction.edit}
-                                        disable={props.disable}
-                                    />
-                                )
-                        )}
+                        {props?.transactions?.map((transaction) => (
+                            <TransactionItem
+                                key={transaction._id}
+                                type={transaction.type}
+                                text={transaction.text}
+                                amount={transaction.amount}
+                                date={transaction.createdAt}
+                                id={transaction._id}
+                                edit={transaction.edit}
+                                disable={props.disable}
+                            />
+                        ))}
                     </TableBody>
                 </Table>
             </Box>

@@ -81,7 +81,9 @@ export const EditTransaction = (props) => {
                     sx={{ width: '100%' }}
                 />
                 <StyledInputBase
-                    defaultValue={props.amount}
+                    defaultValue={
+                        props.amount < 0 ? -1 * props.amount : props.amount
+                    }
                     inputRef={amountInput}
                     autoComplete='off'
                     name='amount'
