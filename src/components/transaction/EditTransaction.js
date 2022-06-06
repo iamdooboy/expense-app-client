@@ -10,16 +10,32 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const StyledInputBase = styled(InputBase)({
     '& .MuiInputBase-input': {
-        height: '50px',
-        boxSizing: 'border-box',
-        margin: '10px',
-        padding: '10px',
-        border: '1px solid',
-        boxShadow: '0px',
-        cursor: 'text',
+        'height': '50px',
+        'boxSizing': 'border-box',
+        'margin': '10px',
+        'padding': '10px',
+        'border': '1px solid',
+        'boxShadow': '4px 4px',
+        'transitionProperty': 'all',
+        'transitionTimingFunction': 'ease-in',
+        'transitionDuration': '.2s',
+        '&:hover': {
+            transform: 'translateY(4px) translateX(4px)',
+            boxShadow: '0px 0px',
+        },
+        '&:focus': {
+            transform: 'translateY(4px) translateX(4px)',
+            borderColor: '#000',
+            borderWidth: '0.15rem',
+            boxShadow: '0px 0px',
+        },
     },
 });
 
@@ -27,6 +43,7 @@ export const EditTransaction = (props) => {
     const dispatch = useDispatch();
     const textInput = useRef(null);
     const amountInput = useRef(null);
+    const [value, setValue] = useState(new Date());
     const [transactionType, setTransactionType] = useState(props.type);
 
     const handleTransactionType = (event, newTransactionType) => {
@@ -57,6 +74,15 @@ export const EditTransaction = (props) => {
             })
         );
     };
+
+    const date = new Date(props.date);
+    // const dateString = `${date.getFullYear()}-0${
+    //     date.getMonth() + 1
+    // }-0${date.getDate()}`;
+
+    console.log(date.getFullYear());
+    console.log(date.getMonth() + 1);
+    console.log(date.getDate());
 
     return (
         <Grid item xs={3}>
@@ -90,13 +116,19 @@ export const EditTransaction = (props) => {
                     placeholder='Amount'
                     sx={{ width: '100%' }}
                 />
-                <StyledInputBase
-                    id='date'
-                    type='date'
-                    name='date'
-                    defaultValue={props.date}
-                    sx={{ width: '100%' }}
-                />
+                <LocalizationProvider name='date' dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                        disableFuture
+                        views={['year', 'month', 'day']}
+                        value={value}
+                        onChange={(newValue) => {
+                            setValue(newValue);
+                        }}
+                        renderInput={(params) => (
+                            <TextField color='primary' fullWidth {...params} />
+                        )}
+                    />
+                </LocalizationProvider>
                 <ToggleButtonGroup
                     value={transactionType}
                     exclusive

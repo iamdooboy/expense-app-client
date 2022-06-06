@@ -24,7 +24,7 @@ const darkTheme = createTheme({
                     'borderRadius': '0',
                     'transitionProperty': 'all',
                     'transitionTimingFunction': 'ease-in',
-                    'transactionDuration': '.2s',
+                    'transitionDuration': '.1s',
                     '&: hover': {
                         backgroundColor: '#81E6D9',
                         transform: 'translateY(4px) translateX(4px)',
@@ -108,13 +108,10 @@ const darkTheme = createTheme({
                 },
             },
         },
-        MuiOutlinedInput: {
+        MuiTextField: {
             styleOverrides: {
                 root: {
-                    'color': 'red',
-                    '&: active': {
-                        color: 'red',
-                    },
+                    borderRadius: '0px',
                 },
             },
         },
@@ -225,12 +222,97 @@ const lightTheme = createTheme({
                 },
             },
         },
+        MuiFormControl: {
+            styleOverrides: {
+                root: {
+                    //border: '1px solid red',
+                    marginTop: '10px',
+                    marginBottom: '10px',
+                },
+            },
+        },
         MuiTextField: {
             styleOverrides: {
                 root: {
-                    '&: focus': {
-                        border: '0px',
-                        borderRadius: '0px',
+                    '& .MuiOutlinedInput-root': {
+                        'height': '50px',
+                        '& fieldset': {
+                            border: '1px solid #000',
+                            borderRadius: '0px',
+                            left: '10px',
+                            right: '10px',
+                            boxShadow: '4px 4px',
+                            transitionProperty: 'all',
+                            transitionTimingFunction: 'ease-in',
+                            transitionDuration: '.1s',
+                        },
+
+                        '&:hover fieldset': {
+                            transitionProperty: 'all',
+                            transitionTimingFunction: 'ease-in',
+                            transitionDuration: '.1s',
+                            borderColor: '#000',
+                            transform: 'translateY(4px) translateX(4px)',
+                            boxShadow: '0px 0px',
+                        },
+                        '&:hover .MuiIconButton-root': {
+                            transitionProperty: 'all',
+                            transitionTimingFunction: 'ease-in',
+                            transitionDuration: '.1s',
+                            borderColor: '#000',
+                            transform: 'translateY(4px) translateX(4px)',
+                        },
+
+                        '&.Mui-focused fieldset': {
+                            transitionProperty: 'all',
+                            transitionTimingFunction: 'ease-in',
+                            transitionDuration: '.1s',
+                            borderColor: '000',
+                            transform: 'translateY(4px) translateX(4px)',
+                            borderWidth: '0.15rem',
+                            boxShadow: '0px 0px',
+                        },
+                        '&.Mui-focused .MuiIconButton-root': {
+                            transitionProperty: 'all',
+                            transitionTimingFunction: 'ease-in',
+                            transitionDuration: '.1s',
+                            transform: 'translateY(4px) translateX(4px)',
+                            boxShadow: '0px 0px',
+                        },
+
+                        '& .MuiInputAdornment-root': {
+                            '& .MuiButtonBase-root': {
+                                '&.MuiIconButton-root': {
+                                    marginRight: '0px',
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                input: {
+                    '&.MuiOutlinedInput-input': {
+                        'marginRight': '10px',
+                        'marginLeft': '10px',
+                        'padding': '10px',
+                        'transitionProperty': 'all',
+                        'transitionTimingFunction': 'ease-in',
+                        'transitionDuration': '.1s',
+                        '&:hover': {
+                            transitionProperty: 'all',
+                            transitionTimingFunction: 'ease-in',
+                            transitionDuration: '.1s',
+                            transform: 'translateY(4px) translateX(4px)',
+                        },
+                        '&:focus': {
+                            transitionProperty: 'all',
+                            transitionTimingFunction: 'ease-in',
+                            transitionDuration: '.1s',
+                            transform: 'translateY(4px) translateX(4px)',
+                        },
                     },
                 },
             },

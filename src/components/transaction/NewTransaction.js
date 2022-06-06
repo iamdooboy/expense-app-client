@@ -9,22 +9,39 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import TextField from '@mui/material/TextField';
 
 const StyledInputBase = styled(InputBase)({
     '& .MuiInputBase-input': {
-        height: '50px',
-        boxSizing: 'border-box',
-        margin: '10px',
-        padding: '10px',
-        border: '1px solid',
-        boxShadow: '4px 4px',
-        cursor: 'text',
+        'height': '50px',
+        'boxSizing': 'border-box',
+        'margin': '10px',
+        'padding': '10px',
+        'border': '1px solid',
+        'boxShadow': '4px 4px',
+        'transitionProperty': 'all',
+        'transitionTimingFunction': 'ease-in',
+        'transitionDuration': '.2s',
+        '&:hover': {
+            transform: 'translateY(4px) translateX(4px)',
+            boxShadow: '0px 0px',
+        },
+        '&:focus': {
+            transform: 'translateY(4px) translateX(4px)',
+            borderColor: '#000',
+            borderWidth: '0.15rem',
+            boxShadow: '0px 0px',
+        },
     },
 });
 
 export const NewTransaction = (props) => {
     const dispatch = useDispatch();
     const [transactionType, setTransactionType] = useState('');
+    const [value, setValue] = useState(new Date());
     const textInput = useRef(null);
     const amountInput = useRef(null);
 
@@ -77,14 +94,17 @@ export const NewTransaction = (props) => {
                     placeholder='Amount'
                     sx={{ width: '100%' }}
                 />
-                <StyledInputBase
-                    id='date'
-                    type='date'
-                    name='date'
-                    defaultValue='2022-04-06'
-                    sx={{ width: '100%' }}
-                />
-
+                <LocalizationProvider name='date' dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                        disableFuture
+                        views={['year', 'month', 'day']}
+                        value={value}
+                        onChange={(newValue) => setValue(newValue)}
+                        renderInput={(params) => (
+                            <TextField color='primary' fullWidth {...params} />
+                        )}
+                    />
+                </LocalizationProvider>
                 <ToggleButtonGroup
                     value={transactionType}
                     exclusive
