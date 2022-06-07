@@ -1,5 +1,36 @@
 import { createTheme } from '@mui/material/styles';
 
+const COLORS = {
+    LIGHT_BACKGROUND_COLOR: '#fff',
+    DARK_BACKGROUND_COLOR: '#1A202C',
+    LIGHT_ERROR: 'rgb(235, 87, 87)',
+    LIGHT_SUCCESS: 'rgb(52, 199, 123)',
+    DARK_ERROR: '#F94E9B',
+    DARK_SUCCESS: '#3AE980',
+    THEME_COLOR: '#81E6D9',
+    BLACK: '#000',
+    WHITE: '#fff',
+};
+const LIGHT_DESIGN = {
+    boxShadow: '4px 4px',
+    border: `1px solid ${COLORS.BLACK}`,
+    borderRadius: '0',
+};
+const DARK_DESIGN = {
+    boxShadow: '4px 4px',
+    border: `1px solid ${COLORS.THEME_COLOR}`,
+    borderRadius: '0',
+};
+const TRANSITION_ANIMATION = {
+    transitionProperty: 'all',
+    transitionTimingFunction: 'ease-in',
+    transitionDuration: '.2s',
+};
+const HOVER_ANIMATION = {
+    transform: 'translateY(4px) translateX(4px)',
+    boxShadow: '0px 0px',
+};
+
 export const theme = createTheme({
     typography: {
         fontFamily: ['"Source Code Pro"', 'monospace'].join(','),
@@ -18,18 +49,13 @@ const darkTheme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    'fontWeight': 'bold',
-                    'border': '1px solid',
-                    'boxShadow': '4px 4px',
-                    'borderRadius': '0',
-                    'transitionProperty': 'all',
-                    'transitionTimingFunction': 'ease-in',
-                    'transitionDuration': '.1s',
+                    ...DARK_DESIGN,
+                    ...TRANSITION_ANIMATION,
+                    'height': '40px',
                     '&: hover': {
-                        backgroundColor: '#81E6D9',
-                        transform: 'translateY(4px) translateX(4px)',
-                        boxShadow: '0px 0px',
-                        color: '#000',
+                        ...HOVER_ANIMATION,
+                        backgroundColor: COLORS.THEME_COLOR,
+                        color: COLORS.BLACK,
                     },
                 },
             },
@@ -38,7 +64,7 @@ const darkTheme = createTheme({
             styleOverrides: {
                 grouped: {
                     '&: not(:first-of-type)': {
-                        borderLeft: '1px solid #f94e9b',
+                        borderLeft: `1px solid ${COLORS.DARK_ERROR}`,
                     },
                 },
             },
@@ -46,20 +72,13 @@ const darkTheme = createTheme({
         MuiToggleButton: {
             styleOverrides: {
                 root: {
+                    ...DARK_DESIGN,
+                    ...TRANSITION_ANIMATION,
                     'margin': '10px',
                     'height': '40px',
                     'fontWeight': 'bold',
-                    'border': '1px solid',
-                    'boxShadow': '4px 4px',
-                    'borderRadius': '0',
-                    'transitionProperty': 'all',
-                    'transitionTimingFunction': 'ease-in',
-                    'transitionDuration': '.1s',
                     '&: hover': {
-                        backgroundColor: '#81E6D9',
-                        transform: 'translateY(4px) translateX(4px)',
-                        boxShadow: '0px 0px',
-                        color: '#000',
+                        ...HOVER_ANIMATION,
                     },
                 },
             },
@@ -67,21 +86,18 @@ const darkTheme = createTheme({
         MuiListItem: {
             styleOverrides: {
                 root: {
+                    ...DARK_DESIGN,
+                    ...TRANSITION_ANIMATION,
+                    'backgroundColor': COLORS.BLACK,
+                    'color': COLORS.THEME_COLOR,
                     'height': '60px',
-                    'boxShadow': '4px 4px',
-                    'border': '1px solid',
                     'margin': '10px 0 10px',
-                    'color': '#81E6D9',
-                    'transitionProperty': 'all',
-                    'transitionTimingFunction': 'ease-in',
-                    'transitionDuration': '.2s',
                     '&: hover': {
-                        'backgroundColor': '#81E6D9',
-                        'transform': 'translateY(4px) translateX(4px)',
-                        'boxShadow': '0px 0px',
-                        'color': '#000',
+                        ...HOVER_ANIMATION,
+                        'backgroundColor': COLORS.THEME_COLOR,
+                        'color': COLORS.BLACK,
                         '& svg': {
-                            fill: '#000',
+                            fill: COLORS.BLACK,
                         },
                     },
                 },
@@ -90,28 +106,76 @@ const darkTheme = createTheme({
         MuiIconButton: {
             styleOverrides: {
                 root: {
-                    color: '#81E6D9',
+                    color: COLORS.THEME_COLOR,
                 },
             },
         },
         MuiTableCell: {
             styleOverrides: {
                 root: {
-                    color: '#81E6D9',
+                    color: COLORS.THEME_COLOR,
                 },
             },
         },
         MuiTableRow: {
             styleOverrides: {
                 root: {
-                    color: '#81E6D9',
+                    color: COLORS.THEME_COLOR,
+                },
+            },
+        },
+        MuiFormControl: {
+            styleOverrides: {
+                root: {
+                    ...TRANSITION_ANIMATION,
+                    'marginTop': '10px',
+                    'marginBottom': '10px',
+                    '&:hover': {
+                        ...HOVER_ANIMATION,
+                    },
+                    '&:focus-within': {
+                        ...HOVER_ANIMATION,
+                    },
                 },
             },
         },
         MuiTextField: {
             styleOverrides: {
                 root: {
-                    borderRadius: '0px',
+                    '& .MuiOutlinedInput-root': {
+                        'height': '50px',
+                        '& fieldset': {
+                            ...DARK_DESIGN,
+                            ...TRANSITION_ANIMATION,
+                            left: '10px',
+                            right: '10px',
+                        },
+                        '&:hover fieldset': {
+                            boxShadow: '0px 0px',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderWidth: '0.15rem',
+                            boxShadow: '0px 0px',
+                        },
+                        '& .MuiInputAdornment-root': {
+                            '& .MuiButtonBase-root': {
+                                '&.MuiIconButton-root': {
+                                    marginRight: '0px',
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                input: {
+                    '&.MuiOutlinedInput-input': {
+                        marginRight: '10px',
+                        marginLeft: '10px',
+                        padding: '10px',
+                    },
                 },
             },
         },
@@ -119,7 +183,7 @@ const darkTheme = createTheme({
     palette: {
         type: 'dark',
         primary: {
-            main: '#81E6D9',
+            main: COLORS.THEME_COLOR,
         },
         secondary: {
             main: '#fafafa',
@@ -140,24 +204,20 @@ const darkTheme = createTheme({
         },
     },
 });
+
 const lightTheme = createTheme({
     ...theme,
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
-                    'fontWeight': 'bold',
-                    'border': '1px solid',
-                    'boxShadow': '4px 4px',
-                    'borderRadius': '0',
-                    'transitionProperty': 'all',
-                    'transitionTimingFunction': 'ease-in',
-                    'transitionDuration': '.1s',
+                    ...LIGHT_DESIGN,
+                    ...TRANSITION_ANIMATION,
+                    'height': '40px',
                     '&: hover': {
-                        backgroundColor: '#000',
-                        transform: 'translateY(4px) translateX(4px)',
-                        boxShadow: '0px 0px',
-                        color: '#fff',
+                        ...HOVER_ANIMATION,
+                        backgroundColor: COLORS.BLACK,
+                        color: COLORS.WHITE,
                     },
                 },
             },
@@ -166,7 +226,7 @@ const lightTheme = createTheme({
             styleOverrides: {
                 grouped: {
                     '&: not(:first-of-type)': {
-                        borderLeft: '1px solid rgb(235, 87, 87)',
+                        borderLeft: `1px solid ${COLORS.LIGHT_ERROR}`,
                     },
                 },
             },
@@ -174,20 +234,13 @@ const lightTheme = createTheme({
         MuiToggleButton: {
             styleOverrides: {
                 root: {
+                    ...LIGHT_DESIGN,
+                    ...TRANSITION_ANIMATION,
                     'margin': '10px',
                     'height': '40px',
                     'fontWeight': 'bold',
-                    'border': '1px solid',
-                    'boxShadow': '4px 4px',
-                    'borderRadius': '0',
-                    'transitionProperty': 'all',
-                    'transitionTimingFunction': 'ease-in',
-                    'transitionDuration': '.1s',
                     '&: hover': {
-                        backgroundColor: '#000',
-                        transform: 'translateY(4px) translateX(4px)',
-                        boxShadow: '0px 0px',
-                        color: '#fff',
+                        ...HOVER_ANIMATION,
                     },
                 },
             },
@@ -195,21 +248,18 @@ const lightTheme = createTheme({
         MuiListItem: {
             styleOverrides: {
                 root: {
+                    ...LIGHT_DESIGN,
+                    ...TRANSITION_ANIMATION,
+                    'backgroundColor': COLORS.WHITE,
+                    'color': COLORS.BLACK,
                     'height': '60px',
-                    'boxShadow': '4px 4px',
-                    'border': '1px solid',
                     'margin': '10px 0 10px',
-                    'color': '#000',
-                    'transitionProperty': 'all',
-                    'transitionTimingFunction': 'ease-in',
-                    'transitionDuration': '.2s',
                     '&: hover': {
-                        'backgroundColor': '#000',
-                        'transform': 'translateY(4px) translateX(4px)',
-                        'boxShadow': '0px 0px',
-                        'color': '#fff',
+                        ...HOVER_ANIMATION,
+                        'backgroundColor': COLORS.BLACK,
+                        'color': COLORS.WHITE,
                         '& svg': {
-                            fill: '#fff',
+                            fill: COLORS.WHITE,
                         },
                     },
                 },
@@ -218,16 +268,36 @@ const lightTheme = createTheme({
         MuiIconButton: {
             styleOverrides: {
                 root: {
-                    color: '#000',
+                    color: COLORS.BLACK,
+                },
+            },
+        },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    color: COLORS.BLACK,
+                },
+            },
+        },
+        MuiTableRow: {
+            styleOverrides: {
+                root: {
+                    color: COLORS.BLACK,
                 },
             },
         },
         MuiFormControl: {
             styleOverrides: {
                 root: {
-                    //border: '1px solid red',
-                    marginTop: '10px',
-                    marginBottom: '10px',
+                    ...TRANSITION_ANIMATION,
+                    'marginTop': '10px',
+                    'marginBottom': '10px',
+                    '&:hover': {
+                        ...HOVER_ANIMATION,
+                    },
+                    '&:focus-within': {
+                        ...HOVER_ANIMATION,
+                    },
                 },
             },
         },
@@ -237,49 +307,18 @@ const lightTheme = createTheme({
                     '& .MuiOutlinedInput-root': {
                         'height': '50px',
                         '& fieldset': {
-                            border: '1px solid #000',
-                            borderRadius: '0px',
+                            ...LIGHT_DESIGN,
+                            ...TRANSITION_ANIMATION,
                             left: '10px',
                             right: '10px',
-                            boxShadow: '4px 4px',
-                            transitionProperty: 'all',
-                            transitionTimingFunction: 'ease-in',
-                            transitionDuration: '.1s',
                         },
-
                         '&:hover fieldset': {
-                            transitionProperty: 'all',
-                            transitionTimingFunction: 'ease-in',
-                            transitionDuration: '.1s',
-                            borderColor: '#000',
-                            transform: 'translateY(4px) translateX(4px)',
                             boxShadow: '0px 0px',
                         },
-                        '&:hover .MuiIconButton-root': {
-                            transitionProperty: 'all',
-                            transitionTimingFunction: 'ease-in',
-                            transitionDuration: '.1s',
-                            borderColor: '#000',
-                            transform: 'translateY(4px) translateX(4px)',
-                        },
-
                         '&.Mui-focused fieldset': {
-                            transitionProperty: 'all',
-                            transitionTimingFunction: 'ease-in',
-                            transitionDuration: '.1s',
-                            borderColor: '000',
-                            transform: 'translateY(4px) translateX(4px)',
                             borderWidth: '0.15rem',
                             boxShadow: '0px 0px',
                         },
-                        '&.Mui-focused .MuiIconButton-root': {
-                            transitionProperty: 'all',
-                            transitionTimingFunction: 'ease-in',
-                            transitionDuration: '.1s',
-                            transform: 'translateY(4px) translateX(4px)',
-                            boxShadow: '0px 0px',
-                        },
-
                         '& .MuiInputAdornment-root': {
                             '& .MuiButtonBase-root': {
                                 '&.MuiIconButton-root': {
@@ -295,24 +334,9 @@ const lightTheme = createTheme({
             styleOverrides: {
                 input: {
                     '&.MuiOutlinedInput-input': {
-                        'marginRight': '10px',
-                        'marginLeft': '10px',
-                        'padding': '10px',
-                        'transitionProperty': 'all',
-                        'transitionTimingFunction': 'ease-in',
-                        'transitionDuration': '.1s',
-                        '&:hover': {
-                            transitionProperty: 'all',
-                            transitionTimingFunction: 'ease-in',
-                            transitionDuration: '.1s',
-                            transform: 'translateY(4px) translateX(4px)',
-                        },
-                        '&:focus': {
-                            transitionProperty: 'all',
-                            transitionTimingFunction: 'ease-in',
-                            transitionDuration: '.1s',
-                            transform: 'translateY(4px) translateX(4px)',
-                        },
+                        marginRight: '10px',
+                        marginLeft: '10px',
+                        padding: '10px',
                     },
                 },
             },
@@ -321,7 +345,7 @@ const lightTheme = createTheme({
     palette: {
         type: 'light',
         primary: {
-            main: '#000',
+            main: COLORS.BLACK,
         },
         secondary: {
             main: '#fff',
@@ -331,7 +355,7 @@ const lightTheme = createTheme({
             secondary: '#fff',
         },
         background: {
-            paper: '#000',
+            //paper: '#000',
             default: '#fff',
         },
         success: {

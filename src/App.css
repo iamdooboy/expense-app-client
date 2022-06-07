@@ -2,9 +2,9 @@
     text-align: center;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
 @font-face {
     font-family: 'Source Code Pro', monospace;
-    src: url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap');
+    src: url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 }

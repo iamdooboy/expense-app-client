@@ -120,7 +120,7 @@ export const BudgetItem = (props) => {
                         onClick={() => dispatch(deleteBudgetAction(props.id))}
                         edge='end'
                         aria-label='delete'
-                        sx={{ padding: '20px' }}>
+                        sx={{ paddingLeft: '20px', paddingRight: '10px' }}>
                         <DeleteOutlineSharpIcon />
                     </CustomIconButton>
                     <CustomIconButton
@@ -139,7 +139,7 @@ export const BudgetItem = (props) => {
                         }}
                         edge='end'
                         aria-label='edit'
-                        sx={{ padding: '20px' }}>
+                        sx={{ paddingLeft: '10px', paddingRight: '20px' }}>
                         <EditSharpIcon />
                     </CustomIconButton>
                 </ListItem>

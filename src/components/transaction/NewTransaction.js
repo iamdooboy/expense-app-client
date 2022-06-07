@@ -24,7 +24,7 @@ const StyledInputBase = styled(InputBase)({
         'boxShadow': '4px 4px',
         'transitionProperty': 'all',
         'transitionTimingFunction': 'ease-in',
-        'transitionDuration': '.2s',
+        'transitionDuration': '.1s',
         '&:hover': {
             transform: 'translateY(4px) translateX(4px)',
             boxShadow: '0px 0px',
