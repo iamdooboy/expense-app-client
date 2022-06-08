@@ -13,27 +13,30 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TextField from '@mui/material/TextField';
+import {
+    COLORS,
+    LIGHT_DESIGN,
+    DARK_DESIGN,
+    TRANSITION_ANIMATION,
+    HOVER_ANIMATION,
+} from '../../theme';
 
 const StyledInputBase = styled(InputBase)({
     '& .MuiInputBase-input': {
+        ...TRANSITION_ANIMATION,
         'height': '50px',
         'boxSizing': 'border-box',
         'margin': '10px',
         'padding': '10px',
         'border': '1px solid',
         'boxShadow': '4px 4px',
-        'transitionProperty': 'all',
-        'transitionTimingFunction': 'ease-in',
-        'transitionDuration': '.1s',
+
         '&:hover': {
-            transform: 'translateY(4px) translateX(4px)',
-            boxShadow: '0px 0px',
+            ...HOVER_ANIMATION,
         },
         '&:focus': {
-            transform: 'translateY(4px) translateX(4px)',
-            borderColor: '#000',
+            ...HOVER_ANIMATION,
             borderWidth: '0.15rem',
-            boxShadow: '0px 0px',
         },
     },
 });

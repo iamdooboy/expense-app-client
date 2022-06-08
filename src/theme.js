@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-const COLORS = {
+export const COLORS = {
     LIGHT_BACKGROUND_COLOR: '#fff',
     DARK_BACKGROUND_COLOR: '#1A202C',
     LIGHT_ERROR: 'rgb(235, 87, 87)',
@@ -11,22 +11,22 @@ const COLORS = {
     BLACK: '#000',
     WHITE: '#fff',
 };
-const LIGHT_DESIGN = {
+export const LIGHT_DESIGN = {
     boxShadow: '4px 4px',
     border: `1px solid ${COLORS.BLACK}`,
     borderRadius: '0',
 };
-const DARK_DESIGN = {
+export const DARK_DESIGN = {
     boxShadow: '4px 4px',
     border: `1px solid ${COLORS.THEME_COLOR}`,
     borderRadius: '0',
 };
-const TRANSITION_ANIMATION = {
+export const TRANSITION_ANIMATION = {
     transitionProperty: 'all',
     transitionTimingFunction: 'ease-in',
     transitionDuration: '.2s',
 };
-const HOVER_ANIMATION = {
+export const HOVER_ANIMATION = {
     transform: 'translateY(4px) translateX(4px)',
     boxShadow: '0px 0px',
 };
@@ -34,12 +34,6 @@ const HOVER_ANIMATION = {
 export const theme = createTheme({
     typography: {
         fontFamily: ['"Source Code Pro"', 'monospace'].join(','),
-    },
-    success: {
-        main: '#3ae980',
-    },
-    error: {
-        main: '#f94e9b',
     },
 });
 
@@ -127,15 +121,8 @@ const darkTheme = createTheme({
         MuiFormControl: {
             styleOverrides: {
                 root: {
-                    ...TRANSITION_ANIMATION,
-                    'marginTop': '10px',
-                    'marginBottom': '10px',
-                    '&:hover': {
-                        ...HOVER_ANIMATION,
-                    },
-                    '&:focus-within': {
-                        ...HOVER_ANIMATION,
-                    },
+                    marginTop: '10px',
+                    marginBottom: '10px',
                 },
             },
         },
@@ -151,13 +138,23 @@ const darkTheme = createTheme({
                             right: '10px',
                         },
                         '&:hover fieldset': {
-                            boxShadow: '0px 0px',
+                            ...HOVER_ANIMATION,
+                        },
+                        '&:hover .MuiOutlinedInput-input': {
+                            ...HOVER_ANIMATION,
+                        },
+                        '&:hover .MuiInputAdornment-root': {
+                            ...HOVER_ANIMATION,
                         },
                         '&.Mui-focused fieldset': {
+                            ...HOVER_ANIMATION,
                             borderWidth: '0.15rem',
-                            boxShadow: '0px 0px',
+                        },
+                        '&.Mui-focused .MuiInputAdornment-root': {
+                            ...HOVER_ANIMATION,
                         },
                         '& .MuiInputAdornment-root': {
+                            ...TRANSITION_ANIMATION,
                             '& .MuiButtonBase-root': {
                                 '&.MuiIconButton-root': {
                                     marginRight: '0px',
@@ -172,9 +169,13 @@ const darkTheme = createTheme({
             styleOverrides: {
                 input: {
                     '&.MuiOutlinedInput-input': {
-                        marginRight: '10px',
-                        marginLeft: '10px',
-                        padding: '10px',
+                        ...TRANSITION_ANIMATION,
+                        'marginRight': '10px',
+                        'marginLeft': '10px',
+                        'padding': '10px',
+                        '&:focus': {
+                            ...HOVER_ANIMATION,
+                        },
                     },
                 },
             },
@@ -289,15 +290,8 @@ const lightTheme = createTheme({
         MuiFormControl: {
             styleOverrides: {
                 root: {
-                    ...TRANSITION_ANIMATION,
-                    'marginTop': '10px',
-                    'marginBottom': '10px',
-                    '&:hover': {
-                        ...HOVER_ANIMATION,
-                    },
-                    '&:focus-within': {
-                        ...HOVER_ANIMATION,
-                    },
+                    marginTop: '10px',
+                    marginBottom: '10px',
                 },
             },
         },
@@ -313,13 +307,23 @@ const lightTheme = createTheme({
                             right: '10px',
                         },
                         '&:hover fieldset': {
-                            boxShadow: '0px 0px',
+                            ...HOVER_ANIMATION,
+                        },
+                        '&:hover .MuiOutlinedInput-input': {
+                            ...HOVER_ANIMATION,
+                        },
+                        '&:hover .MuiInputAdornment-root': {
+                            ...HOVER_ANIMATION,
                         },
                         '&.Mui-focused fieldset': {
+                            ...HOVER_ANIMATION,
                             borderWidth: '0.15rem',
-                            boxShadow: '0px 0px',
+                        },
+                        '&.Mui-focused .MuiInputAdornment-root': {
+                            ...HOVER_ANIMATION,
                         },
                         '& .MuiInputAdornment-root': {
+                            ...TRANSITION_ANIMATION,
                             '& .MuiButtonBase-root': {
                                 '&.MuiIconButton-root': {
                                     marginRight: '0px',
@@ -334,9 +338,13 @@ const lightTheme = createTheme({
             styleOverrides: {
                 input: {
                     '&.MuiOutlinedInput-input': {
-                        marginRight: '10px',
-                        marginLeft: '10px',
-                        padding: '10px',
+                        ...TRANSITION_ANIMATION,
+                        'marginRight': '10px',
+                        'marginLeft': '10px',
+                        'padding': '10px',
+                        '&:focus': {
+                            ...HOVER_ANIMATION,
+                        },
                     },
                 },
             },
