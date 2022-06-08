@@ -13,13 +13,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TextField from '@mui/material/TextField';
-import {
-    COLORS,
-    LIGHT_DESIGN,
-    DARK_DESIGN,
-    TRANSITION_ANIMATION,
-    HOVER_ANIMATION,
-} from '../../theme';
+import { TRANSITION_ANIMATION, HOVER_ANIMATION } from '../../theme';
 
 const StyledInputBase = styled(InputBase)({
     '& .MuiInputBase-input': {
@@ -44,7 +38,7 @@ const StyledInputBase = styled(InputBase)({
 export const NewTransaction = (props) => {
     const dispatch = useDispatch();
     const [transactionType, setTransactionType] = useState('');
-    const [value, setValue] = useState(new Date());
+    const [date, setDate] = useState(new Date());
     const textInput = useRef(null);
     const amountInput = useRef(null);
 
@@ -62,7 +56,7 @@ export const NewTransaction = (props) => {
             text: data.get('text'),
             amount: transactionType === 'expense' ? -1 * amount : amount,
             budget: props.budgetId,
-            createdAt: data.get('date'),
+            createdAt: date,
         };
         dispatch(createTransactionAction(transactionData));
         textInput.current.value = '';
@@ -101,8 +95,8 @@ export const NewTransaction = (props) => {
                     <DatePicker
                         disableFuture
                         views={['year', 'month', 'day']}
-                        value={value}
-                        onChange={(newValue) => setValue(newValue)}
+                        value={date}
+                        onChange={(newValue) => setDate(newValue)}
                         renderInput={(params) => (
                             <TextField color='primary' fullWidth {...params} />
                         )}

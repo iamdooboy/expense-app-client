@@ -14,36 +14,34 @@ import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TRANSITION_ANIMATION, HOVER_ANIMATION } from '../../theme';
 
 const StyledInputBase = styled(InputBase)({
     '& .MuiInputBase-input': {
+        ...TRANSITION_ANIMATION,
         'height': '50px',
         'boxSizing': 'border-box',
         'margin': '10px',
         'padding': '10px',
         'border': '1px solid',
         'boxShadow': '4px 4px',
-        'transitionProperty': 'all',
-        'transitionTimingFunction': 'ease-in',
-        'transitionDuration': '.2s',
+
         '&:hover': {
-            transform: 'translateY(4px) translateX(4px)',
-            boxShadow: '0px 0px',
+            ...HOVER_ANIMATION,
         },
         '&:focus': {
-            transform: 'translateY(4px) translateX(4px)',
-            borderColor: '#000',
+            ...HOVER_ANIMATION,
             borderWidth: '0.15rem',
-            boxShadow: '0px 0px',
         },
     },
 });
 
 export const EditTransaction = (props) => {
+    console.log(props.date);
     const dispatch = useDispatch();
     const textInput = useRef(null);
     const amountInput = useRef(null);
-    const [value, setValue] = useState(new Date());
+    const [date, setDate] = useState(props.date);
     const [transactionType, setTransactionType] = useState(props.type);
 
     const handleTransactionType = (event, newTransactionType) => {
@@ -63,7 +61,7 @@ export const EditTransaction = (props) => {
                     ? -1 * data.get('amount')
                     : data.get('amount'),
             budget: props.budgetId,
-            createdAt: data.get('date'),
+            createdAt: date,
             edit: false,
         };
 
@@ -74,15 +72,6 @@ export const EditTransaction = (props) => {
             })
         );
     };
-
-    const date = new Date(props.date);
-    // const dateString = `${date.getFullYear()}-0${
-    //     date.getMonth() + 1
-    // }-0${date.getDate()}`;
-
-    console.log(date.getFullYear());
-    console.log(date.getMonth() + 1);
-    console.log(date.getDate());
 
     return (
         <Grid item xs={3}>
@@ -120,9 +109,9 @@ export const EditTransaction = (props) => {
                     <DatePicker
                         disableFuture
                         views={['year', 'month', 'day']}
-                        value={value}
+                        value={date}
                         onChange={(newValue) => {
-                            setValue(newValue);
+                            setDate(newValue);
                         }}
                         renderInput={(params) => (
                             <TextField color='primary' fullWidth {...params} />

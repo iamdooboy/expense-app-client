@@ -26,9 +26,6 @@ const CustomIconButton = styled(IconButton)({
 export const TransactionItem = (props) => {
     const dispatch = useDispatch();
     const date = new Date(props.date);
-    const dateString = `${date.getFullYear()}-0${
-        date.getMonth() + 1
-    }-0${date.getDate()}`;
 
     const onEditHandler = () => {
         dispatch(
@@ -43,7 +40,7 @@ export const TransactionItem = (props) => {
                 text: props.text,
                 amount: props.amount,
                 type: props.type,
-                date: dateString,
+                date: props.date,
                 edit: props.edit,
             })
         );
