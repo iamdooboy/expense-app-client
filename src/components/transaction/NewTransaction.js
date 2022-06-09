@@ -39,6 +39,8 @@ export const NewTransaction = (props) => {
     const dispatch = useDispatch();
     const [transactionType, setTransactionType] = useState('');
     const [date, setDate] = useState(new Date());
+    const [text, setText] = useState('');
+    const [amount, setAmount] = useState('');
     const textInput = useRef(null);
     const amountInput = useRef(null);
 
@@ -62,6 +64,7 @@ export const NewTransaction = (props) => {
         textInput.current.value = '';
         amountInput.current.value = '';
     };
+    const disabledState = !text || !amount || !date || !transactionType;
 
     return (
         <Grid item xs={3}>
@@ -77,7 +80,7 @@ export const NewTransaction = (props) => {
                     overflow: 'hidden',
                 }}>
                 <StyledInputBase
-                    defaultValue={props.text}
+                    onBlur={(e) => setText(e.target.value)}
                     inputRef={textInput}
                     autoComplete='off'
                     name='text'
@@ -85,6 +88,7 @@ export const NewTransaction = (props) => {
                     sx={{ width: '100%' }}
                 />
                 <StyledInputBase
+                    onBlur={(e) => setAmount(e.target.value)}
                     inputRef={amountInput}
                     autoComplete='off'
                     name='amount'
@@ -164,6 +168,7 @@ export const NewTransaction = (props) => {
                 </ToggleButtonGroup>
                 <ButtonGroup fullWidth sx={{ boxSizing: 'border-box' }}>
                     <Button
+                        disabled={disabledState}
                         type='submit'
                         sx={{
                             'color': 'primary.main',
