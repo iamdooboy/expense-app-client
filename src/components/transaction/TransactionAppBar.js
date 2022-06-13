@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
@@ -12,13 +12,29 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import InputBase from '@mui/material/InputBase';
+import { HOVER_ANIMATION, TRANSITION_ANIMATION } from '../../theme';
+import { updateBudgetTitleAction } from '../../redux/slices/budgets/budgetSlices';
 
 export const TransactionAppBar = (props) => {
     const navigate = useNavigate();
-
+    const [editTitle, setEditTitle] = useState(false);
     const textInput = React.useRef(null);
 
     const dispatch = useDispatch();
+
+    const handleBlur = (event) => {
+        const budgetTitle = event.target.value;
+        let budgetObj;
+        if (props.title !== budgetTitle) {
+            budgetObj = {
+                id: props.budgetId,
+                title: budgetTitle,
+            };
+        }
+        dispatch(updateBudgetTitleAction(budgetObj));
+        setEditTitle(false);
+    };
 
     return (
         <Stack
@@ -76,14 +92,33 @@ export const TransactionAppBar = (props) => {
                 display='flex'
                 justifyContent='center'
                 alignItems='center'
+                onClick={() => setEditTitle(true)}
                 sx={{
-                    boxShadow: '4px 4px',
-                    border: '1px solid',
-                    color: 'primary.main',
-                    height: '52px',
-                    width: '25%',
+                    'boxShadow': '4px 4px',
+                    'border': '1px solid',
+                    'color': 'primary.main',
+                    'height': '52px',
+                    'width': '25%',
+                    ...TRANSITION_ANIMATION,
+                    '&: hover': {
+                        ...HOVER_ANIMATION,
+                    },
+                    '&: focus-within': {
+                        ...HOVER_ANIMATION,
+                    },
                 }}>
-                <Typography>{props.title}</Typography>
+                {editTitle ? (
+                    <InputBase
+                        autoFocus
+                        onBlur={handleBlur}
+                        align='center'
+                        fullWidth
+                        defaultValue={props.title}
+                        sx={{ paddingLeft: '20px' }}
+                    />
+                ) : (
+                    <Typography noWrap>{props.title}</Typography>
+                )}
             </Box>
             <Box
                 sx={{

@@ -10,7 +10,10 @@ import Box from '@mui/material/Box';
 import { NewTransaction } from '../components/transaction/NewTransaction';
 import { useLocation } from 'react-router-dom';
 import { TransactionAppBar } from '../components/transaction/TransactionAppBar';
-import { updateBudgetAmountAction } from '../redux/slices/budgets/budgetSlices';
+import {
+    updateBudgetAmountAction,
+    fetchOneBudgetAction,
+} from '../redux/slices/budgets/budgetSlices';
 import { EditTransaction } from '../components/transaction/EditTransaction';
 
 export const Transactions = () => {
@@ -20,7 +23,8 @@ export const Transactions = () => {
     const { id, edit, type, text, amount, date } = useSelector(
         (state) => state.editTransaction
     );
-
+    const budget = useSelector((state) => state.budgets);
+    console.log(budget);
     const dispatch = useDispatch();
     const { state } = useLocation();
     const theme = useSelector((state) => state.theme);
@@ -29,6 +33,7 @@ export const Transactions = () => {
     dispatch(updateBudgetAmountAction({ id: state.budgetId, amount: balance }));
 
     useEffect(() => {
+        dispatch(fetchOneBudgetAction(state.budgetId));
         dispatch(fetchAllTransactionAction(state.budgetId));
     }, [dispatch]);
 
@@ -63,6 +68,7 @@ export const Transactions = () => {
                         income={income ? income : 0}
                         title={state.title}
                         isDarkMode={theme.isDarkMode}
+                        budgetId={state.budgetId}
                     />
 
                     <Grid container spacing={2} sx={{ marginY: '10px' }}>

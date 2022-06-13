@@ -363,7 +363,7 @@ const lightTheme = createTheme({
             secondary: '#fff',
         },
         background: {
-            //paper: '#000',
+            paper: '#000',
             default: '#fff',
         },
         success: {

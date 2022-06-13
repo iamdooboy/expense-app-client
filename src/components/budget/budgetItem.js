@@ -10,6 +10,8 @@ import Box from '@mui/material/Box';
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import IconButton from '@mui/material/IconButton';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
+import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp';
+import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import {
     updateBudgetTitleAction,
     updateBudgetEditAction,
@@ -69,15 +71,34 @@ export const BudgetItem = (props) => {
                         transform: 'translateY(4px) translateX(4px)',
                         boxShadow: 'none',
                         backgroundColor: 'background.paper',
-                        pointerEvents: props.disable ? 'none' : 'auto',
+                        //pointerEvents: props.disable ? 'none' : 'auto',
                     }}>
                     <InputBase
+                        fullWidth
                         onBlur={handleBlur}
                         onKeyDown={handleEnter}
                         defaultValue={props.title}
                         sx={{ color: 'text.secondary', fontSize: '1.25rem' }}
                         autoFocus
                     />
+                    <CustomIconButton
+                        onClick={(e) => updateBudget(e.target.value)}
+                        sx={{
+                            paddingLeft: '20px',
+                            paddingRight: '10px',
+                            color: 'white',
+                        }}>
+                        <HighlightOffSharpIcon />
+                    </CustomIconButton>
+                    <CustomIconButton
+                        onClick={(e) => console.log(e.target.value)}
+                        sx={{
+                            paddingLeft: '10px',
+                            paddingRight: '6px',
+                            color: 'white',
+                        }}>
+                        <CheckCircleOutlineSharpIcon />
+                    </CustomIconButton>
                 </ListItem>
             ) : (
                 <ListItem
