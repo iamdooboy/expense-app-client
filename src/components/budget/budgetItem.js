@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteBudgetAction } from '../../redux/slices/budgets/budgetSlices';
 import { styled } from '@mui/material/styles';
@@ -15,9 +15,11 @@ import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineS
 import {
     updateBudgetTitleAction,
     updateBudgetEditAction,
+    fetchOneBudgetAction,
 } from '../../redux/slices/budgets/budgetSlices';
 import { changeDisableMode } from '../../redux/slices/budgets/disableSlice';
 import InputBase from '@mui/material/InputBase';
+import { fetchAllTransactionAction } from '../../redux/slices/transactions/transactionSlices';
 
 export const CustomIconButton = styled(IconButton)({
     'margin': 0,
@@ -54,6 +56,19 @@ export const BudgetItem = (props) => {
         }
     };
 
+    const handleClick = () => {
+        const data = {
+            _id: props.id,
+            title: props.title,
+            amount: props.amount,
+        };
+        dispatch(fetchOneBudgetAction(data));
+        dispatch(fetchAllTransactionAction(props.id));
+        navigate('/transactions', {
+            replace: false,
+        });
+    };
+
     const handleEnter = (event) => {
         if (event.key === 'Enter') {
             updateBudget(event.target.value);
@@ -71,7 +86,6 @@ export const BudgetItem = (props) => {
                         transform: 'translateY(4px) translateX(4px)',
                         boxShadow: 'none',
                         backgroundColor: 'background.paper',
-                        //pointerEvents: props.disable ? 'none' : 'auto',
                     }}>
                     <InputBase
                         fullWidth
@@ -108,15 +122,7 @@ export const BudgetItem = (props) => {
                     }}>
                     <ListItemButton
                         disabled={props.disable}
-                        onClick={() =>
-                            navigate('/transactions', {
-                                replace: false,
-                                state: {
-                                    budgetId: props.id,
-                                    title: props.title,
-                                },
-                            })
-                        }
+                        onClick={handleClick}
                         disableRipple
                         disableGutters
                         sx={{

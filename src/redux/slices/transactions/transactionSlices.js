@@ -25,7 +25,6 @@ const transactionActions = (actionType, HttpMethod) => {
                 } else if (HttpMethod === 'PUT') {
                     if (actionType.includes('edit')) {
                         const newUrl = `${url}edit/${payload.id}`;
-
                         const { data } = await axios.put(
                             newUrl,
                             payload,

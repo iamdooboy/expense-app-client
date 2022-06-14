@@ -9,7 +9,7 @@ import banner_light from '../img/banner_light.svg';
 import banner_dark from '../img/banner_dark.svg';
 
 export const Home = () => {
-    const budgets = useSelector((state) => state.budgets);
+    const budgets = useSelector((state) => state.budgets.data);
     const theme = useSelector((state) => state.theme);
     const { disableMode } = useSelector((state) => state.disable);
 

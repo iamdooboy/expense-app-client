@@ -34,7 +34,8 @@ const BudgetActions = (actionType, HttpMethod) => {
                     const { data } = await axios.put(newUrl, payload, config);
                     return data;
                 } else if (HttpMethod === 'GET_ONE') {
-                    const newUrl = `${url}${payload}`;
+                    const newUrl = `${url}${payload._id}`;
+                    localStorage.setItem('budgetId', JSON.stringify(payload));
                     const { data } = await axios.get(newUrl, config);
                     return data;
                 } else {
@@ -81,51 +82,60 @@ export const updateBudgetEditAction = BudgetActions(
     'PUT'
 );
 
+const getBudgetFromStorage = localStorage.getItem('budgetId')
+    ? JSON.parse(localStorage.getItem('budgetId'))
+    : undefined;
+
 const budgetSlices = createSlice({
     name: 'budget',
-    initialState: [],
+    initialState: { budgetId: getBudgetFromStorage, data: [] },
     extraReducers: {
         [fetchAllBudgetAction.pending]: (state, action) => {
             console.log('fetching data');
         },
         [fetchAllBudgetAction.fulfilled]: (state, action) => {
-            return action.payload.docs;
+            state.data = action.payload.docs;
         },
         [fetchOneBudgetAction.pending]: (state, action) => {
             console.log('fetching one data');
         },
         [fetchOneBudgetAction.fulfilled]: (state, action) => {
-            return state.filter((budget) => budget._id === action.payload._id);
+            state.budgetId = JSON.parse(localStorage.getItem('budgetId'));
+            console.log('got one budget');
         },
         [createBudgetAction.pending]: (state, action) => {
             console.log('creating budget');
         },
         [createBudgetAction.fulfilled]: (state, action) => {
-            state.push(action.payload);
+            state.data.push(action.payload);
         },
         [deleteBudgetAction.pending]: (state, action) => {
             console.log('deleting budget');
         },
         [deleteBudgetAction.fulfilled]: (state, action) => {
-            return state.filter((budget) => budget._id !== action.payload._id);
+            state.data = state.data.filter(
+                (budget) => budget._id !== action.payload._id
+            );
         },
         [updateBudgetTitleAction.pending]: (state, action) => {
             console.log('updating budget title');
+            state.loading = true;
         },
         [updateBudgetTitleAction.fulfilled]: (state, action) => {
-            const foundIndex = state.findIndex(
+            state.loading = false;
+            const foundIndex = state.data.findIndex(
                 (budget) => budget._id === action.payload._id
             );
-            state.splice(foundIndex, 1, action.payload);
+            state.data.splice(foundIndex, 1, action.payload);
         },
         [updateBudgetEditAction.pending]: (state, action) => {
             console.log('updating budget edit');
         },
         [updateBudgetEditAction.fulfilled]: (state, action) => {
-            const foundIndex = state.findIndex(
+            const foundIndex = state.data.findIndex(
                 (budget) => budget._id === action.payload._id
             );
-            state.splice(foundIndex, 1, action.payload);
+            state.data.splice(foundIndex, 1, action.payload);
         },
     },
 });

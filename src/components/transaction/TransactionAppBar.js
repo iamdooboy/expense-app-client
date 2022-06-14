@@ -6,7 +6,7 @@ import LogoutSharpIcon from '@mui/icons-material/LogoutSharp';
 import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 import Stack from '@mui/material/Stack';
 import { logoutUserAction } from '../../redux/slices/users/usersSlices';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/slices/theme/themeSlice';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
@@ -14,13 +14,16 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import InputBase from '@mui/material/InputBase';
 import { HOVER_ANIMATION, TRANSITION_ANIMATION } from '../../theme';
-import { updateBudgetTitleAction } from '../../redux/slices/budgets/budgetSlices';
+import {
+    updateBudgetTitleAction,
+    fetchOneBudgetAction,
+} from '../../redux/slices/budgets/budgetSlices';
 
 export const TransactionAppBar = (props) => {
     const navigate = useNavigate();
     const [editTitle, setEditTitle] = useState(false);
+    const [title, setTitle] = useState(props.title);
     const textInput = React.useRef(null);
-
     const dispatch = useDispatch();
 
     const handleBlur = (event) => {
@@ -34,6 +37,14 @@ export const TransactionAppBar = (props) => {
         }
         dispatch(updateBudgetTitleAction(budgetObj));
         setEditTitle(false);
+        setTitle(event.target.value);
+    };
+
+    const handleClickToGoBack = () => {
+        localStorage.removeItem('budgetId');
+        navigate('/', {
+            replace: true,
+        });
     };
 
     return (
@@ -75,11 +86,7 @@ export const TransactionAppBar = (props) => {
                     startIcon={<DarkModeOutlinedIcon />}
                 />
                 <Button
-                    onClick={() =>
-                        navigate('/', {
-                            replace: true,
-                        })
-                    }
+                    onClick={handleClickToGoBack}
                     sx={{
                         minWidth: '32px',
                         height: '32px',
@@ -113,11 +120,11 @@ export const TransactionAppBar = (props) => {
                         onBlur={handleBlur}
                         align='center'
                         fullWidth
-                        defaultValue={props.title}
+                        defaultValue={title}
                         sx={{ paddingLeft: '20px' }}
                     />
                 ) : (
-                    <Typography noWrap>{props.title}</Typography>
+                    <Typography noWrap>{title}</Typography>
                 )}
             </Box>
             <Box

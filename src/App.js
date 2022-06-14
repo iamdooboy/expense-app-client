@@ -4,7 +4,10 @@ import './App.css';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import { PrivateRoute } from './components/navigation/PrivateRoute';
+import {
+    PrivateRoute,
+    TransactionRoute,
+} from './components/navigation/PrivateRoute';
 import { Transactions } from './pages/Transactions';
 import { ThemeProvider } from '@mui/material/styles';
 import { darkTheme, lightTheme } from './theme';

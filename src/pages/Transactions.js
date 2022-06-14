@@ -23,19 +23,24 @@ export const Transactions = () => {
     const { id, edit, type, text, amount, date } = useSelector(
         (state) => state.editTransaction
     );
-    const budget = useSelector((state) => state.budgets);
-    console.log(budget);
+    const budgetId = useSelector((state) => state.budgets.budgetId);
     const dispatch = useDispatch();
-    const { state } = useLocation();
+    //const { state } = useLocation();
     const theme = useSelector((state) => state.theme);
     const { disableMode } = useSelector((state) => state.disable);
 
-    dispatch(updateBudgetAmountAction({ id: state.budgetId, amount: balance }));
+    //console.log(budgetId?._id);
+    //dispatch(updateBudgetAmountAction({ id: budgetId?._id, amount: balance }));
 
-    useEffect(() => {
-        dispatch(fetchOneBudgetAction(state.budgetId));
-        dispatch(fetchAllTransactionAction(state.budgetId));
-    }, [dispatch]);
+    // useEffect(() => {
+    //     //dispatch(fetchOneBudgetAction(budgetId._id));
+    //     dispatch(fetchAllTransactionAction(budgetId?._id));
+    // }, [dispatch]);
+
+    !loading &&
+        dispatch(
+            updateBudgetAmountAction({ id: budgetId._id, amount: balance })
+        );
 
     return (
         <Box
@@ -66,9 +71,10 @@ export const Transactions = () => {
                         balance={balance ? balance : 0}
                         expense={expense ? expense : 0}
                         income={income ? income : 0}
-                        title={state.title}
+                        title={budgetId?.title}
                         isDarkMode={theme.isDarkMode}
-                        budgetId={state.budgetId}
+                        budgetId={budgetId?._id}
+                        loading={loading}
                     />
 
                     <Grid container spacing={2} sx={{ marginY: '10px' }}>
@@ -84,10 +90,10 @@ export const Transactions = () => {
                                 amount={amount}
                                 date={date}
                                 type={type}
-                                budgetId={state.budgetId}
+                                budgetId={budgetId?._id}
                             />
                         ) : (
-                            <NewTransaction budgetId={state.budgetId} />
+                            <NewTransaction budgetId={budgetId?._id} />
                         )}
                     </Grid>
                 </Container>
