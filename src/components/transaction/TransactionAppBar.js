@@ -28,14 +28,22 @@ export const TransactionAppBar = (props) => {
 
     const handleBlur = (event) => {
         const budgetTitle = event.target.value;
-        let budgetObj;
+
+        const localStorageData = {
+            _id: props.budgetId,
+            title: budgetTitle,
+            amount: props.balance,
+        };
+        localStorage.setItem('budgetId', JSON.stringify(localStorageData));
+
+        let budgetData;
         if (props.title !== budgetTitle) {
-            budgetObj = {
+            budgetData = {
                 id: props.budgetId,
                 title: budgetTitle,
             };
         }
-        dispatch(updateBudgetTitleAction(budgetObj));
+        dispatch(updateBudgetTitleAction(budgetData));
         setEditTitle(false);
         setTitle(event.target.value);
     };

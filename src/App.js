@@ -6,7 +6,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import {
     PrivateRoute,
-    TransactionRoute,
+    BudgetRoute,
 } from './components/navigation/PrivateRoute';
 import { Transactions } from './pages/Transactions';
 import { ThemeProvider } from '@mui/material/styles';
@@ -29,9 +29,9 @@ function App() {
                     <Route
                         path='/transactions'
                         element={
-                            <PrivateRoute>
+                            <BudgetRoute>
                                 <Transactions />
-                            </PrivateRoute>
+                            </BudgetRoute>
                         }></Route>
                     <Route path='/register' element={<Register />} />
                     <Route path='/login' element={<Login />} />

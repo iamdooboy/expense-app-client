@@ -62,8 +62,7 @@ export const BudgetItem = (props) => {
             title: props.title,
             amount: props.amount,
         };
-        dispatch(fetchOneBudgetAction(data));
-        dispatch(fetchAllTransactionAction(props.id));
+        localStorage.setItem('budgetId', JSON.stringify(data));
         navigate('/transactions', {
             replace: false,
         });

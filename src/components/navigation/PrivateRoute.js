@@ -7,9 +7,10 @@ export const PrivateRoute = ({ children }) => {
     return loggedIn ? children : <Navigate to='/login' />;
 };
 
-// export const TransactionRoute = ({ children }) => {
-//     //const loggedIn = useSelector((state) => state?.users.userData);
-//     const budget = useSelector((state) => state?.transactions.budgetData);
-//     console.log(budget);
-//     return budget ? children : <Navigate to='/' />;
-// };
+export const BudgetRoute = ({ children }) => {
+    const budgetId = localStorage.getItem('budgetId')
+        ? JSON.parse(localStorage.getItem('budgetId'))
+        : undefined;
+
+    return budgetId ? children : <Navigate to='/' />;
+};

@@ -8,12 +8,8 @@ import banner_light from '../img/banner_light.svg';
 import banner_dark from '../img/banner_dark.svg';
 import Box from '@mui/material/Box';
 import { NewTransaction } from '../components/transaction/NewTransaction';
-import { useLocation } from 'react-router-dom';
 import { TransactionAppBar } from '../components/transaction/TransactionAppBar';
-import {
-    updateBudgetAmountAction,
-    fetchOneBudgetAction,
-} from '../redux/slices/budgets/budgetSlices';
+import { updateBudgetAmountAction } from '../redux/slices/budgets/budgetSlices';
 import { EditTransaction } from '../components/transaction/EditTransaction';
 
 export const Transactions = () => {
@@ -23,19 +19,17 @@ export const Transactions = () => {
     const { id, edit, type, text, amount, date } = useSelector(
         (state) => state.editTransaction
     );
-    const budgetId = useSelector((state) => state.budgets.budgetId);
     const dispatch = useDispatch();
-    //const { state } = useLocation();
     const theme = useSelector((state) => state.theme);
     const { disableMode } = useSelector((state) => state.disable);
 
-    //console.log(budgetId?._id);
-    //dispatch(updateBudgetAmountAction({ id: budgetId?._id, amount: balance }));
+    const budgetId = localStorage.getItem('budgetId')
+        ? JSON.parse(localStorage.getItem('budgetId'))
+        : undefined;
 
-    // useEffect(() => {
-    //     //dispatch(fetchOneBudgetAction(budgetId._id));
-    //     dispatch(fetchAllTransactionAction(budgetId?._id));
-    // }, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchAllTransactionAction(budgetId._id));
+    }, [dispatch]);
 
     !loading &&
         dispatch(
@@ -71,10 +65,9 @@ export const Transactions = () => {
                         balance={balance ? balance : 0}
                         expense={expense ? expense : 0}
                         income={income ? income : 0}
-                        title={budgetId?.title}
+                        title={budgetId.title}
                         isDarkMode={theme.isDarkMode}
-                        budgetId={budgetId?._id}
-                        loading={loading}
+                        budgetId={budgetId._id}
                     />
 
                     <Grid container spacing={2} sx={{ marginY: '10px' }}>
@@ -90,10 +83,10 @@ export const Transactions = () => {
                                 amount={amount}
                                 date={date}
                                 type={type}
-                                budgetId={budgetId?._id}
+                                budgetId={budgetId._id}
                             />
                         ) : (
-                            <NewTransaction budgetId={budgetId?._id} />
+                            <NewTransaction budgetId={budgetId._id} />
                         )}
                     </Grid>
                 </Container>

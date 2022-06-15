@@ -33,11 +33,6 @@ const BudgetActions = (actionType, HttpMethod) => {
                     }
                     const { data } = await axios.put(newUrl, payload, config);
                     return data;
-                } else if (HttpMethod === 'GET_ONE') {
-                    const newUrl = `${url}${payload._id}`;
-                    localStorage.setItem('budgetId', JSON.stringify(payload));
-                    const { data } = await axios.get(newUrl, config);
-                    return data;
                 } else {
                     const newUrl = `${url.slice(0, -1)}?page=${payload}`;
                     const { data } = await axios.get(newUrl, config);
@@ -58,12 +53,7 @@ const BudgetActions = (actionType, HttpMethod) => {
 
 export const createBudgetAction = BudgetActions('budgets/create', 'POST');
 
-export const fetchAllBudgetAction = BudgetActions('budgets/fetchAll', 'GET');
-
-export const fetchOneBudgetAction = BudgetActions(
-    'budgets/fetchOne',
-    'GET_ONE'
-);
+export const fetchAllBudgetAction = BudgetActions('budgets/fetch', 'GET');
 
 export const deleteBudgetAction = BudgetActions('budget/delete', 'DELETE');
 
@@ -95,13 +85,6 @@ const budgetSlices = createSlice({
         },
         [fetchAllBudgetAction.fulfilled]: (state, action) => {
             state.data = action.payload.docs;
-        },
-        [fetchOneBudgetAction.pending]: (state, action) => {
-            console.log('fetching one data');
-        },
-        [fetchOneBudgetAction.fulfilled]: (state, action) => {
-            state.budgetId = JSON.parse(localStorage.getItem('budgetId'));
-            console.log('got one budget');
         },
         [createBudgetAction.pending]: (state, action) => {
             console.log('creating budget');
