@@ -72,18 +72,16 @@ export const updateBudgetEditAction = BudgetActions(
     'PUT'
 );
 
-const getBudgetFromStorage = localStorage.getItem('budgetId')
-    ? JSON.parse(localStorage.getItem('budgetId'))
-    : undefined;
-
 const budgetSlices = createSlice({
     name: 'budget',
-    initialState: { budgetId: getBudgetFromStorage, data: [] },
+    initialState: { data: [] },
     extraReducers: {
         [fetchAllBudgetAction.pending]: (state, action) => {
+            state.budgetLoading = true;
             console.log('fetching data');
         },
         [fetchAllBudgetAction.fulfilled]: (state, action) => {
+            state.budgetLoading = false;
             state.data = action.payload.docs;
         },
         [createBudgetAction.pending]: (state, action) => {
