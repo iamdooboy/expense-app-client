@@ -5,18 +5,19 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 
-const StyledBox = styled(Box)({
-    '&.MuiBox-root ': {
-        height: '70vh',
-        ...LIGHT_DESIGN,
-    },
-});
-export const Empty = () => {
+export const Empty = (props) => {
     return (
-        <StyledBox>
+        <Box
+            sx={{
+                boxShadow: '4px 4px',
+                border: '1px solid',
+                color: 'primary.main',
+                height: '70vh',
+            }}>
             <Typography variant='h4' align='center' sx={{ paddingTop: '25%' }}>
-                You have no budget. Get started by adding your first budget!
+                You have no {props.message}. Get started by adding your first{' '}
+                {props.message}!
             </Typography>
-        </StyledBox>
+        </Box>
     );
 };

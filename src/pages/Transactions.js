@@ -11,6 +11,7 @@ import { NewTransaction } from '../components/transaction/NewTransaction';
 import { TransactionAppBar } from '../components/transaction/TransactionAppBar';
 import { updateBudgetAmountAction } from '../redux/slices/budgets/budgetSlices';
 import { EditTransaction } from '../components/transaction/EditTransaction';
+import { Empty } from '../components/UI/Empty';
 
 export const Transactions = () => {
     const { loading, transactionData, balance, expense, income } = useSelector(
@@ -36,6 +37,8 @@ export const Transactions = () => {
             updateBudgetAmountAction({ id: budgetId._id, amount: balance })
         );
 
+    !loading && console.log(transactionData);
+
     return (
         <Box
             sx={{
@@ -54,7 +57,6 @@ export const Transactions = () => {
                         sx={{
                             boxShadow: '4px 4px',
                             border: '1px solid',
-                            marginY: '10px',
                             boxSizing: 'border-box',
                             width: '100%',
                             color: 'primary.main',
@@ -70,11 +72,17 @@ export const Transactions = () => {
                         budgetId={budgetId._id}
                     />
 
-                    <Grid container spacing={2} sx={{ marginY: '10px' }}>
-                        <TransactionList
-                            transactions={transactionData}
-                            disable={disableMode}
-                        />
+                    <Grid container spacing={2}>
+                        <Grid item xs={9}>
+                            {transactionData.length === 0 ? (
+                                <Empty message='transaction' />
+                            ) : (
+                                <TransactionList
+                                    transactions={transactionData}
+                                    disable={disableMode}
+                                />
+                            )}
+                        </Grid>
                         {transactionData?.some((obj) => obj.edit === true) ? (
                             <EditTransaction
                                 id={id}

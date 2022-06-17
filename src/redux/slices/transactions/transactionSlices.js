@@ -114,7 +114,7 @@ const totalIncome = (arr) => {
 
 const transactionSlices = createSlice({
     name: 'transaction',
-    initialState: {},
+    initialState: { transactionData: [] },
     extraReducers: {
         [fetchAllTransactionAction.pending]: (state, action) => {
             console.log('fetching transactions...');

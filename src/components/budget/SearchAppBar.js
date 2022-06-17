@@ -50,8 +50,17 @@ export const SearchAppBar = (props) => {
                 boxShadow: '4px 4px',
                 border: '1px solid',
                 color: 'primary.main',
+                marginTop: '10px',
+                marginBottom: '14px',
             }}>
-            <Grid container>
+            <Grid
+                container
+                sx={{
+                    paddingTop: '5px',
+                    paddingBottom: '9px',
+                    paddingRight: '5px',
+                    paddingLeft: '9px',
+                }}>
                 <Grid item xs={6}>
                     <Stack
                         direction='row'

@@ -68,6 +68,8 @@ export const TransactionAppBar = (props) => {
                     color: 'primary.main',
                     height: '52px',
                     width: '15%',
+                    marginTop: '10px',
+                    marginBottom: '14px',
                 }}>
                 <Button
                     onClick={() => dispatch(logoutUserAction())}

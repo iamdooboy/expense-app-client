@@ -4,7 +4,7 @@ import { BudgetItem } from './BudgetItem';
 
 export const BudgetList = (props) => {
     return (
-        <List>
+        <List sx={{ margin: 0, padding: 0 }}>
             {props?.budgets?.map((budget) => (
                 <BudgetItem
                     key={budget._id}

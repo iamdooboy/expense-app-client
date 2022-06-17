@@ -53,7 +53,7 @@ export const Home = () => {
                     />
                     <SearchAppBar isDarkMode={theme.isDarkMode} />
                     {data.length === 0 ? (
-                        <Empty />
+                        <Empty message='budget' />
                     ) : (
                         <BudgetList disable={disableMode} budgets={data} />
                     )}
