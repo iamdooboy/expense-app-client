@@ -18,8 +18,6 @@ export const Home = () => {
     //wrap in useEffect to run once
     //if not, run infinite
     const dispatch = useDispatch();
-    // console.log(data.length);
-    // console.log(data.length < 1);
 
     useEffect(() => {
         dispatch(fetchAllBudgetAction(1));

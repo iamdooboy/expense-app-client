@@ -14,10 +14,7 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import InputBase from '@mui/material/InputBase';
 import { HOVER_ANIMATION, TRANSITION_ANIMATION } from '../../theme';
-import {
-    updateBudgetTitleAction,
-    fetchOneBudgetAction,
-} from '../../redux/slices/budgets/budgetSlices';
+import { updateBudgetTitleAction } from '../../redux/slices/budgets/budgetSlices';
 
 export const TransactionAppBar = (props) => {
     const navigate = useNavigate();
@@ -42,8 +39,8 @@ export const TransactionAppBar = (props) => {
                 id: props.budgetId,
                 title: budgetTitle,
             };
+            dispatch(updateBudgetTitleAction(budgetData));
         }
-        dispatch(updateBudgetTitleAction(budgetData));
         setEditTitle(false);
         setTitle(event.target.value);
     };

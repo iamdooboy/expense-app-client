@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useRef } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
@@ -26,7 +26,7 @@ const StyledInputBase = styled(InputBase)({
 });
 
 export const SearchAppBar = (props) => {
-    const textInput = React.useRef(null);
+    const textInput = useRef(null);
 
     const dispatch = useDispatch();
 

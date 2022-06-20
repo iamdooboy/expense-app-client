@@ -112,15 +112,25 @@ const totalIncome = (arr) => {
     return parseFloat(sum.toFixed(2));
 };
 
+const budgetId = localStorage.getItem('budgetId')
+    ? JSON.parse(localStorage.getItem('budgetId'))
+    : undefined;
+
 const transactionSlices = createSlice({
     name: 'transaction',
-    initialState: { transactionData: [] },
+    initialState: {
+        balance: budgetId ? budgetId.amount : 0,
+        expense: 0,
+        income: 0,
+        transactionData: [],
+    },
     extraReducers: {
         [fetchAllTransactionAction.pending]: (state, action) => {
-            console.log('fetching transactions...');
+            console.log('pending fetch transactions...');
             state.loading = true;
         },
         [fetchAllTransactionAction.fulfilled]: (state, action) => {
+            console.log('fulfilled fetch transactions...');
             state.loading = false;
             state.transactionData = action.payload;
             state.balance = totalBalance(state.transactionData);
@@ -128,10 +138,11 @@ const transactionSlices = createSlice({
             state.income = totalIncome(state.transactionData);
         },
         [createTransactionAction.pending]: (state, action) => {
-            console.log('creating transaction...');
+            console.log('pending create transaction...');
             state.loading = true;
         },
         [createTransactionAction.fulfilled]: (state, action) => {
+            console.log('fulfilled create transaction...');
             state.loading = false;
             state.transactionData.push(action.payload);
             state.balance = totalBalance(state.transactionData);
@@ -140,9 +151,10 @@ const transactionSlices = createSlice({
         },
         [deleteTransactionAction.pending]: (state, action) => {
             state.loading = true;
-            console.log('deleting transaction...');
+            console.log('pending delete transaction...');
         },
         [deleteTransactionAction.fulfilled]: (state, action) => {
+            console.log('fulfilled delete transaction...');
             state.loading = false;
             state.transactionData = state.transactionData.filter(
                 (transaction) => transaction._id !== action.payload._id
@@ -152,10 +164,11 @@ const transactionSlices = createSlice({
             state.income = totalIncome(state.transactionData);
         },
         [updateTransactionEditAction.pending]: (state, action) => {
-            console.log('updating transaction edit');
+            console.log('pending transaction edit');
             state.loading = true;
         },
         [updateTransactionEditAction.fulfilled]: (state, action) => {
+            console.log('fulfilled transaction edit');
             state.loading = false;
             const foundIndex = state.transactionData.findIndex(
                 (trasaction) => trasaction._id === action.payload._id
@@ -163,10 +176,11 @@ const transactionSlices = createSlice({
             state.transactionData.splice(foundIndex, 1, action.payload);
         },
         [updateTransactionAction.pending]: (state, action) => {
-            console.log('updating transaction');
+            console.log('pending update transaction');
             state.loading = true;
         },
         [updateTransactionAction.fulfilled]: (state, action) => {
+            console.log('fulfilled update transaction');
             state.loading = false;
             const foundIndex = state.transactionData.findIndex(
                 (trasaction) => trasaction._id === action.payload._id

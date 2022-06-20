@@ -109,6 +109,12 @@ const budgetSlices = createSlice({
             );
             state.data.splice(foundIndex, 1, action.payload);
         },
+        [updateBudgetAmountAction.pending]: (state, action) => {
+            console.log('pending update budget amount');
+        },
+        [updateBudgetAmountAction.fulfilled]: (state, action) => {
+            console.log('fulfilled update budget amount');
+        },
         [updateBudgetEditAction.pending]: (state, action) => {
             console.log('updating budget edit');
         },

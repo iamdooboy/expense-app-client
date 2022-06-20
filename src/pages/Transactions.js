@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllTransactionAction } from '../redux/slices/transactions/transactionSlices';
 import { TransactionList } from '../components/transaction/TransactionList';
@@ -12,11 +12,15 @@ import { TransactionAppBar } from '../components/transaction/TransactionAppBar';
 import { updateBudgetAmountAction } from '../redux/slices/budgets/budgetSlices';
 import { EditTransaction } from '../components/transaction/EditTransaction';
 import { Empty } from '../components/UI/Empty';
+import { useIsMount } from '../custom hooks/useIsMount';
 
 export const Transactions = () => {
+    const isFirstRender = useIsMount();
+
     const { loading, transactionData, balance, expense, income } = useSelector(
         (state) => state.transactions
     );
+
     const { id, edit, type, text, amount, date } = useSelector(
         (state) => state.editTransaction
     );
@@ -29,15 +33,15 @@ export const Transactions = () => {
         : undefined;
 
     useEffect(() => {
+        if (isFirstRender) {
+            console.log('First Render');
+        } else {
+            dispatch(
+                updateBudgetAmountAction({ id: budgetId._id, amount: balance })
+            );
+        }
         dispatch(fetchAllTransactionAction(budgetId._id));
-    }, [dispatch]);
-
-    !loading &&
-        dispatch(
-            updateBudgetAmountAction({ id: budgetId._id, amount: balance })
-        );
-
-    !loading && console.log(transactionData);
+    }, [dispatch, balance]);
 
     return (
         <Box
@@ -64,9 +68,9 @@ export const Transactions = () => {
                     />
 
                     <TransactionAppBar
-                        balance={balance ? balance : 0}
-                        expense={expense ? expense : 0}
-                        income={income ? income : 0}
+                        balance={balance}
+                        expense={expense}
+                        income={income}
                         title={budgetId.title}
                         isDarkMode={theme.isDarkMode}
                         budgetId={budgetId._id}
