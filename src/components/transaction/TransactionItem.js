@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import ArrowCircleUpSharpIcon from '@mui/icons-material/ArrowCircleUpSharp';
 import ArrowCircleDownSharpIcon from '@mui/icons-material/ArrowCircleDownSharp';
 import TableCell from '@mui/material/TableCell';
-import { StyledTableRow } from '../../UI/CustomTableHead';
+import { StyledTableRow, StyledTableCell } from '../../UI/CustomTableHead';
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import {
     deleteTransactionAction,
@@ -77,7 +77,7 @@ export const TransactionItem = (props) => {
         border = '#9F9F9F';
     } else if (!props.edit && !props.disable) {
         opacity = 1;
-        border = 'default';
+        border = 'primary.main';
     }
 
     return (
@@ -85,15 +85,15 @@ export const TransactionItem = (props) => {
             key={props._id}
             sx={{
                 boxShadow: props.edit ? '0px 0px' : '4px 4px',
-                backgroundColor: props.edit ? 'primary.main' : 'none',
+                backgroundColor: props.edit
+                    ? 'primary.main'
+                    : 'background.secondary',
                 opacity: opacity,
             }}>
             <TableCell
                 component='th'
                 scope='row'
                 sx={{
-                    borderTop: '1px solid',
-                    borderBottom: '1px solid',
                     pointerEvents: props.edit ? 'none' : 'auto',
                     borderColor: border,
                 }}>
@@ -105,8 +105,6 @@ export const TransactionItem = (props) => {
             </TableCell>
             <TableCell
                 sx={{
-                    borderTop: '1px solid',
-                    borderBottom: '1px solid',
                     color: props.edit ? 'text.secondary' : 'text.primary',
                     borderColor: border,
                 }}
@@ -115,8 +113,6 @@ export const TransactionItem = (props) => {
             </TableCell>
             <TableCell
                 sx={{
-                    borderTop: '1px solid',
-                    borderBottom: '1px solid',
                     pointerEvents: props.edit ? 'none' : 'auto',
                     color: props.edit ? 'text.secondary' : 'text.primary',
                     borderColor: border,
@@ -126,8 +122,6 @@ export const TransactionItem = (props) => {
             </TableCell>
             <TableCell
                 sx={{
-                    borderTop: '1px solid',
-                    borderBottom: '1px solid',
                     pointerEvents: props.edit ? 'none' : 'auto',
                     color: props.edit ? 'text.secondary' : 'text.primary',
                     borderColor: border,
@@ -137,8 +131,6 @@ export const TransactionItem = (props) => {
             </TableCell>
             <TableCell
                 sx={{
-                    borderTop: '1px solid',
-                    borderBottom: '1px solid',
                     borderColor: border,
                 }}
                 align='right'>
@@ -147,7 +139,7 @@ export const TransactionItem = (props) => {
                     edge='end'
                     aria-label='delete'
                     sx={{
-                        pointerEvents: props.edit ? 'none' : 'auto',
+                        //pointerEvents: props.edit ? 'none' : 'auto',
                         color: props.edit ? 'text.secondary' : 'text.primary',
                         borderColor: border,
                     }}>

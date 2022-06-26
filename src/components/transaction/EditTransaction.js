@@ -16,25 +16,28 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TRANSITION_ANIMATION, HOVER_ANIMATION } from '../../theme';
 
-const StyledInputBase = styled(InputBase)({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
         ...TRANSITION_ANIMATION,
         'height': '50px',
         'boxSizing': 'border-box',
         'margin': '10px',
         'padding': '10px',
-        'border': '1px solid',
-        'boxShadow': '4px 4px',
-
+        'color': 'text.main',
+        'border': `1px solid ${theme.palette.primary.main}`,
+        'boxShadow': `4px 4px ${theme.palette.primary.main}`,
         '&:hover': {
-            ...HOVER_ANIMATION,
+            transform: 'translateY(4px) translateX(4px)',
+            boxShadow: `0px 0px ${theme.palette.primary.main}`,
         },
         '&:focus': {
-            ...HOVER_ANIMATION,
+            transform: 'translateY(4px) translateX(4px)',
+            boxShadow: `0px 0px ${theme.palette.primary.main}`,
             borderWidth: '0.15rem',
+            borderColor: `${theme.palette.text.primary}`,
         },
     },
-});
+}));
 
 export const EditTransaction = (props) => {
     console.log(props.date);
@@ -80,7 +83,7 @@ export const EditTransaction = (props) => {
                 onSubmit={submitHandler}
                 sx={{
                     height: '100%',
-                    bgcolor: 'background.default',
+                    bgcolor: 'background.secondary',
                     boxShadow: '4px 4px',
                     border: '1px solid',
                     color: 'primary.main',

@@ -27,14 +27,14 @@ export const Home = () => {
         <Box
             sx={{
                 height: '100vh',
-                bgcolor: 'background.default',
+                bgcolor: 'background.primary',
             }}>
             {!budgetLoading && (
                 <Container
                     component='main'
                     maxWidth='xl'
                     sx={{
-                        bgcolor: 'background.default',
+                        bgcolor: 'background.primary',
                         height: '100vh',
                     }}>
                     <Box
@@ -45,7 +45,7 @@ export const Home = () => {
                             border: '1px solid',
                             boxSizing: 'border-box',
                             width: '100%',
-                            color: 'primary.main',
+                            color: 'primary.secondary',
                             height: '20vh',
                         }}
                     />

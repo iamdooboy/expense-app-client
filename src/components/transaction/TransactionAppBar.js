@@ -67,6 +67,7 @@ export const TransactionAppBar = (props) => {
                     width: '15%',
                     marginTop: '10px',
                     marginBottom: '14px',
+                    backgroundColor: 'background.secondary',
                 }}>
                 <Button
                     onClick={() => dispatch(logoutUserAction())}
@@ -111,6 +112,7 @@ export const TransactionAppBar = (props) => {
                     'boxShadow': '4px 4px',
                     'border': '1px solid',
                     'color': 'primary.main',
+                    'backgroundColor': 'background.secondary',
                     'height': '52px',
                     'width': '25%',
                     ...TRANSITION_ANIMATION,
@@ -131,7 +133,9 @@ export const TransactionAppBar = (props) => {
                         sx={{ paddingLeft: '20px' }}
                     />
                 ) : (
-                    <Typography noWrap>{title}</Typography>
+                    <Typography sx={{ color: 'text.primary' }} noWrap>
+                        {title}
+                    </Typography>
                 )}
             </Box>
             <Box
@@ -139,6 +143,7 @@ export const TransactionAppBar = (props) => {
                     boxShadow: '4px 4px',
                     border: '1px solid',
                     color: 'primary.main',
+                    backgroundColor: 'background.secondary',
                     height: '52px',
                     width: '60%',
                 }}>
@@ -148,11 +153,47 @@ export const TransactionAppBar = (props) => {
                     alignItems='center'
                     spacing={2}
                     sx={{ height: '100%', paddingX: '10px' }}>
-                    <Typography>Balance: {props.balance.toFixed(2)}</Typography>
-                    <Divider orientation='vertical' variant='middle' flexItem />
-                    <Typography>Income: {props.income.toFixed(2)}</Typography>
-                    <Divider orientation='vertical' variant='middle' flexItem />
-                    <Typography>Expense: {props.expense.toFixed(2)}</Typography>
+                    <div>
+                        <Typography
+                            sx={{ color: 'text.primary', opacity: '0.5' }}>
+                            Balance:
+                        </Typography>
+                        <Typography sx={{ color: 'text.primary' }}>
+                            {props.balance.toFixed(2)}
+                        </Typography>
+                    </div>
+
+                    <Divider
+                        sx={{ backgroundColor: 'primary.main' }}
+                        orientation='vertical'
+                        variant='middle'
+                        flexItem
+                    />
+                    <div>
+                        <Typography
+                            sx={{ color: 'text.primary', opacity: '0.5' }}>
+                            Income:
+                        </Typography>
+                        <Typography sx={{ color: 'text.primary' }}>
+                            {props.income.toFixed(2)}
+                        </Typography>
+                    </div>
+
+                    <Divider
+                        sx={{ backgroundColor: 'primary.main' }}
+                        orientation='vertical'
+                        variant='middle'
+                        flexItem
+                    />
+                    <div>
+                        <Typography
+                            sx={{ color: 'text.primary', opacity: '0.5' }}>
+                            Expense:
+                        </Typography>
+                        <Typography sx={{ color: 'text.primary' }}>
+                            {props.expense.toFixed(2)}
+                        </Typography>
+                    </div>
                 </Stack>
             </Box>
         </Stack>

@@ -47,14 +47,17 @@ export const Transactions = () => {
         <Box
             sx={{
                 height: '100vh',
-                bgcolor: 'background.default',
+                bgcolor: 'background.primary',
                 overflow: 'auto',
             }}>
             {!loading && (
                 <Container
                     component='main'
                     maxWidth='xl'
-                    sx={{ bgcolor: 'background.default' }}>
+                    sx={{
+                        bgcolor: 'background.primary',
+                        height: '100vh',
+                    }}>
                     <Box
                         component='img'
                         src={theme.isDarkMode ? banner_dark : banner_light}
@@ -63,7 +66,7 @@ export const Transactions = () => {
                             border: '1px solid',
                             boxSizing: 'border-box',
                             width: '100%',
-                            color: 'primary.main',
+                            color: 'primary.secondary',
                         }}
                     />
 

@@ -6,8 +6,8 @@ import Table from '@mui/material/Table';
 
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: 'primary',
-        color: 'primary',
+        backgroundColor: theme.palette.background.secondary,
+        color: theme.palette.text.primary,
     },
     [`&.${tableCellClasses.body}`]: {
         fontSize: 14,
@@ -16,7 +16,7 @@ export const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(odd)': {
-        backgroundColor: 'primary',
+        backgroundColor: 'primary.main',
     },
     // hide last border
     '&:last-child td, &:last-child th': {

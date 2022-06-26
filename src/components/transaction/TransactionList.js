@@ -11,7 +11,7 @@ import TableCell from '@mui/material/TableCell';
 
 export const TransactionList = (props) => {
     return (
-        <Box sx={{ bgcolor: 'background.default' }}>
+        <Box sx={{ bgcolor: 'background.primary' }}>
             <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                 <TableHead>
                     <StyledTableRow>

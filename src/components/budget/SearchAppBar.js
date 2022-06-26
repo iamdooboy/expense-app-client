@@ -12,18 +12,29 @@ import { changeTheme } from '../../redux/slices/theme/themeSlice';
 import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
+import { TRANSITION_ANIMATION, HOVER_ANIMATION } from '../../theme';
 
-const StyledInputBase = styled(InputBase)({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
-        paddingLeft: '10px',
-        height: '32px',
-        boxSizing: 'border-box',
-        paddingTop: '0px',
-        paddingBottom: '0px',
-        border: '1px solid',
-        boxShadow: '4px 4px',
+        ...TRANSITION_ANIMATION,
+        'paddingLeft': '10px',
+        'height': '32px',
+        'boxSizing': 'border-box',
+        'paddingTop': '0px',
+        'paddingBottom': '0px',
+        'border': `1px solid ${theme.palette.primary.main}`,
+        'boxShadow': `4px 4px ${theme.palette.primary.main}`,
+        '&:hover': {
+            transform: 'translateY(4px) translateX(4px)',
+            boxShadow: `0px 0px ${theme.palette.primary.main}`,
+        },
+        '&:focus': {
+            transform: 'translateY(4px) translateX(4px)',
+            boxShadow: `0px 0px ${theme.palette.primary.main}`,
+            outline: `0.1rem solid`,
+        },
     },
-});
+}));
 
 export const SearchAppBar = (props) => {
     const textInput = useRef(null);
@@ -52,6 +63,7 @@ export const SearchAppBar = (props) => {
                 color: 'primary.main',
                 marginTop: '10px',
                 marginBottom: '14px',
+                backgroundColor: 'background.secondary',
             }}>
             <Grid
                 container

@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteBudgetAction } from '../../redux/slices/budgets/budgetSlices';
 import { styled } from '@mui/material/styles';
-import ListItem, { listItemClasses } from '@mui/material/ListItem';
+import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
 import Box from '@mui/material/Box';
@@ -15,11 +15,9 @@ import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineS
 import {
     updateBudgetTitleAction,
     updateBudgetEditAction,
-    fetchOneBudgetAction,
 } from '../../redux/slices/budgets/budgetSlices';
 import { changeDisableMode } from '../../redux/slices/budgets/disableSlice';
 import InputBase from '@mui/material/InputBase';
-import { fetchAllTransactionAction } from '../../redux/slices/transactions/transactionSlices';
 
 export const CustomIconButton = styled(IconButton)({
     'margin': 0,
@@ -56,6 +54,13 @@ export const BudgetItem = (props) => {
         }
     };
 
+    const cancelEdit = () =>
+        dispatch(
+            changeDisableMode({
+                disableMode: !props.disable,
+            })
+        );
+
     const handleClick = () => {
         const data = {
             _id: props.id,
@@ -84,22 +89,22 @@ export const BudgetItem = (props) => {
                     sx={{
                         transform: 'translateY(4px) translateX(4px)',
                         boxShadow: 'none',
-                        backgroundColor: 'background.paper',
+                        backgroundColor: 'primary.main',
                     }}>
                     <InputBase
                         fullWidth
                         onBlur={handleBlur}
                         onKeyDown={handleEnter}
                         defaultValue={props.title}
-                        sx={{ color: 'text.secondary', fontSize: '1.25rem' }}
+                        sx={{ color: 'text.selected', fontSize: '1.25rem' }}
                         autoFocus
                     />
                     <CustomIconButton
-                        onClick={(e) => updateBudget(e.target.value)}
+                        onClick={(e) => cancelEdit}
                         sx={{
                             paddingLeft: '20px',
                             paddingRight: '10px',
-                            color: 'white',
+                            color: 'text.selected',
                         }}>
                         <HighlightOffSharpIcon />
                     </CustomIconButton>
@@ -108,7 +113,7 @@ export const BudgetItem = (props) => {
                         sx={{
                             paddingLeft: '10px',
                             paddingRight: '6px',
-                            color: 'white',
+                            color: 'text.selected',
                         }}>
                         <CheckCircleOutlineSharpIcon />
                     </CustomIconButton>
@@ -146,7 +151,11 @@ export const BudgetItem = (props) => {
                         onClick={() => dispatch(deleteBudgetAction(props.id))}
                         edge='end'
                         aria-label='delete'
-                        sx={{ paddingLeft: '20px', paddingRight: '10px' }}>
+                        sx={{
+                            paddingLeft: '20px',
+                            paddingRight: '10px',
+                            color: props.disable && 'primary.disable',
+                        }}>
                         <DeleteOutlineSharpIcon />
                     </CustomIconButton>
                     <CustomIconButton
@@ -165,7 +174,11 @@ export const BudgetItem = (props) => {
                         }}
                         edge='end'
                         aria-label='edit'
-                        sx={{ paddingLeft: '10px', paddingRight: '20px' }}>
+                        sx={{
+                            paddingLeft: '10px',
+                            paddingRight: '20px',
+                            color: props.disable && 'primary.disable',
+                        }}>
                         <EditSharpIcon />
                     </CustomIconButton>
                 </ListItem>
