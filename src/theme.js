@@ -14,8 +14,8 @@ export const DARK_MODE_COLORS = {
     BACKGROUND_COLOR: '#141517',
     SECONDARY_BACKGROUND: '#171923',
     BOX_SHADOW: '#2D3748',
-    ERROR: '#F94E9B',
-    SUCCESS: '#3AE980',
+    ERROR: '#E53E3E',
+    SUCCESS: '#38A169',
     TEXT: '#CBD5E0',
     DISABLE: '#6E7076',
 };
@@ -101,13 +101,24 @@ const lightTheme = createTheme({
         MuiToggleButton: {
             styleOverrides: {
                 root: {
-                    ...LIGHT_DESIGN,
+                    'boxShadow': '4px 4px',
+                    'border': '1px solid',
+                    'borderRadius': '0px',
                     ...TRANSITION_ANIMATION,
                     'margin': '10px',
                     'height': '40px',
                     'fontWeight': 'bold',
                     '&: hover': {
                         ...LIGHT_HOVER_ANIMATION,
+                        color: COLORS.WHITE,
+                    },
+                    '&.Mui-selected': {
+                        'transform': 'translateY(4px) translateX(4px)',
+                        'boxShadow': '0px 0px',
+                        'color': COLORS.WHITE,
+                        '&:hover': {
+                            color: COLORS.WHITE,
+                        },
                     },
                 },
             },
@@ -224,12 +235,12 @@ const lightTheme = createTheme({
             disable: LIGHT_MODE_COLORS.DISABLE,
         },
         secondary: {
-            main: '#fff',
+            main: COLORS.WHITE,
         },
         text: {
-            primary: '#000',
-            secondary: '#fff', //date picker days color
-            selected: '#fff',
+            primary: COLORS.BLACK,
+            secondary: COLORS.WHITE, //date picker days color
+            selected: COLORS.WHITE,
         },
         background: {
             //paper: '#000', //date picker background
@@ -284,13 +295,24 @@ const darkTheme = createTheme({
         MuiToggleButton: {
             styleOverrides: {
                 root: {
-                    ...DARK_DESIGN,
+                    'boxShadow': '4px 4px',
+                    'border': '1px solid',
+                    'borderRadius': '0px',
                     ...TRANSITION_ANIMATION,
                     'margin': '10px',
                     'height': '40px',
                     'fontWeight': 'bold',
                     '&: hover': {
                         ...DARK_HOVER_ANIMATION,
+                        color: COLORS.WHITE,
+                    },
+                    '&.Mui-selected': {
+                        'transform': 'translateY(4px) translateX(4px)',
+                        'boxShadow': '0px 0px',
+                        'color': COLORS.WHITE,
+                        '&:hover': {
+                            color: COLORS.WHITE,
+                        },
                     },
                 },
             },
@@ -410,8 +432,8 @@ const darkTheme = createTheme({
             main: '#fafafa',
         },
         text: {
-            primary: '#fff',
-            secondary: '#000',
+            primary: COLORS.WHITE,
+            secondary: COLORS.BLACK,
             selected: '#fff',
         },
         background: {

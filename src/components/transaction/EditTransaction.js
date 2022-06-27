@@ -17,6 +17,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TRANSITION_ANIMATION, HOVER_ANIMATION } from '../../theme';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    'width': '100%',
     '& .MuiInputBase-input': {
         ...TRANSITION_ANIMATION,
         'height': '50px',
@@ -46,6 +47,8 @@ export const EditTransaction = (props) => {
     const amountInput = useRef(null);
     const [date, setDate] = useState(props.date);
     const [transactionType, setTransactionType] = useState(props.type);
+    const [text, setText] = useState(props.text);
+    const [amount, setAmount] = useState(props.amount);
 
     const handleTransactionType = (event, newTransactionType) => {
         setTransactionType(newTransactionType);
@@ -76,6 +79,8 @@ export const EditTransaction = (props) => {
         );
     };
 
+    const disabledState = !text || !amount || !date || !transactionType;
+
     return (
         <Grid item xs={3}>
             <Box
@@ -90,23 +95,23 @@ export const EditTransaction = (props) => {
                     overflow: 'hidden',
                 }}>
                 <StyledInputBase
+                    onBlur={(e) => setText(e.target.value)}
                     defaultValue={props.text}
                     autoFocus={true}
                     inputRef={textInput}
                     autoComplete='off'
                     name='text'
                     placeholder='Text'
-                    sx={{ width: '100%' }}
                 />
                 <StyledInputBase
                     defaultValue={
                         props.amount < 0 ? -1 * props.amount : props.amount
                     }
+                    onBlur={(e) => setAmount(e.target.value)}
                     inputRef={amountInput}
                     autoComplete='off'
                     name='amount'
                     placeholder='Amount'
-                    sx={{ width: '100%' }}
                 />
                 <LocalizationProvider name='date' dateAdapter={AdapterDateFns}>
                     <DatePicker
@@ -117,7 +122,7 @@ export const EditTransaction = (props) => {
                             setDate(newValue);
                         }}
                         renderInput={(params) => (
-                            <TextField color='primary' fullWidth {...params} />
+                            <TextField fullWidth {...params} />
                         )}
                     />
                 </LocalizationProvider>
@@ -129,23 +134,15 @@ export const EditTransaction = (props) => {
                     <ToggleButton
                         sx={{
                             'color': 'success.main',
-                            'boxShadow': '4px 4px',
-                            'border': '1px solid',
-                            'borderRadius': '0px',
                             '&:hover': {
                                 backgroundColor: 'success.main',
-                                color: 'white',
                                 borderColor: 'success.main',
                             },
                             '&.Mui-selected': {
-                                'transform': 'translateY(4px) translateX(4px)',
-                                'boxShadow': '0px 0px',
                                 'backgroundColor': 'success.main',
-                                'color': 'white',
                                 'borderColor': 'success.main',
                                 '&:hover': {
                                     backgroundColor: 'success.main',
-                                    color: 'white',
                                     borderColor: 'success.main',
                                 },
                             },
@@ -156,23 +153,15 @@ export const EditTransaction = (props) => {
                     <ToggleButton
                         sx={{
                             'color': 'error.main',
-                            'boxShadow': '4px 4px',
-                            'border': '1px solid',
-                            'borderRadius': '0px',
                             '&:hover': {
                                 backgroundColor: 'error.main',
-                                color: 'white',
                                 borderColor: 'error.main',
                             },
                             '&.Mui-selected': {
-                                'transform': 'translateY(4px) translateX(4px)',
-                                'boxShadow': '0px 0px',
                                 'backgroundColor': 'error.main',
-                                'color': 'white',
                                 'borderColor': 'error.main',
                                 '&:hover': {
                                     backgroundColor: 'error.main',
-                                    color: 'white',
                                     borderColor: 'error.main',
                                 },
                             },
@@ -183,20 +172,12 @@ export const EditTransaction = (props) => {
                 </ToggleButtonGroup>
                 <ButtonGroup fullWidth sx={{ boxSizing: 'border-box' }}>
                     <Button
+                        disabled={disabledState}
                         type='submit'
                         sx={{
-                            'color': 'primary.main',
-                            'margin': '10px',
-                            '&:hover': {
-                                color: 'text.secondary',
-                            },
-                            '&:active': {
-                                backgroundColor: '#FFFF88',
-                                transform: 'translateY(4px) translateX(4px)',
-                                boxShadow: '0px 0px',
-                            },
+                            margin: '10px',
                         }}>
-                        Update Transaction
+                        Add Transaction
                     </Button>
                 </ButtonGroup>
             </Box>

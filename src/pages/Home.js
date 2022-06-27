@@ -13,7 +13,7 @@ export const Home = () => {
     const budgets = useSelector((state) => state.budgets);
     const { budgetLoading, data } = budgets;
     const theme = useSelector((state) => state.theme);
-    const { disableMode } = useSelector((state) => state.disable);
+    const { disableMode } = useSelector((state) => state.disableBudget);
 
     //wrap in useEffect to run once
     //if not, run infinite

@@ -16,6 +16,7 @@ import TextField from '@mui/material/TextField';
 import { TRANSITION_ANIMATION, HOVER_ANIMATION } from '../../theme';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    'width': '100%',
     '& .MuiInputBase-input': {
         ...TRANSITION_ANIMATION,
         'height': '50px',
@@ -23,6 +24,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         'margin': '10px',
         'padding': '10px',
         'color': 'text.main',
+
         'border': `1px solid ${theme.palette.primary.main}`,
         'boxShadow': `4px 4px ${theme.palette.primary.main}`,
         '&:hover': {
@@ -67,6 +69,7 @@ export const NewTransaction = (props) => {
         textInput.current.value = '';
         amountInput.current.value = '';
     };
+
     const disabledState = !text || !amount || !date || !transactionType;
 
     return (
@@ -88,7 +91,6 @@ export const NewTransaction = (props) => {
                     autoComplete='off'
                     name='text'
                     placeholder='Text'
-                    sx={{ width: '100%' }}
                 />
                 <StyledInputBase
                     onBlur={(e) => setAmount(e.target.value)}
@@ -96,7 +98,6 @@ export const NewTransaction = (props) => {
                     autoComplete='off'
                     name='amount'
                     placeholder='Amount'
-                    sx={{ width: '100%' }}
                 />
                 <LocalizationProvider name='date' dateAdapter={AdapterDateFns}>
                     <DatePicker
@@ -117,23 +118,15 @@ export const NewTransaction = (props) => {
                     <ToggleButton
                         sx={{
                             'color': 'success.main',
-                            'boxShadow': '4px 4px',
-                            'border': '1px solid',
-                            'borderRadius': '0px',
                             '&:hover': {
                                 backgroundColor: 'success.main',
-                                color: 'white',
                                 borderColor: 'success.main',
                             },
                             '&.Mui-selected': {
-                                'transform': 'translateY(4px) translateX(4px)',
-                                'boxShadow': '0px 0px',
                                 'backgroundColor': 'success.main',
-                                'color': 'white',
                                 'borderColor': 'success.main',
                                 '&:hover': {
                                     backgroundColor: 'success.main',
-                                    color: 'white',
                                     borderColor: 'success.main',
                                 },
                             },
@@ -144,23 +137,15 @@ export const NewTransaction = (props) => {
                     <ToggleButton
                         sx={{
                             'color': 'error.main',
-                            'boxShadow': '4px 4px',
-                            'border': '1px solid',
-                            'borderRadius': '0px',
                             '&:hover': {
                                 backgroundColor: 'error.main',
-                                color: 'white',
                                 borderColor: 'error.main',
                             },
                             '&.Mui-selected': {
-                                'transform': 'translateY(4px) translateX(4px)',
-                                'boxShadow': '0px 0px',
                                 'backgroundColor': 'error.main',
-                                'color': 'white',
                                 'borderColor': 'error.main',
                                 '&:hover': {
                                     backgroundColor: 'error.main',
-                                    color: 'white',
                                     borderColor: 'error.main',
                                 },
                             },
@@ -174,12 +159,7 @@ export const NewTransaction = (props) => {
                         disabled={disabledState}
                         type='submit'
                         sx={{
-                            'margin': '10px',
-                            '&:active': {
-                                backgroundColor: '#FFFF88',
-                                transform: 'translateY(4px) translateX(4px)',
-                                boxShadow: '0px 0px',
-                            },
+                            margin: '10px',
                         }}>
                         Add Transaction
                     </Button>

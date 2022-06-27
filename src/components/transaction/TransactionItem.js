@@ -14,7 +14,7 @@ import {
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { updateEditTransactionData } from '../../redux/slices/transactions/editTransactionSlice';
-import { changeDisableMode } from '../../redux/slices/budgets/disableSlice';
+import { changeDisableMode } from '../../redux/slices/transactions/disableSlice';
 
 const CustomIconButton = styled(IconButton)({
     'margin': 0,
@@ -49,6 +49,21 @@ export const TransactionItem = (props) => {
                 disableMode: !props.disable,
             })
         );
+    };
+
+    const deleteHandler = () => {
+        if (props.edit) {
+            updateTransactionEditAction({
+                id: props.id,
+                edit: false,
+            });
+        }
+        dispatch(
+            changeDisableMode({
+                disableMode: !props.disable,
+            })
+        );
+        dispatch(deleteTransactionAction(props.id));
     };
 
     const updateTransaction = () => {
@@ -105,7 +120,7 @@ export const TransactionItem = (props) => {
             </TableCell>
             <TableCell
                 sx={{
-                    color: props.edit ? 'text.secondary' : 'text.primary',
+                    color: props.edit ? 'text.selected' : 'text.primary',
                     borderColor: border,
                 }}
                 align='right'>
@@ -114,7 +129,7 @@ export const TransactionItem = (props) => {
             <TableCell
                 sx={{
                     pointerEvents: props.edit ? 'none' : 'auto',
-                    color: props.edit ? 'text.secondary' : 'text.primary',
+                    color: props.edit ? 'text.selected' : 'text.primary',
                     borderColor: border,
                 }}
                 align='right'>
@@ -123,7 +138,7 @@ export const TransactionItem = (props) => {
             <TableCell
                 sx={{
                     pointerEvents: props.edit ? 'none' : 'auto',
-                    color: props.edit ? 'text.secondary' : 'text.primary',
+                    color: props.edit ? 'text.selected' : 'text.primary',
                     borderColor: border,
                 }}
                 align='right'>
@@ -135,12 +150,12 @@ export const TransactionItem = (props) => {
                 }}
                 align='right'>
                 <CustomIconButton
-                    onClick={() => dispatch(deleteTransactionAction(props.id))}
+                    onClick={deleteHandler}
                     edge='end'
                     aria-label='delete'
                     sx={{
                         //pointerEvents: props.edit ? 'none' : 'auto',
-                        color: props.edit ? 'text.secondary' : 'text.primary',
+                        color: props.edit ? 'text.selected' : 'text.primary',
                         borderColor: border,
                     }}>
                     <DeleteOutlineSharpIcon />
@@ -152,7 +167,7 @@ export const TransactionItem = (props) => {
                         aria-label='cancel'
                         sx={{
                             color: props.edit
-                                ? 'text.secondary'
+                                ? 'text.selected'
                                 : 'text.primary',
                             borderColor: border,
                         }}>

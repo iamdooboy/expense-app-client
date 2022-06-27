@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const disableSlice = createSlice({
-    name: 'disableBudget',
+    name: 'disableTransaction',
     initialState: {
         disableMode: false,
     },

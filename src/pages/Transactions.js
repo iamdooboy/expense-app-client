@@ -26,7 +26,7 @@ export const Transactions = () => {
     );
     const dispatch = useDispatch();
     const theme = useSelector((state) => state.theme);
-    const { disableMode } = useSelector((state) => state.disable);
+    const { disableMode } = useSelector((state) => state.disableTransaction);
 
     const budgetId = localStorage.getItem('budgetId')
         ? JSON.parse(localStorage.getItem('budgetId'))
