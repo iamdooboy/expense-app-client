@@ -1,47 +1,22 @@
+import React, { useState, useRef } from 'react';
+import { updateTransactionAction } from '../../redux/slices/transactions/transactionSlices';
+import { changeDisableMode } from '../../redux/slices/budgets/disableSlice';
+import { useDispatch } from 'react-redux';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import { updateTransactionAction } from '../../redux/slices/transactions/transactionSlices';
-import { changeDisableMode } from '../../redux/slices/budgets/disableSlice';
-import { useDispatch } from 'react-redux';
-import React, { useState, useRef } from 'react';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
-import InputBase from '@mui/material/InputBase';
-import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { TRANSITION_ANIMATION, HOVER_ANIMATION } from '../../theme';
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    'width': '100%',
-    '& .MuiInputBase-input': {
-        ...TRANSITION_ANIMATION,
-        'height': '50px',
-        'boxSizing': 'border-box',
-        'margin': '10px',
-        'padding': '10px',
-        'color': 'text.main',
-        'border': `1px solid ${theme.palette.primary.main}`,
-        'boxShadow': `4px 4px ${theme.palette.primary.main}`,
-        '&:hover': {
-            transform: 'translateY(4px) translateX(4px)',
-            boxShadow: `0px 0px ${theme.palette.primary.main}`,
-        },
-        '&:focus': {
-            transform: 'translateY(4px) translateX(4px)',
-            boxShadow: `0px 0px ${theme.palette.primary.main}`,
-            borderWidth: '0.15rem',
-            borderColor: `${theme.palette.text.primary}`,
-        },
-    },
-}));
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export const EditTransaction = (props) => {
-    console.log(props.date);
     const dispatch = useDispatch();
     const textInput = useRef(null);
     const amountInput = useRef(null);
@@ -94,24 +69,51 @@ export const EditTransaction = (props) => {
                     color: 'primary.main',
                     overflow: 'hidden',
                 }}>
-                <StyledInputBase
+                <TextField
                     onBlur={(e) => setText(e.target.value)}
-                    defaultValue={props.text}
-                    autoFocus={true}
                     inputRef={textInput}
+                    defaultValue={props.text}
                     autoComplete='off'
+                    fullWidth
                     name='text'
                     placeholder='Text'
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <IconButton>
+                                    <ClearIcon
+                                        onClick={() =>
+                                            (textInput.current.value = '')
+                                        }
+                                    />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
                 />
-                <StyledInputBase
+                <TextField
+                    onBlur={(e) => setAmount(e.target.value)}
+                    inputRef={amountInput}
                     defaultValue={
                         props.amount < 0 ? -1 * props.amount : props.amount
                     }
-                    onBlur={(e) => setAmount(e.target.value)}
-                    inputRef={amountInput}
                     autoComplete='off'
+                    fullWidth
                     name='amount'
                     placeholder='Amount'
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <IconButton>
+                                    <ClearIcon
+                                        onClick={() =>
+                                            (amountInput.current.value = '')
+                                        }
+                                    />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
                 />
                 <LocalizationProvider name='date' dateAdapter={AdapterDateFns}>
                     <DatePicker
@@ -177,7 +179,7 @@ export const EditTransaction = (props) => {
                         sx={{
                             margin: '10px',
                         }}>
-                        Add Transaction
+                        Update Transaction
                     </Button>
                 </ButtonGroup>
             </Box>

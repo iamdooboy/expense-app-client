@@ -12,7 +12,7 @@ import { changeTheme } from '../../redux/slices/theme/themeSlice';
 import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
-import { TRANSITION_ANIMATION, HOVER_ANIMATION } from '../../theme';
+import { TRANSITION_ANIMATION } from '../../theme';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
@@ -22,6 +22,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         'boxSizing': 'border-box',
         'paddingTop': '0px',
         'paddingBottom': '0px',
+        'color': 'text.main',
         'border': `1px solid ${theme.palette.primary.main}`,
         'boxShadow': `4px 4px ${theme.palette.primary.main}`,
         '&:hover': {
