@@ -8,6 +8,8 @@ import { BudgetList } from '../components/budget/BudgetList';
 import banner_light from '../img/banner_light.svg';
 import banner_dark from '../img/banner_dark.svg';
 import { Empty } from '../components/UI/Empty';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 export const Home = () => {
     const budgets = useSelector((state) => state.budgets);
@@ -37,18 +39,28 @@ export const Home = () => {
                         bgcolor: 'background.primary',
                         height: '100vh',
                     }}>
-                    <Box
-                        component='img'
-                        src={theme.isDarkMode ? banner_dark : banner_light}
+                    <Button
+                        disableRipple
                         sx={{
-                            boxShadow: '4px 4px',
-                            border: '1px solid',
-                            boxSizing: 'border-box',
                             width: '100%',
                             color: 'primary.secondary',
                             height: '20vh',
-                        }}
-                    />
+                            backgroundColor: 'background.secondary',
+                        }}>
+                        <Typography
+                            variant='h1'
+                            sx={{
+                                fontFamily: ['"Audiowide"', 'cursive'].join(
+                                    ','
+                                ),
+                                background:
+                                    '-webkit-linear-gradient(45deg, #48BB78 30%, #805AD5 90%)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                            }}>
+                            Budget Tracker
+                        </Typography>
+                    </Button>
                     <SearchAppBar isDarkMode={theme.isDarkMode} />
                     {data.length === 0 ? (
                         <Empty message='budget' />

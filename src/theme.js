@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
 export const LIGHT_MODE_COLORS = {
-    BACKGROUND_COLOR: '#F5F5F5',
+    BACKGROUND_COLOR: '#EDF3F8',
     SECONDARY_BACKGROUND: '#FFF',
     BOX_SHADOW: '#171923',
     ERROR: 'rgb(235, 87, 87)',
@@ -21,19 +21,10 @@ export const DARK_MODE_COLORS = {
 };
 
 export const COLORS = {
-    LIGHT_BACKGROUND_COLOR: '#F5F5F5',
-    DARK_BACKGROUND_COLOR: '#141517',
-    LIGHT_SECONDARY_BACKGROUND: '#FFF',
-    DARK_SECONDARY_BACKGROUND: '#171923',
-    LIGHT_BOX_SHADOW: '#171923',
-    DARK_BOX_SHADOW: '#2D3748',
-    LIGHT_ERROR: 'rgb(235, 87, 87)',
-    LIGHT_SUCCESS: 'rgb(52, 199, 123)',
-    DARK_ERROR: '#F94E9B',
-    DARK_SUCCESS: '#3AE980',
     BLACK: '#000',
     WHITE: '#fff',
     DISABLE: '#A8A8AC',
+    DISABLE_DATE: '#6C6D6E',
 };
 export const LIGHT_DESIGN = {
     boxShadow: '4px 4px',
@@ -239,12 +230,13 @@ const lightTheme = createTheme({
         },
         text: {
             primary: COLORS.BLACK,
-            secondary: COLORS.WHITE, //date picker days color
+            secondary: 'default', //date picker days color
             selected: COLORS.WHITE,
+            disabled: COLORS.DISABLE,
         },
         background: {
-            //paper: '#000', //date picker background
-            default: '#fff',
+            paper: LIGHT_MODE_COLORS.SECONDARY_BACKGROUND, //date picker background
+            default: COLORS.WHITE,
             primary: LIGHT_MODE_COLORS.BACKGROUND_COLOR,
             secondary: LIGHT_MODE_COLORS.SECONDARY_BACKGROUND,
         },
@@ -433,12 +425,13 @@ const darkTheme = createTheme({
         },
         text: {
             primary: COLORS.WHITE,
-            secondary: COLORS.BLACK,
-            selected: '#fff',
+            secondary: 'default',
+            selected: COLORS.WHITE,
+            disabled: COLORS.DISABLE_DATE,
         },
         background: {
-            //paper: '#000', //date picker background
-            default: '#fff',
+            paper: DARK_MODE_COLORS.SECONDARY_BACKGROUND, //date picker background
+            default: COLORS.WHITE,
             primary: DARK_MODE_COLORS.BACKGROUND_COLOR,
             secondary: DARK_MODE_COLORS.SECONDARY_BACKGROUND,
         },

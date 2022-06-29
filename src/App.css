@@ -3,8 +3,13 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 
 @font-face {
     font-family: 'Source Code Pro', monospace;
     src: url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+}
+@font-face {
+    font-family: 'Audiowide', cursive;
+    src: url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 }

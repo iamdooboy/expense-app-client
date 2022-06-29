@@ -1,11 +1,11 @@
 import React from 'react';
-import { batch, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import ArrowCircleUpSharpIcon from '@mui/icons-material/ArrowCircleUpSharp';
 import ArrowCircleDownSharpIcon from '@mui/icons-material/ArrowCircleDownSharp';
 import TableCell from '@mui/material/TableCell';
-import { StyledTableRow, StyledTableCell } from '../../UI/CustomTableHead';
+import { StyledTableRow } from '../../UI/CustomTableHead';
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import {
     deleteTransactionAction,
