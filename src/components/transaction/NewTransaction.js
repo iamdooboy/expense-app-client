@@ -20,29 +20,48 @@ export const NewTransaction = (props) => {
     const [transactionType, setTransactionType] = useState('');
     const [date, setDate] = useState(new Date());
     const [text, setText] = useState('');
-    const [amount, setAmount] = useState('');
+    const [amount, setAmount] = useState();
     const textInput = useRef(null);
     const amountInput = useRef(null);
 
     const handleTransactionType = (event, newTransactionType) => {
-        setTransactionType(newTransactionType);
+        if (amount < 0) {
+            setTransactionType('expense');
+        } else if (amount > 0) {
+            setTransactionType('income');
+        } else {
+            setTransactionType('');
+        }
     };
 
     const submitHandler = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const amount = parseFloat(data.get('amount'));
+        //const data = new FormData(event.currentTarget);
+        //const amount = parseFloat(data.get('amount'));
 
         const transactionData = {
             type: transactionType,
-            text: data.get('text'),
-            amount: transactionType === 'expense' ? -1 * amount : amount,
+            text: text,
+            amount: amount,
             budget: props.budgetId,
             createdAt: date,
         };
         dispatch(createTransactionAction(transactionData));
         textInput.current.value = '';
         amountInput.current.value = '';
+    };
+
+    const amountValidation = (event) => {
+        const amount = parseFloat(event.target.value);
+
+        if (amount < 0) {
+            setTransactionType('expense');
+        } else if (amount > 0) {
+            setTransactionType('income');
+        } else {
+            setTransactionType('');
+        }
+        setAmount(amount);
     };
 
     const disabledState = !text || !amount || !date || !transactionType;
@@ -70,36 +89,44 @@ export const NewTransaction = (props) => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position='end'>
-                                <IconButton>
-                                    <ClearIcon
-                                        onClick={() =>
-                                            (textInput.current.value = '')
-                                        }
-                                    />
+                                <IconButton
+                                    onClick={() =>
+                                        (textInput.current.value = '')
+                                    }>
+                                    <ClearIcon />
                                 </IconButton>
                             </InputAdornment>
                         ),
                     }}
                 />
                 <TextField
-                    onBlur={(e) => setAmount(e.target.value)}
+                    onBlur={amountValidation}
                     inputRef={amountInput}
                     autoComplete='off'
                     fullWidth
+                    type='number'
                     name='amount'
                     placeholder='Amount'
                     InputProps={{
+                        inputMode: 'numeric',
+                        pattern: '[0-9]*',
                         endAdornment: (
                             <InputAdornment position='end'>
-                                <IconButton>
-                                    <ClearIcon
-                                        onClick={() =>
-                                            (amountInput.current.value = '')
-                                        }
-                                    />
+                                <IconButton
+                                    onClick={() =>
+                                        (amountInput.current.value = '')
+                                    }>
+                                    <ClearIcon />
                                 </IconButton>
                             </InputAdornment>
                         ),
+                    }}
+                    sx={{
+                        'input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button':
+                            {
+                                '-webkit-appearance': 'none',
+                                'margin': 'none',
+                            },
                     }}
                 />
                 <LocalizationProvider name='date' dateAdapter={AdapterDateFns}>

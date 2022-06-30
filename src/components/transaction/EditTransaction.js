@@ -26,7 +26,13 @@ export const EditTransaction = (props) => {
     const [amount, setAmount] = useState(props.amount);
 
     const handleTransactionType = (event, newTransactionType) => {
-        setTransactionType(newTransactionType);
+        if (amount < 0) {
+            setTransactionType('expense');
+        } else if (amount > 0) {
+            setTransactionType('income');
+        } else {
+            setTransactionType('');
+        }
     };
 
     const submitHandler = async (event) => {
@@ -36,11 +42,8 @@ export const EditTransaction = (props) => {
         const updatedTransactionData = {
             id: props.id,
             type: transactionType,
-            text: data.get('text'),
-            amount:
-                transactionType === 'expense'
-                    ? -1 * data.get('amount')
-                    : data.get('amount'),
+            text: text,
+            amount: amount,
             budget: props.budgetId,
             createdAt: date,
             edit: false,
@@ -52,6 +55,19 @@ export const EditTransaction = (props) => {
                 disableMode: false,
             })
         );
+    };
+
+    const amountValidation = (event) => {
+        const amount = parseFloat(event.target.value);
+
+        if (amount < 0) {
+            setTransactionType('expense');
+        } else if (amount > 0) {
+            setTransactionType('income');
+        } else {
+            setTransactionType('');
+        }
+        setAmount(amount);
     };
 
     const disabledState = !text || !amount || !date || !transactionType;
@@ -72,6 +88,7 @@ export const EditTransaction = (props) => {
                 <TextField
                     onBlur={(e) => setText(e.target.value)}
                     inputRef={textInput}
+                    autoFocus
                     defaultValue={props.text}
                     autoComplete='off'
                     fullWidth
@@ -80,23 +97,20 @@ export const EditTransaction = (props) => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position='end'>
-                                <IconButton>
-                                    <ClearIcon
-                                        onClick={() =>
-                                            (textInput.current.value = '')
-                                        }
-                                    />
+                                <IconButton
+                                    onClick={() =>
+                                        (textInput.current.value = '')
+                                    }>
+                                    <ClearIcon />
                                 </IconButton>
                             </InputAdornment>
                         ),
                     }}
                 />
                 <TextField
-                    onBlur={(e) => setAmount(e.target.value)}
+                    onBlur={amountValidation}
                     inputRef={amountInput}
-                    defaultValue={
-                        props.amount < 0 ? -1 * props.amount : props.amount
-                    }
+                    defaultValue={props.amount}
                     autoComplete='off'
                     fullWidth
                     name='amount'
@@ -104,12 +118,11 @@ export const EditTransaction = (props) => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position='end'>
-                                <IconButton>
-                                    <ClearIcon
-                                        onClick={() =>
-                                            (amountInput.current.value = '')
-                                        }
-                                    />
+                                <IconButton
+                                    onClick={() =>
+                                        (amountInput.current.value = '')
+                                    }>
+                                    <ClearIcon />
                                 </IconButton>
                             </InputAdornment>
                         ),
