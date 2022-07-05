@@ -1,11 +1,9 @@
-import React, { useEffect, useCallback, useState, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllTransactionAction } from '../redux/slices/transactions/transactionSlices';
 import { TransactionList } from '../components/transaction/TransactionList';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import banner_light from '../img/banner_light.svg';
-import banner_dark from '../img/banner_dark.svg';
 import Box from '@mui/material/Box';
 import { NewTransaction } from '../components/transaction/NewTransaction';
 import { TransactionAppBar } from '../components/transaction/TransactionAppBar';
@@ -13,6 +11,8 @@ import { updateBudgetAmountAction } from '../redux/slices/budgets/budgetSlices';
 import { EditTransaction } from '../components/transaction/EditTransaction';
 import { Empty } from '../components/UI/Empty';
 import { useIsMount } from '../custom hooks/useIsMount';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 export const Transactions = () => {
     const isFirstRender = useIsMount();
@@ -58,17 +58,28 @@ export const Transactions = () => {
                         bgcolor: 'background.primary',
                         height: '100vh',
                     }}>
-                    <Box
-                        component='img'
-                        src={theme.isDarkMode ? banner_dark : banner_light}
+                    <Button
+                        disableRipple
                         sx={{
-                            boxShadow: '4px 4px',
-                            border: '1px solid',
-                            boxSizing: 'border-box',
                             width: '100%',
                             color: 'primary.secondary',
-                        }}
-                    />
+                            height: '20vh',
+                            backgroundColor: 'background.secondary',
+                        }}>
+                        <Typography
+                            variant='h1'
+                            sx={{
+                                fontFamily: ['"Audiowide"', 'cursive'].join(
+                                    ','
+                                ),
+                                background:
+                                    '-webkit-linear-gradient(45deg, #48BB78 30%, #805AD5 90%)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                            }}>
+                            Budget Tracker
+                        </Typography>
+                    </Button>
 
                     <TransactionAppBar
                         balance={balance}

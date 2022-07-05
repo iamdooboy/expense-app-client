@@ -5,8 +5,6 @@ import Container from '@mui/material/Container';
 import { SearchAppBar } from '../components/budget/SearchAppBar';
 import { fetchAllBudgetAction } from '../redux/slices/budgets/budgetSlices';
 import { BudgetList } from '../components/budget/BudgetList';
-import banner_light from '../img/banner_light.svg';
-import banner_dark from '../img/banner_dark.svg';
 import { Empty } from '../components/UI/Empty';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';

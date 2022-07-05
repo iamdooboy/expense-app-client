@@ -63,7 +63,7 @@ export const SearchAppBar = (props) => {
                 border: '1px solid',
                 color: 'primary.main',
                 marginTop: '10px',
-                marginBottom: '14px',
+                marginBottom: '10px',
                 backgroundColor: 'background.secondary',
             }}>
             <Grid
