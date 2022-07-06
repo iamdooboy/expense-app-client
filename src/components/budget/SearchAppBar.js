@@ -84,7 +84,7 @@ export const SearchAppBar = (props) => {
                                 onClick={() => dispatch(logoutUserAction())}
                                 sx={{
                                     minWidth: '32px',
-                                    height: '32px',
+                                    height: '36px',
                                     margin: '10px',
                                 }}
                                 startIcon={<LogoutSharpIcon />}
@@ -101,7 +101,7 @@ export const SearchAppBar = (props) => {
                                 }
                                 sx={{
                                     minWidth: '32px',
-                                    height: '32px',
+                                    height: '36px',
                                     margin: '10px',
                                 }}
                                 startIcon={<DarkModeOutlinedIcon />}
@@ -111,7 +111,7 @@ export const SearchAppBar = (props) => {
                             <Button
                                 sx={{
                                     minWidth: '32px',
-                                    height: '32px',
+                                    height: '36px',
                                     margin: '10px',
                                 }}
                                 startIcon={<HomeSharpIcon />}
