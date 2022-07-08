@@ -1,9 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { LIGHT_DESIGN } from '../../theme';
 import React from 'react';
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
 
 export const Empty = (props) => {
     return (

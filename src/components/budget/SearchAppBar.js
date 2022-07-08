@@ -8,15 +8,16 @@ import Stack from '@mui/material/Stack';
 import { createBudgetAction } from '../../redux/slices/budgets/budgetSlices';
 import { logoutUserAction } from '../../redux/slices/users/usersSlices';
 import { useDispatch } from 'react-redux';
-import { changeTheme } from '../../redux/slices/theme/themeSlice';
+import { toggleColorMode } from '../../redux/slices/theme/themeSlice';
 import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
-import { TRANSITION_ANIMATION } from '../../theme';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
-        ...TRANSITION_ANIMATION,
+        'transitionProperty': 'all',
+        'transitionTimingFunction': 'ease-in',
+        'transitionDuration': '.2s',
         'paddingLeft': '10px',
         'height': '32px',
         'boxSizing': 'border-box',
@@ -94,8 +95,11 @@ export const SearchAppBar = (props) => {
                             <Button
                                 onClick={() =>
                                     dispatch(
-                                        changeTheme({
-                                            isDarkMode: !props.isDarkMode,
+                                        toggleColorMode({
+                                            mode:
+                                                props.mode === 'light'
+                                                    ? 'dark'
+                                                    : 'light',
                                         })
                                     )
                                 }

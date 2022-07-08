@@ -7,14 +7,13 @@ import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 import Stack from '@mui/material/Stack';
 import { logoutUserAction } from '../../redux/slices/users/usersSlices';
 import { useDispatch } from 'react-redux';
-import { changeTheme } from '../../redux/slices/theme/themeSlice';
+import { toggleColorMode } from '../../redux/slices/theme/themeSlice';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
-import { HOVER_ANIMATION, TRANSITION_ANIMATION } from '../../theme';
 import { updateBudgetTitleAction } from '../../redux/slices/budgets/budgetSlices';
 import EditIcon from '@mui/icons-material/Edit';
 export const TransactionAppBar = (props) => {
@@ -87,8 +86,11 @@ export const TransactionAppBar = (props) => {
                         <Button
                             onClick={() =>
                                 dispatch(
-                                    changeTheme({
-                                        isDarkMode: !props.isDarkMode,
+                                    toggleColorMode({
+                                        mode:
+                                            props.mode === 'light'
+                                                ? 'dark'
+                                                : 'light',
                                     })
                                 )
                             }
@@ -124,12 +126,16 @@ export const TransactionAppBar = (props) => {
                             'flexDirection': { xs: 'column', md: 'row' },
                             'alignItems': 'center',
                             'justifyContent': 'center',
-                            ...TRANSITION_ANIMATION,
+                            'transitionProperty': 'all',
+                            'transitionTimingFunction': 'ease-in',
+                            'transitionDuration': '.2s',
                             '&: hover': {
-                                ...HOVER_ANIMATION,
+                                transform: 'translateY(4px) translateX(4px)',
+                                boxShadow: `0px 0px`,
                             },
                             '&: focus-within': {
-                                ...HOVER_ANIMATION,
+                                transform: 'translateY(4px) translateX(4px)',
+                                boxShadow: `0px 0px`,
                             },
                         }}>
                         {editTitle ? (

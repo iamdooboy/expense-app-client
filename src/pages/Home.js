@@ -41,9 +41,7 @@ export const Home = () => {
                         disableRipple
                         sx={{
                             width: '100%',
-                            color: 'primary.secondary',
                             height: '20vh',
-                            backgroundColor: 'background.secondary',
                         }}>
                         <Typography
                             variant='h1'
@@ -59,7 +57,7 @@ export const Home = () => {
                             Budget Tracker
                         </Typography>
                     </Button>
-                    <SearchAppBar isDarkMode={theme.isDarkMode} />
+                    <SearchAppBar mode={theme.mode} />
                     {data.length === 0 ? (
                         <Empty message='budget' />
                     ) : (

@@ -86,7 +86,7 @@ export const Transactions = () => {
                         expense={expense}
                         income={income}
                         title={budgetId.title}
-                        isDarkMode={theme.isDarkMode}
+                        mode={theme.mode}
                         budgetId={budgetId._id}
                     />
 

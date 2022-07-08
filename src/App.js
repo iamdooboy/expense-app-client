@@ -10,13 +10,16 @@ import {
 } from './components/navigation/PrivateRoute';
 import { Transactions } from './pages/Transactions';
 import { ThemeProvider } from '@mui/material/styles';
-import { darkTheme, lightTheme } from './theme';
+import React from 'react';
+import { useCreateTheme } from './custom hooks/useCreateTheme';
 
 function App() {
-    const theme = useSelector((state) => state.theme);
+    const { mode } = useSelector((state) => state.theme);
+
+    const theme = useCreateTheme(mode);
 
     return (
-        <ThemeProvider theme={theme.isDarkMode ? darkTheme : lightTheme}>
+        <ThemeProvider theme={theme}>
             <BrowserRouter>
                 <Routes>
                     <Route

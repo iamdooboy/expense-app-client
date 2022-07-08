@@ -84,16 +84,16 @@ export const TransactionItem = (props) => {
     let color;
     let border;
 
-    if (props.edit) {
-        border = 'primary.main';
-    } else if (!props.edit && props.disable) {
-        opacity = 0.38;
-        color = 'primary.main';
-        border = '#9F9F9F';
-    } else if (!props.edit && !props.disable) {
-        opacity = 1;
-        border = 'primary.main';
-    }
+    // if (props.edit) {
+    //     border = 'primary.main';
+    // } else if (!props.edit && props.disable) {
+    //     opacity = 0.38;
+    //     color = 'RED';
+    //     border = '#9F9F9F';
+    // } else if (!props.edit && !props.disable) {
+    //     opacity = 1;
+    //     border = 'primary.main';
+    // }
 
     return (
         <StyledTableRow
@@ -110,7 +110,7 @@ export const TransactionItem = (props) => {
                 scope='row'
                 sx={{
                     pointerEvents: props.edit ? 'none' : 'auto',
-                    borderColor: border,
+                    borderColor: 'primary.main',
                 }}>
                 {props.type === 'expense' ? (
                     <ArrowCircleDownSharpIcon sx={{ color: 'error.main' }} />
@@ -121,7 +121,7 @@ export const TransactionItem = (props) => {
             <TableCell
                 sx={{
                     color: props.edit ? 'text.selected' : 'text.primary',
-                    borderColor: border,
+                    borderColor: 'primary.main',
                 }}
                 align='right'>
                 {props.text}
@@ -130,7 +130,7 @@ export const TransactionItem = (props) => {
                 sx={{
                     pointerEvents: props.edit ? 'none' : 'auto',
                     color: props.edit ? 'text.selected' : 'text.primary',
-                    borderColor: border,
+                    borderColor: 'primary.main',
                 }}
                 align='right'>
                 {date.toLocaleDateString('en-US')}
@@ -139,14 +139,14 @@ export const TransactionItem = (props) => {
                 sx={{
                     pointerEvents: props.edit ? 'none' : 'auto',
                     color: props.edit ? 'text.selected' : 'text.primary',
-                    borderColor: border,
+                    borderColor: 'primary.main',
                 }}
                 align='right'>
                 {`$ ${props.amount.toFixed(2)}`}
             </TableCell>
             <TableCell
                 sx={{
-                    borderColor: border,
+                    borderColor: 'primary.main',
                 }}
                 align='right'>
                 <CustomIconButton
@@ -156,7 +156,7 @@ export const TransactionItem = (props) => {
                     sx={{
                         //pointerEvents: props.edit ? 'none' : 'auto',
                         color: props.edit ? 'text.selected' : 'text.primary',
-                        borderColor: border,
+                        borderColor: 'primary.main',
                     }}>
                     <DeleteOutlineSharpIcon />
                 </CustomIconButton>
