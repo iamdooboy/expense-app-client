@@ -35,6 +35,11 @@ export const EditTransaction = (props) => {
         }
     };
 
+    const clearInput = (type, setType) => {
+        type.current.value = '';
+        setType('');
+    };
+
     const submitHandler = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -99,7 +104,7 @@ export const EditTransaction = (props) => {
                             <InputAdornment position='end'>
                                 <IconButton
                                     onClick={() =>
-                                        (textInput.current.value = '')
+                                        clearInput(textInput, setText)
                                     }>
                                     <ClearIcon />
                                 </IconButton>
@@ -113,14 +118,24 @@ export const EditTransaction = (props) => {
                     defaultValue={props.amount}
                     autoComplete='off'
                     fullWidth
+                    type='number'
                     name='amount'
                     placeholder='Amount'
+                    sx={{
+                        'input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button':
+                            {
+                                '-webkit-appearance': 'none',
+                                'margin': 'none',
+                            },
+                    }}
                     InputProps={{
+                        inputMode: 'numeric',
+                        pattern: '[0-9]*',
                         endAdornment: (
                             <InputAdornment position='end'>
                                 <IconButton
                                     onClick={() =>
-                                        (amountInput.current.value = '')
+                                        clearInput(amountInput, setAmount)
                                     }>
                                     <ClearIcon />
                                 </IconButton>

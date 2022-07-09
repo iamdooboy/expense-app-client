@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { createTransactionAction } from '../../redux/slices/transactions/transactionSlices';
 import { useDispatch } from 'react-redux';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -14,6 +14,7 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
+import FormHelperText from '@mui/material/FormHelperText';
 
 export const NewTransaction = (props) => {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export const NewTransaction = (props) => {
     const [amount, setAmount] = useState();
     const textInput = useRef(null);
     const amountInput = useRef(null);
+    const [error, setError] = useState(true);
 
     const handleTransactionType = (event, newTransactionType) => {
         if (amount < 0) {
@@ -32,6 +34,11 @@ export const NewTransaction = (props) => {
         } else {
             setTransactionType('');
         }
+    };
+
+    const clearInput = (type, setType) => {
+        type.current.value = '';
+        setType('');
     };
 
     const submitHandler = async (event) => {
@@ -91,7 +98,7 @@ export const NewTransaction = (props) => {
                             <InputAdornment position='end'>
                                 <IconButton
                                     onClick={() =>
-                                        (textInput.current.value = '')
+                                        clearInput(textInput, setText)
                                     }>
                                     <ClearIcon />
                                 </IconButton>
@@ -107,20 +114,6 @@ export const NewTransaction = (props) => {
                     type='number'
                     name='amount'
                     placeholder='Amount'
-                    InputProps={{
-                        inputMode: 'numeric',
-                        pattern: '[0-9]*',
-                        endAdornment: (
-                            <InputAdornment position='end'>
-                                <IconButton
-                                    onClick={() =>
-                                        (amountInput.current.value = '')
-                                    }>
-                                    <ClearIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
                     sx={{
                         'input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button':
                             {
@@ -128,18 +121,40 @@ export const NewTransaction = (props) => {
                                 'margin': 'none',
                             },
                     }}
+                    InputProps={{
+                        inputMode: 'numeric',
+                        pattern: '[0-9]*',
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <IconButton
+                                    onClick={() =>
+                                        clearInput(amountInput, setAmount)
+                                    }>
+                                    <ClearIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
                 />
                 <LocalizationProvider name='date' dateAdapter={AdapterDateFns}>
                     <DatePicker
-                        disableFuture
                         views={['year', 'month', 'day']}
                         value={date}
-                        onChange={(newValue) => setDate(newValue)}
+                        onChange={(newValue) => {
+                            setDate(newValue);
+                        }}
+                        onError={() => setError(!error)}
+                        helperText={error ? 'asds' : 'indasfsdf'}
                         renderInput={(params) => (
                             <TextField fullWidth {...params} />
                         )}
                     />
                 </LocalizationProvider>
+                {!error && (
+                    <FormHelperText sx={{ marginLeft: '10px' }} error>
+                        Invalid date
+                    </FormHelperText>
+                )}
                 <ToggleButtonGroup
                     value={transactionType}
                     exclusive

@@ -154,16 +154,15 @@ export const TransactionAppBar = (props) => {
                                 alignItems='center'
                                 justifyContent='center'>
                                 <Grid item>
-                                    <Typography>
-                                        <Box
-                                            sx={{
-                                                fontWeight: 'medium',
-                                                textTransform: 'capitalize',
-                                                m: 1,
-                                                lineHeight: '2.8',
-                                            }}>
-                                            {title}
-                                        </Box>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: '500',
+                                            textTransform: 'capitalize',
+                                            m: 1,
+                                            lineHeight: '2.8',
+                                            color: 'text.primary',
+                                        }}>
+                                        {title}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -186,6 +185,7 @@ export const TransactionAppBar = (props) => {
                             width: '100%',
                             backgroundColor: 'background.secondary',
                             height: '7vh',
+                            boxSizing: 'border-box',
                         }}>
                         <Stack
                             direction='row'
