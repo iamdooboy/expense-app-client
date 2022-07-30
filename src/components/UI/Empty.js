@@ -10,6 +10,7 @@ export const Empty = (props) => {
                 border: '1px solid',
                 color: 'primary.main',
                 height: '70vh',
+                backgroundColor: 'background.secondary',
             }}>
             <Typography variant='h4' align='center' sx={{ paddingTop: '25%' }}>
                 You have no {props.message}. Get started by adding your first{' '}

@@ -127,35 +127,23 @@ const transactionSlices = createSlice({
     extraReducers: {
         [fetchAllTransactionAction.pending]: (state, action) => {
             console.log('pending fetch transactions...');
-            state.loading = true;
         },
         [fetchAllTransactionAction.fulfilled]: (state, action) => {
             console.log('fulfilled fetch transactions...');
-            state.loading = false;
             state.transactionData = action.payload;
             state.balance = totalBalance(state.transactionData);
             state.expense = totalExpense(state.transactionData);
             state.income = totalIncome(state.transactionData);
         },
-        [createTransactionAction.pending]: (state, action) => {
-            console.log('pending create transaction...');
-            state.loading = true;
-        },
+        [createTransactionAction.pending]: (state, action) => {},
         [createTransactionAction.fulfilled]: (state, action) => {
-            console.log('fulfilled create transaction...');
-            state.loading = false;
             state.transactionData.push(action.payload);
             state.balance = totalBalance(state.transactionData);
             state.expense = totalExpense(state.transactionData);
             state.income = totalIncome(state.transactionData);
         },
-        [deleteTransactionAction.pending]: (state, action) => {
-            state.loading = true;
-            console.log('pending delete transaction...');
-        },
+        [deleteTransactionAction.pending]: (state, action) => {},
         [deleteTransactionAction.fulfilled]: (state, action) => {
-            console.log('fulfilled delete transaction...');
-            state.loading = false;
             state.transactionData = state.transactionData.filter(
                 (transaction) => transaction._id !== action.payload._id
             );
@@ -165,11 +153,9 @@ const transactionSlices = createSlice({
         },
         [updateTransactionEditAction.pending]: (state, action) => {
             console.log('pending transaction edit');
-            state.loading = true;
         },
         [updateTransactionEditAction.fulfilled]: (state, action) => {
             console.log('fulfilled transaction edit');
-            state.loading = false;
             const foundIndex = state.transactionData.findIndex(
                 (trasaction) => trasaction._id === action.payload._id
             );
@@ -177,11 +163,9 @@ const transactionSlices = createSlice({
         },
         [updateTransactionAction.pending]: (state, action) => {
             console.log('pending update transaction');
-            state.loading = true;
         },
         [updateTransactionAction.fulfilled]: (state, action) => {
             console.log('fulfilled update transaction');
-            state.loading = false;
             const foundIndex = state.transactionData.findIndex(
                 (trasaction) => trasaction._id === action.payload._id
             );

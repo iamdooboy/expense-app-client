@@ -5,7 +5,7 @@ const UserActions = (actionType, path) => {
     const action = createAsyncThunk(
         actionType,
         async (userData, { rejectWithValue, getState, dispatch }) => {
-            const url = `http://localhost:8000/api/users${path}`;
+            const url = `http://localhost:27017/api/users${path}`;
 
             const config = {
                 headers: {
@@ -17,6 +17,10 @@ const UserActions = (actionType, path) => {
                 const { data } = await axios.post(url, userData, config);
                 if (path === '/login') {
                     localStorage.setItem('userId', JSON.stringify(data));
+                    localStorage.setItem(
+                        'theme',
+                        JSON.stringify({ mode: 'light' })
+                    );
                 }
                 return data;
             } catch (error) {
@@ -41,6 +45,7 @@ export const logoutUserAction = createAsyncThunk(
     async (payload, { rejectWithValue, getState, dispatch }) => {
         try {
             localStorage.removeItem('userId');
+            localStorage.removeItem('theme');
         } catch (error) {
             if (!error?.response) {
                 throw error;

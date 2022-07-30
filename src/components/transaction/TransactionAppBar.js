@@ -51,6 +51,10 @@ export const TransactionAppBar = (props) => {
         });
     };
 
+    const handleLogoutAction = () => {
+        localStorage.removeItem('budgetId');
+        dispatch(logoutUserAction());
+    };
     return (
         <Box
             component='form'
@@ -74,7 +78,7 @@ export const TransactionAppBar = (props) => {
                             justifyContent: 'center',
                         }}>
                         <Button
-                            onClick={() => dispatch(logoutUserAction())}
+                            onClick={handleLogoutAction}
                             sx={{
                                 minWidth: '32px',
                                 height: '36px',

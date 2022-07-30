@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createTransactionAction } from '../../redux/slices/transactions/transactionSlices';
-import { useDispatch } from 'react-redux';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -15,8 +15,11 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
 import FormHelperText from '@mui/material/FormHelperText';
+import { CustomTextfield } from './CustomTextfield';
 
 export const NewTransaction = (props) => {
+    const { budgetId } = props;
+
     const dispatch = useDispatch();
     const [transactionType, setTransactionType] = useState('');
     const [date, setDate] = useState(new Date());
@@ -54,8 +57,10 @@ export const NewTransaction = (props) => {
             createdAt: date,
         };
         dispatch(createTransactionAction(transactionData));
-        textInput.current.value = '';
-        amountInput.current.value = '';
+        clearInput(textInput, setText);
+        clearInput(amountInput, setAmount);
+        setTransactionType('');
+        setDate(new Date());
     };
 
     const amountValidation = (event) => {
@@ -86,6 +91,14 @@ export const NewTransaction = (props) => {
                     color: 'primary.main',
                     overflow: 'hidden',
                 }}>
+                {/* <CustomTextfield
+                    ref={textInput}
+                    text={'Text'}
+                    defaultValue={'test'}
+                    setFunc={setText}
+                    clearInput={clearInput}
+                    test={text}
+                /> */}
                 <TextField
                     onBlur={(e) => setText(e.target.value)}
                     inputRef={textInput}
@@ -111,7 +124,7 @@ export const NewTransaction = (props) => {
                     inputRef={amountInput}
                     autoComplete='off'
                     fullWidth
-                    type='number'
+                    type='text'
                     name='amount'
                     placeholder='Amount'
                     sx={{

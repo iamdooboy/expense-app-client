@@ -17,18 +17,22 @@ import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
 
 export const EditTransaction = (props) => {
+    const { budgetId, editTransaction } = props;
+    const { id, text, amount, type, date, edit } = editTransaction;
+
     const dispatch = useDispatch();
     const textInput = useRef(null);
     const amountInput = useRef(null);
-    const [date, setDate] = useState(props.date);
-    const [transactionType, setTransactionType] = useState(props.type);
-    const [text, setText] = useState(props.text);
-    const [amount, setAmount] = useState(props.amount);
+
+    const [inputDate, setInputDate] = useState(date);
+    const [transactionType, setTransactionType] = useState(type);
+    const [inputText, setInputText] = useState(text);
+    const [inputAmount, setInputAmount] = useState(amount);
 
     const handleTransactionType = (event, newTransactionType) => {
-        if (amount < 0) {
+        if (inputAmount < 0) {
             setTransactionType('expense');
-        } else if (amount > 0) {
+        } else if (inputAmount > 0) {
             setTransactionType('income');
         } else {
             setTransactionType('');
@@ -45,12 +49,12 @@ export const EditTransaction = (props) => {
         const data = new FormData(event.currentTarget);
 
         const updatedTransactionData = {
-            id: props.id,
+            id: id,
             type: transactionType,
-            text: text,
-            amount: amount,
-            budget: props.budgetId,
-            createdAt: date,
+            text: inputText,
+            amount: inputAmount,
+            budget: budgetId,
+            createdAt: inputDate,
             edit: false,
         };
 
@@ -72,10 +76,11 @@ export const EditTransaction = (props) => {
         } else {
             setTransactionType('');
         }
-        setAmount(amount);
+        setInputAmount(amount);
     };
 
-    const disabledState = !text || !amount || !date || !transactionType;
+    const disabledState =
+        !inputText || !inputAmount || !inputDate || !transactionType;
 
     return (
         <Grid item xs={3}>
@@ -91,10 +96,10 @@ export const EditTransaction = (props) => {
                     overflow: 'hidden',
                 }}>
                 <TextField
-                    onBlur={(e) => setText(e.target.value)}
+                    onBlur={(e) => setInputText(e.target.value)}
                     inputRef={textInput}
                     autoFocus
-                    defaultValue={props.text}
+                    defaultValue={inputText}
                     autoComplete='off'
                     fullWidth
                     name='text'
@@ -104,7 +109,7 @@ export const EditTransaction = (props) => {
                             <InputAdornment position='end'>
                                 <IconButton
                                     onClick={() =>
-                                        clearInput(textInput, setText)
+                                        clearInput(textInput, setInputText)
                                     }>
                                     <ClearIcon />
                                 </IconButton>
@@ -115,7 +120,7 @@ export const EditTransaction = (props) => {
                 <TextField
                     onBlur={amountValidation}
                     inputRef={amountInput}
-                    defaultValue={props.amount}
+                    defaultValue={inputAmount}
                     autoComplete='off'
                     fullWidth
                     type='number'
@@ -135,7 +140,7 @@ export const EditTransaction = (props) => {
                             <InputAdornment position='end'>
                                 <IconButton
                                     onClick={() =>
-                                        clearInput(amountInput, setAmount)
+                                        clearInput(amountInput, setInputAmount)
                                     }>
                                     <ClearIcon />
                                 </IconButton>
@@ -147,9 +152,9 @@ export const EditTransaction = (props) => {
                     <DatePicker
                         disableFuture
                         views={['year', 'month', 'day']}
-                        value={date}
+                        value={inputDate}
                         onChange={(newValue) => {
-                            setDate(newValue);
+                            setInputDate(newValue);
                         }}
                         renderInput={(params) => (
                             <TextField fullWidth {...params} />

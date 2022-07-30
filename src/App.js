@@ -12,6 +12,7 @@ import { Transactions } from './pages/Transactions';
 import { ThemeProvider } from '@mui/material/styles';
 import React from 'react';
 import { useCreateTheme } from './custom hooks/useCreateTheme';
+import { TableContent } from './components/transaction/TableContent';
 
 function App() {
     const { mode } = useSelector((state) => state.theme);
@@ -32,10 +33,14 @@ function App() {
                     <Route
                         path='/transactions'
                         element={
-                            <BudgetRoute>
-                                <Transactions />
-                            </BudgetRoute>
-                        }></Route>
+                            <PrivateRoute>
+                                <BudgetRoute>
+                                    <Transactions />
+                                </BudgetRoute>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route path='/table' element={<TableContent />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/login' element={<Login />} />
                 </Routes>

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const editTransactionSlice = createSlice({
     name: 'editTransactionData',
-    initialState: [],
+    initialState: {},
     reducers: {
         updateEditTransactionData: (state, action) => {
             return (state = action.payload);

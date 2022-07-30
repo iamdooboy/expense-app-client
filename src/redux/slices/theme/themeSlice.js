@@ -1,12 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const theme = localStorage.getItem('theme')
+    ? JSON.parse(localStorage.getItem('theme'))
+    : 'light';
+
+console.log(theme.mode);
+
 const themeSlice = createSlice({
     name: 'theme',
     initialState: {
-        mode: 'light',
+        mode: theme.mode,
     },
     reducers: {
         toggleColorMode: (state, action) => {
+            localStorage.setItem('theme', JSON.stringify(action.payload));
             return (state = action.payload);
         },
     },

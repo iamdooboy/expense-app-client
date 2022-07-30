@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllTransactionAction } from '../redux/slices/transactions/transactionSlices';
 import { TransactionList } from '../components/transaction/TransactionList';
@@ -13,6 +13,7 @@ import { Empty } from '../components/UI/Empty';
 import { useIsMount } from '../custom hooks/useIsMount';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { TableContent } from '../components/transaction/TableContent';
 
 export const Transactions = () => {
     const isFirstRender = useIsMount();
@@ -21,16 +22,16 @@ export const Transactions = () => {
         (state) => state.transactions
     );
 
-    const { id, edit, type, text, amount, date } = useSelector(
-        (state) => state.editTransaction
-    );
-    const dispatch = useDispatch();
-    const theme = useSelector((state) => state.theme);
-    const { disableMode } = useSelector((state) => state.disableTransaction);
-
     const budgetId = localStorage.getItem('budgetId')
         ? JSON.parse(localStorage.getItem('budgetId'))
         : undefined;
+
+    const editTransaction = useSelector((state) => state.editTransaction);
+
+    const [editTrxInfo, setEditTrxInfo] = useState({});
+    const dispatch = useDispatch();
+    const theme = useSelector((state) => state.theme);
+    const { disableMode } = useSelector((state) => state.disableTransaction);
 
     useEffect(() => {
         if (isFirstRender) {
@@ -63,7 +64,7 @@ export const Transactions = () => {
                         sx={{
                             width: '100%',
                             color: 'primary.secondary',
-                            height: '20vh',
+                            height: '12vh',
                             backgroundColor: 'background.secondary',
                         }}>
                         <Typography
@@ -95,20 +96,21 @@ export const Transactions = () => {
                             {transactionData.length === 0 ? (
                                 <Empty message='transaction' />
                             ) : (
-                                <TransactionList
+                                // <TransactionList
+                                //     transactions={transactionData}
+                                //     disable={disableMode}
+                                // />
+                                <TableContent
                                     transactions={transactionData}
                                     disable={disableMode}
+                                    setEditTrxInfo={setEditTrxInfo}
+                                    editTrxInfo={editTrxInfo}
                                 />
                             )}
                         </Grid>
                         {transactionData?.some((obj) => obj.edit === true) ? (
                             <EditTransaction
-                                id={id}
-                                edit={edit}
-                                text={text}
-                                amount={amount}
-                                date={date}
-                                type={type}
+                                editTransaction={editTransaction}
                                 budgetId={budgetId._id}
                             />
                         ) : (

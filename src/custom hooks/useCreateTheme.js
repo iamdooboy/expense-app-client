@@ -42,6 +42,17 @@ export const useCreateTheme = (mode) => {
             fontFamily: ['"Source Code Pro"', 'monospace'].join(','),
         },
         components: {
+            MuiSvgIcon: {
+                styleOverrides: {
+                    root: {
+                        //'color': 'white',
+                        '&.MuiSelect-iconStandard': {
+                            color:
+                                mode === 'dark' ? COLORS.WHITE : COLORS.BLACK,
+                        },
+                    },
+                },
+            },
             MuiButton: {
                 styleOverrides: {
                     root: {
@@ -341,6 +352,11 @@ export const useCreateTheme = (mode) => {
                     mode === 'dark'
                         ? DARK_MODE_COLORS.DISABLE
                         : LIGHT_MODE_COLORS.DISABLE,
+                header: mode === 'dark' ? '#1A202C' : '#E0E0E0',
+                separator:
+                    mode === 'dark'
+                        ? DARK_MODE_COLORS.BOX_SHADOW
+                        : LIGHT_MODE_COLORS.DISABLE,
             },
             secondary: {
                 main: mode === 'dark' ? '#fafafa' : COLORS.WHITE,
@@ -351,6 +367,12 @@ export const useCreateTheme = (mode) => {
                 selected: COLORS.WHITE,
                 disabled:
                     mode === 'dark' ? COLORS.DISABLE_DATE : COLORS.DISABLE,
+            },
+            action: {
+                disabled:
+                    mode === 'dark'
+                        ? DARK_MODE_COLORS.BOX_SHADOW
+                        : LIGHT_MODE_COLORS.DISABLE,
             },
             background: {
                 paper:
