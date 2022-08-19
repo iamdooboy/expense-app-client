@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 
 export const Empty = (props) => {
+    console.log('empty');
     return (
         <Box
             sx={{

@@ -79,19 +79,17 @@ export const NewTransaction = (props) => {
     const disabledState = !text || !amount || !date || !transactionType;
 
     return (
-        <Grid item xs={3}>
-            <Box
-                component='form'
-                onSubmit={submitHandler}
-                sx={{
-                    height: '100%',
-                    bgcolor: 'background.secondary',
-                    boxShadow: '4px 4px',
-                    border: '1px solid',
-                    color: 'primary.main',
-                    overflow: 'hidden',
-                }}>
-                {/* <CustomTextfield
+        <Box
+            component='form'
+            onSubmit={submitHandler}
+            sx={{
+                bgcolor: 'background.secondary',
+                boxShadow: '4px 4px',
+                border: '1px solid',
+                color: 'primary.main',
+                overflow: 'hidden',
+            }}>
+            {/* <CustomTextfield
                     ref={textInput}
                     text={'Text'}
                     defaultValue={'test'}
@@ -99,130 +97,127 @@ export const NewTransaction = (props) => {
                     clearInput={clearInput}
                     test={text}
                 /> */}
-                <TextField
-                    onBlur={(e) => setText(e.target.value)}
-                    inputRef={textInput}
-                    autoComplete='off'
-                    fullWidth
-                    name='text'
-                    placeholder='Text'
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position='end'>
-                                <IconButton
-                                    onClick={() =>
-                                        clearInput(textInput, setText)
-                                    }>
-                                    <ClearIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        ),
+            <TextField
+                onBlur={(e) => setText(e.target.value)}
+                inputRef={textInput}
+                autoComplete='off'
+                fullWidth
+                name='text'
+                placeholder='Text'
+                InputProps={{
+                    endAdornment: (
+                        <InputAdornment position='end'>
+                            <IconButton
+                                onClick={() => clearInput(textInput, setText)}>
+                                <ClearIcon />
+                            </IconButton>
+                        </InputAdornment>
+                    ),
+                }}
+            />
+            <TextField
+                onBlur={amountValidation}
+                inputRef={amountInput}
+                autoComplete='off'
+                fullWidth
+                type='text'
+                name='amount'
+                placeholder='Amount'
+                sx={{
+                    'input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button':
+                        {
+                            '-webkit-appearance': 'none',
+                            'margin': 'none',
+                        },
+                }}
+                InputProps={{
+                    inputMode: 'numeric',
+                    pattern: '[0-9]*',
+                    endAdornment: (
+                        <InputAdornment position='end'>
+                            <IconButton
+                                onClick={() =>
+                                    clearInput(amountInput, setAmount)
+                                }>
+                                <ClearIcon />
+                            </IconButton>
+                        </InputAdornment>
+                    ),
+                }}
+            />
+            <LocalizationProvider name='date' dateAdapter={AdapterDateFns}>
+                <DatePicker
+                    views={['year', 'month', 'day']}
+                    value={date}
+                    onChange={(newValue) => {
+                        setDate(newValue);
                     }}
+                    onError={() => setError(!error)}
+                    helperText={error ? 'asds' : 'indasfsdf'}
+                    renderInput={(params) => (
+                        <TextField fullWidth {...params} />
+                    )}
                 />
-                <TextField
-                    onBlur={amountValidation}
-                    inputRef={amountInput}
-                    autoComplete='off'
-                    fullWidth
-                    type='text'
-                    name='amount'
-                    placeholder='Amount'
+            </LocalizationProvider>
+            {!error && (
+                <FormHelperText sx={{ marginLeft: '10px' }} error>
+                    Invalid date
+                </FormHelperText>
+            )}
+            <ToggleButtonGroup
+                value={transactionType}
+                exclusive
+                onChange={handleTransactionType}
+                fullWidth>
+                <ToggleButton
                     sx={{
-                        'input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button':
-                            {
-                                '-webkit-appearance': 'none',
-                                'margin': 'none',
-                            },
-                    }}
-                    InputProps={{
-                        inputMode: 'numeric',
-                        pattern: '[0-9]*',
-                        endAdornment: (
-                            <InputAdornment position='end'>
-                                <IconButton
-                                    onClick={() =>
-                                        clearInput(amountInput, setAmount)
-                                    }>
-                                    <ClearIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <LocalizationProvider name='date' dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                        views={['year', 'month', 'day']}
-                        value={date}
-                        onChange={(newValue) => {
-                            setDate(newValue);
-                        }}
-                        onError={() => setError(!error)}
-                        helperText={error ? 'asds' : 'indasfsdf'}
-                        renderInput={(params) => (
-                            <TextField fullWidth {...params} />
-                        )}
-                    />
-                </LocalizationProvider>
-                {!error && (
-                    <FormHelperText sx={{ marginLeft: '10px' }} error>
-                        Invalid date
-                    </FormHelperText>
-                )}
-                <ToggleButtonGroup
-                    value={transactionType}
-                    exclusive
-                    onChange={handleTransactionType}
-                    fullWidth>
-                    <ToggleButton
-                        sx={{
-                            'color': 'success.main',
+                        'color': 'success.main',
+                        '&:hover': {
+                            backgroundColor: 'success.main',
+                            borderColor: 'success.main',
+                        },
+                        '&.Mui-selected': {
+                            'backgroundColor': 'success.main',
+                            'borderColor': 'success.main',
                             '&:hover': {
                                 backgroundColor: 'success.main',
                                 borderColor: 'success.main',
                             },
-                            '&.Mui-selected': {
-                                'backgroundColor': 'success.main',
-                                'borderColor': 'success.main',
-                                '&:hover': {
-                                    backgroundColor: 'success.main',
-                                    borderColor: 'success.main',
-                                },
-                            },
-                        }}
-                        value='income'>
-                        Income
-                    </ToggleButton>
-                    <ToggleButton
-                        sx={{
-                            'color': 'error.main',
+                        },
+                    }}
+                    value='income'>
+                    Income
+                </ToggleButton>
+                <ToggleButton
+                    sx={{
+                        'color': 'error.main',
+                        '&:hover': {
+                            backgroundColor: 'error.main',
+                            borderColor: 'error.main',
+                        },
+                        '&.Mui-selected': {
+                            'backgroundColor': 'error.main',
+                            'borderColor': 'error.main',
                             '&:hover': {
                                 backgroundColor: 'error.main',
                                 borderColor: 'error.main',
                             },
-                            '&.Mui-selected': {
-                                'backgroundColor': 'error.main',
-                                'borderColor': 'error.main',
-                                '&:hover': {
-                                    backgroundColor: 'error.main',
-                                    borderColor: 'error.main',
-                                },
-                            },
-                        }}
-                        value='expense'>
-                        Expense
-                    </ToggleButton>
-                </ToggleButtonGroup>
-                <ButtonGroup fullWidth sx={{ boxSizing: 'border-box' }}>
-                    <Button
-                        disabled={disabledState}
-                        type='submit'
-                        sx={{
-                            margin: '10px',
-                        }}>
-                        Add Transaction
-                    </Button>
-                </ButtonGroup>
-            </Box>
-        </Grid>
+                        },
+                    }}
+                    value='expense'>
+                    Expense
+                </ToggleButton>
+            </ToggleButtonGroup>
+            <ButtonGroup fullWidth sx={{ boxSizing: 'border-box' }}>
+                <Button
+                    disabled={disabledState}
+                    type='submit'
+                    sx={{
+                        margin: '10px',
+                    }}>
+                    Add Transaction
+                </Button>
+            </ButtonGroup>
+        </Box>
     );
 };

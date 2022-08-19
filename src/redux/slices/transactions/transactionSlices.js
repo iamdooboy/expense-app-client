@@ -88,6 +88,37 @@ export const updateTransactionEditAction = transactionActions(
     'PUT'
 );
 
+const findDuplicates = (arr) => {
+    const set = new Set(arr);
+
+    const duplicates = arr.filter((num) => {
+        if (set.has(num)) {
+            set.delete(num);
+        } else {
+            return num;
+        }
+    });
+
+    if (duplicates.length === 0) {
+        return -1;
+    } else {
+        return duplicates.length;
+    }
+};
+
+const mostExpensive = (arr) => {
+    arr.sort((a, b) => a.amount - b.amount);
+
+    let arr2 = arr.map((el) => el.amount);
+    arr2.sort((a, b) => a - b);
+
+    const duplicates = findDuplicates(arr2);
+
+    arr[0].numberOfDulicates = duplicates + 1;
+
+    return arr[0];
+};
+
 const totalBalance = (arr) => {
     const sum = arr.reduce(
         (accumulator, object) => accumulator + object.amount,
@@ -131,6 +162,7 @@ const transactionSlices = createSlice({
         [fetchAllTransactionAction.fulfilled]: (state, action) => {
             console.log('fulfilled fetch transactions...');
             state.transactionData = action.payload;
+            state.mostExpensive = mostExpensive(state.transactionData);
             state.balance = totalBalance(state.transactionData);
             state.expense = totalExpense(state.transactionData);
             state.income = totalIncome(state.transactionData);

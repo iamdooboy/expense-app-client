@@ -14,13 +14,19 @@ import { useIsMount } from '../custom hooks/useIsMount';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { TableContent } from '../components/transaction/TableContent';
+import { Statistics } from '../components/transaction/Statistics';
 
 export const Transactions = () => {
     const isFirstRender = useIsMount();
 
-    const { loading, transactionData, balance, expense, income } = useSelector(
-        (state) => state.transactions
-    );
+    const {
+        loading,
+        transactionData,
+        balance,
+        expense,
+        income,
+        mostExpensive,
+    } = useSelector((state) => state.transactions);
 
     const budgetId = localStorage.getItem('budgetId')
         ? JSON.parse(localStorage.getItem('budgetId'))
@@ -93,29 +99,38 @@ export const Transactions = () => {
 
                     <Grid container spacing={2}>
                         <Grid item xs={9}>
-                            {transactionData.length === 0 ? (
+                            {transactionData.length === 0 && !isFirstRender ? (
                                 <Empty message='transaction' />
                             ) : (
-                                // <TransactionList
-                                //     transactions={transactionData}
-                                //     disable={disableMode}
-                                // />
-                                <TableContent
-                                    transactions={transactionData}
-                                    disable={disableMode}
-                                    setEditTrxInfo={setEditTrxInfo}
-                                    editTrxInfo={editTrxInfo}
+                                transactionData.length > 0 && (
+                                    <TableContent
+                                        transactions={transactionData}
+                                        disable={disableMode}
+                                        setEditTrxInfo={setEditTrxInfo}
+                                        editTrxInfo={editTrxInfo}
+                                    />
+                                )
+                            )}
+                        </Grid>
+                        <Grid item xs={3}>
+                            {transactionData?.some(
+                                (obj) => obj.edit === true
+                            ) ? (
+                                <EditTransaction
+                                    editTransaction={editTransaction}
+                                    budgetId={budgetId._id}
+                                />
+                            ) : (
+                                <NewTransaction budgetId={budgetId._id} />
+                            )}
+
+                            {mostExpensive && (
+                                <Statistics
+                                    mostExpensive={mostExpensive}
+                                    loading={loading}
                                 />
                             )}
                         </Grid>
-                        {transactionData?.some((obj) => obj.edit === true) ? (
-                            <EditTransaction
-                                editTransaction={editTransaction}
-                                budgetId={budgetId._id}
-                            />
-                        ) : (
-                            <NewTransaction budgetId={budgetId._id} />
-                        )}
                     </Grid>
                 </Container>
             )}

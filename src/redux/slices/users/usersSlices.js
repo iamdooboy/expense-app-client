@@ -5,7 +5,7 @@ const UserActions = (actionType, path) => {
     const action = createAsyncThunk(
         actionType,
         async (userData, { rejectWithValue, getState, dispatch }) => {
-            const url = `http://localhost:27017/api/users${path}`;
+            const url = `http://localhost:8000/api/users${path}`;
 
             const config = {
                 headers: {
