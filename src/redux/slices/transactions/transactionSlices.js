@@ -95,28 +95,73 @@ const findDuplicates = (arr) => {
         if (set.has(num)) {
             set.delete(num);
         } else {
+            //console.log(num);
             return num;
         }
     });
 
-    if (duplicates.length === 0) {
-        return -1;
-    } else {
-        return duplicates.length;
-    }
+    const set2 = Array.from(new Set(duplicates));
+    return set2;
+
+    // if (duplicates.length === 0) {
+    //     return -1;
+    // } else {
+    //     return duplicates.length;
+    // }
 };
 
 const mostExpensive = (arr) => {
-    arr.sort((a, b) => a.amount - b.amount);
+    // arr.sort((a, b) => a.amount - b.amount);
 
-    let arr2 = arr.map((el) => el.amount);
-    arr2.sort((a, b) => a - b);
+    // let arr2 = arr.map((el) => el.amount);
+    // arr2.sort((a, b) => a - b);
 
-    const duplicates = findDuplicates(arr2);
+    // const duplicateAmount = findDuplicates(arr2);
 
-    arr[0].numberOfDulicates = duplicates + 1;
+    // const duplicateTransactions = duplicateAmount.map((x) => {
+    //     let trx = arr.filter((y) => {
+    //         if (y.amount === x) {
+    //             return y;
+    //         }
+    //     });
 
-    return arr[0];
+    //     return trx;
+    // });
+
+    // const data = {
+    //     mostExpensive: arr[0].amount,
+    //     cheapest:
+    //         arr[arr.length - 1].amount < 0 ? arr[arr.length - 1].amount : 'Na',
+
+    // };
+    // return data;
+
+    // const expenses = arr.filter((element) => {
+    //     if (element.type === 'expense') {
+    //         return element;
+    //     }
+    // });
+
+    const expenses = arr.filter((element) => element.type === 'expense');
+
+    const incomes = arr.filter((element) => element.type === 'income');
+
+    expenses.sort((a, b) => a.amount - b.amount);
+    incomes.sort((a, b) => a.amount - b.amount);
+
+    const numberOfExpenses = expenses.length;
+    const numberOfIncomes = incomes.length;
+
+    const summary = {
+        mostExpensive: expenses[0].amount,
+        cheapest: expenses[numberOfExpenses - 1].amount,
+        highest: incomes[numberOfIncomes - 1].amount,
+        lowest: incomes[0].amount,
+        numberOfExpenses: numberOfExpenses,
+        numberOfIncomes: numberOfIncomes,
+    };
+
+    return summary;
 };
 
 const totalBalance = (arr) => {

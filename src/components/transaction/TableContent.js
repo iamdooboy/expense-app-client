@@ -67,7 +67,7 @@ export const TableContent = (props) => {
     const [orderBy, setOrderBy] = React.useState('title');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
     const isSelected = (name) => selected.indexOf(name) !== -1;
 

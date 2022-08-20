@@ -50,7 +50,6 @@ export const useCreateTheme = (mode) => {
                             color:
                                 mode === 'dark' ? COLORS.WHITE : COLORS.BLACK,
                         },
-                        'color': mode === 'dark' ? COLORS.WHITE : COLORS.BLACK,
                     },
                 },
             },

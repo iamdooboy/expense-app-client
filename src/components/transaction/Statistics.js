@@ -1,41 +1,34 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Button from '@mui/material/Button';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import ToggleButton from '@mui/material/ToggleButton';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import ClearIcon from '@mui/icons-material/Clear';
-import FormHelperText from '@mui/material/FormHelperText';
 import Divider from '@mui/material/Divider';
 import { CustomTextfield } from './CustomTextfield';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import InfoSharpIcon from '@mui/icons-material/InfoSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Stack from '@mui/material/Stack';
 
 export const Statistics = (props) => {
-    const { text, amount } = props.mostExpensive;
+    const {
+        mostExpensive,
+        cheapest,
+        highest,
+        lowest,
+        numberOfExpenses,
+        numberOfIncomes,
+    } = props.mostExpensive;
 
     function createData(title, data) {
         return { title, data };
     }
     const rows = [
-        createData('Most expensive expense', amount),
-        createData('Highest income', 1273.0),
-        createData('Total number of expenses', 1273.0),
-        createData('Total number of income', 1273.0),
+        createData('Most expensive expense', mostExpensive),
+        createData('Cheapest expense', cheapest),
+        createData('Highest income', highest),
+        createData('Lowest income', lowest),
+        createData('Total number of expenses', numberOfExpenses),
+        createData('Total number of income', numberOfIncomes),
     ];
     return (
         <Box
@@ -56,6 +49,7 @@ export const Statistics = (props) => {
 
             {rows.map((row) => (
                 <Accordion
+                    key={row.title}
                     square
                     sx={{
                         boxShadow: '0px 0px',
@@ -64,7 +58,11 @@ export const Statistics = (props) => {
                         borderColor: 'primary.main',
                     }}>
                     <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
+                        expandIcon={
+                            <ExpandMoreIcon
+                                sx={{ color: 'primary.separator' }}
+                            />
+                        }
                         sx={{
                             padding: 0,
                             paddingX: '10px',
@@ -82,14 +80,18 @@ export const Statistics = (props) => {
                                 width: '20%',
                                 fontSize: 12,
                             }}>
-                            {row.data}
+                            {row.data.toFixed(2)}
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ padding: '0px 10px 20px;' }}>
                         <Stack
                             direction='row'
                             divider={
-                                <Divider orientation='vertical' flexItem />
+                                <Divider
+                                    orientation='vertical'
+                                    flexItem
+                                    sx={{ borderColor: 'primary.separator' }}
+                                />
                             }
                             spacing={2}>
                             <Typography>Pottery Painting</Typography>
