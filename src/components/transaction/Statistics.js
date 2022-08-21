@@ -17,7 +17,9 @@ export const Statistics = (props) => {
         lowest,
         numberOfExpenses,
         numberOfIncomes,
-    } = props.mostExpensive;
+    } = props.summary;
+
+    console.log(mostExpensive);
 
     function createData(title, data) {
         return { title, data };
@@ -27,8 +29,11 @@ export const Statistics = (props) => {
         createData('Cheapest expense', cheapest),
         createData('Highest income', highest),
         createData('Lowest income', lowest),
+    ];
+
+    const numberOfTransactionType = [
         createData('Total number of expenses', numberOfExpenses),
-        createData('Total number of income', numberOfIncomes),
+        createData('Total number of incomes', numberOfIncomes),
     ];
     return (
         <Box
@@ -47,9 +52,71 @@ export const Statistics = (props) => {
                 Quick Summary
             </Typography>
 
-            {rows.map((row) => (
+            {rows.map((row) => {
+                const date = new Date(row.data.date).toLocaleDateString(
+                    'en-US'
+                );
+                const amount = row.data.amount.toFixed(2);
+                const text = row.data.text;
+                return (
+                    <Accordion
+                        key={row.title}
+                        square
+                        sx={{
+                            boxShadow: '0px 0px',
+                            borderTop: '1px solid',
+                            borderBottom: '1px solid',
+                            borderColor: 'primary.main',
+                        }}>
+                        <AccordionSummary
+                            expandIcon={
+                                <ExpandMoreIcon
+                                    sx={{ color: 'primary.separator' }}
+                                />
+                            }
+                            sx={{
+                                padding: 0,
+                                paddingX: '10px',
+                            }}>
+                            <Typography
+                                sx={{
+                                    width: '80%',
+                                    fontSize: 12,
+                                }}>
+                                {row.title}
+                            </Typography>
+                            <Typography
+                                align='right'
+                                sx={{
+                                    width: '20%',
+                                    fontSize: 12,
+                                }}>
+                                {amount}
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{ padding: '0px 10px 20px;' }}>
+                            <Stack
+                                direction='row'
+                                divider={
+                                    <Divider
+                                        orientation='vertical'
+                                        flexItem
+                                        sx={{
+                                            borderColor: 'primary.separator',
+                                        }}
+                                    />
+                                }
+                                spacing={2}>
+                                <Typography>{text}</Typography>
+                                <Typography align='right'>{date}</Typography>
+                            </Stack>
+                        </AccordionDetails>
+                    </Accordion>
+                );
+            })}
+            {numberOfTransactionType.map((type) => (
                 <Accordion
-                    key={row.title}
+                    key={type.title}
                     square
                     sx={{
                         boxShadow: '0px 0px',
@@ -72,7 +139,7 @@ export const Statistics = (props) => {
                                 width: '80%',
                                 fontSize: 12,
                             }}>
-                            {row.title}
+                            {type.title}
                         </Typography>
                         <Typography
                             align='right'
@@ -80,24 +147,9 @@ export const Statistics = (props) => {
                                 width: '20%',
                                 fontSize: 12,
                             }}>
-                            {row.data.toFixed(2)}
+                            {type.data}
                         </Typography>
                     </AccordionSummary>
-                    <AccordionDetails sx={{ padding: '0px 10px 20px;' }}>
-                        <Stack
-                            direction='row'
-                            divider={
-                                <Divider
-                                    orientation='vertical'
-                                    flexItem
-                                    sx={{ borderColor: 'primary.separator' }}
-                                />
-                            }
-                            spacing={2}>
-                            <Typography>Pottery Painting</Typography>
-                            <Typography align='right'>8/16/2022</Typography>
-                        </Stack>
-                    </AccordionDetails>
                 </Accordion>
             ))}
         </Box>

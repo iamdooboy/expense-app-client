@@ -19,14 +19,8 @@ import { Statistics } from '../components/transaction/Statistics';
 export const Transactions = () => {
     const isFirstRender = useIsMount();
 
-    const {
-        loading,
-        transactionData,
-        balance,
-        expense,
-        income,
-        mostExpensive,
-    } = useSelector((state) => state.transactions);
+    const { loading, transactionData, balance, expense, income, summary } =
+        useSelector((state) => state.transactions);
 
     const budgetId = localStorage.getItem('budgetId')
         ? JSON.parse(localStorage.getItem('budgetId'))
@@ -124,9 +118,9 @@ export const Transactions = () => {
                                 <NewTransaction budgetId={budgetId._id} />
                             )}
 
-                            {mostExpensive && (
+                            {summary && (
                                 <Statistics
-                                    mostExpensive={mostExpensive}
+                                    summary={summary}
                                     loading={loading}
                                 />
                             )}

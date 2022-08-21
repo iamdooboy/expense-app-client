@@ -110,7 +110,11 @@ const findDuplicates = (arr) => {
     // }
 };
 
-const mostExpensive = (arr) => {
+const createData = (amount, text, date) => {
+    return { amount, text, date };
+};
+
+const getSummary = (arr) => {
     // arr.sort((a, b) => a.amount - b.amount);
 
     // let arr2 = arr.map((el) => el.amount);
@@ -152,11 +156,37 @@ const mostExpensive = (arr) => {
     const numberOfExpenses = expenses.length;
     const numberOfIncomes = incomes.length;
 
+    const mostExpensive = createData(
+        expenses[0].amount,
+        expenses[0].text,
+        expenses[0].createdAt
+    );
+
+    const cheapest = createData(
+        expenses[numberOfExpenses - 1].amount,
+        expenses[numberOfExpenses - 1].text,
+        expenses[numberOfExpenses - 1].createdAt
+    );
+
+    const highest = createData(
+        incomes[numberOfIncomes - 1].amount,
+        incomes[numberOfIncomes - 1].text,
+        incomes[numberOfIncomes - 1].createdAt
+    );
+
+    const lowest = createData(
+        incomes[0].amount,
+        incomes[0].text,
+        incomes[0].createdAt
+    );
+
+    console.log(cheapest);
+
     const summary = {
-        mostExpensive: expenses[0].amount,
-        cheapest: expenses[numberOfExpenses - 1].amount,
-        highest: incomes[numberOfIncomes - 1].amount,
-        lowest: incomes[0].amount,
+        mostExpensive: mostExpensive,
+        cheapest: cheapest,
+        highest: highest,
+        lowest: lowest,
         numberOfExpenses: numberOfExpenses,
         numberOfIncomes: numberOfIncomes,
     };
@@ -207,7 +237,7 @@ const transactionSlices = createSlice({
         [fetchAllTransactionAction.fulfilled]: (state, action) => {
             console.log('fulfilled fetch transactions...');
             state.transactionData = action.payload;
-            state.mostExpensive = mostExpensive(state.transactionData);
+            state.summary = getSummary(state.transactionData);
             state.balance = totalBalance(state.transactionData);
             state.expense = totalExpense(state.transactionData);
             state.income = totalIncome(state.transactionData);
