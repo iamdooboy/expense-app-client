@@ -2,14 +2,13 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import { CustomTextfield } from './CustomTextfield';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Stack from '@mui/material/Stack';
 
-export const Statistics = (props) => {
+export const Summary = (props) => {
     const {
         mostExpensive,
         cheapest,
@@ -19,7 +18,7 @@ export const Statistics = (props) => {
         numberOfIncomes,
     } = props.summary;
 
-    console.log(mostExpensive);
+    console.log(props.summary);
 
     function createData(title, data) {
         return { title, data };
@@ -44,7 +43,7 @@ export const Statistics = (props) => {
                 color: 'primary.main',
                 overflow: 'hidden',
             }}
-            marginTop='20px'>
+            marginTop='10px'>
             <Typography
                 p='10px'
                 color='text.primary'
@@ -56,7 +55,7 @@ export const Statistics = (props) => {
                 const date = new Date(row.data.date).toLocaleDateString(
                     'en-US'
                 );
-                const amount = row.data.amount.toFixed(2);
+                const amount = row.data.amount ? row.data.amount.toFixed(2) : 0;
                 const text = row.data.text;
                 return (
                     <Accordion
@@ -94,23 +93,29 @@ export const Statistics = (props) => {
                                 {amount}
                             </Typography>
                         </AccordionSummary>
-                        <AccordionDetails sx={{ padding: '0px 10px 20px;' }}>
-                            <Stack
-                                direction='row'
-                                divider={
-                                    <Divider
-                                        orientation='vertical'
-                                        flexItem
-                                        sx={{
-                                            borderColor: 'primary.separator',
-                                        }}
-                                    />
-                                }
-                                spacing={2}>
-                                <Typography>{text}</Typography>
-                                <Typography align='right'>{date}</Typography>
-                            </Stack>
-                        </AccordionDetails>
+                        {row.data !== 0 && (
+                            <AccordionDetails
+                                sx={{ padding: '0px 10px 20px;' }}>
+                                <Stack
+                                    direction='row'
+                                    divider={
+                                        <Divider
+                                            orientation='vertical'
+                                            flexItem
+                                            sx={{
+                                                borderColor:
+                                                    'primary.separator',
+                                            }}
+                                        />
+                                    }
+                                    spacing={2}>
+                                    <Typography>{text}</Typography>
+                                    <Typography align='right'>
+                                        {date}
+                                    </Typography>
+                                </Stack>
+                            </AccordionDetails>
+                        )}
                     </Accordion>
                 );
             })}

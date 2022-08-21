@@ -14,7 +14,7 @@ import { useIsMount } from '../custom hooks/useIsMount';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { TableContent } from '../components/transaction/TableContent';
-import { Statistics } from '../components/transaction/Statistics';
+import { Summary } from '../components/transaction/Summary';
 
 export const Transactions = () => {
     const isFirstRender = useIsMount();
@@ -119,10 +119,7 @@ export const Transactions = () => {
                             )}
 
                             {summary && (
-                                <Statistics
-                                    summary={summary}
-                                    loading={loading}
-                                />
+                                <Summary summary={summary} loading={loading} />
                             )}
                         </Grid>
                     </Grid>

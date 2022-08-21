@@ -156,31 +156,41 @@ const getSummary = (arr) => {
     const numberOfExpenses = expenses.length;
     const numberOfIncomes = incomes.length;
 
-    const mostExpensive = createData(
-        expenses[0].amount,
-        expenses[0].text,
-        expenses[0].createdAt
-    );
+    const mostExpensive =
+        numberOfExpenses === 0
+            ? 0
+            : createData(
+                  expenses[0].amount,
+                  expenses[0].text,
+                  expenses[0].createdAt
+              );
 
-    const cheapest = createData(
-        expenses[numberOfExpenses - 1].amount,
-        expenses[numberOfExpenses - 1].text,
-        expenses[numberOfExpenses - 1].createdAt
-    );
+    const cheapest =
+        numberOfExpenses === 0
+            ? 0
+            : createData(
+                  expenses[numberOfExpenses - 1].amount,
+                  expenses[numberOfExpenses - 1].text,
+                  expenses[numberOfExpenses - 1].createdAt
+              );
 
-    const highest = createData(
-        incomes[numberOfIncomes - 1].amount,
-        incomes[numberOfIncomes - 1].text,
-        incomes[numberOfIncomes - 1].createdAt
-    );
+    const highest =
+        numberOfIncomes === 0
+            ? 0
+            : createData(
+                  incomes[numberOfIncomes - 1].amount,
+                  incomes[numberOfIncomes - 1].text,
+                  incomes[numberOfIncomes - 1].createdAt
+              );
 
-    const lowest = createData(
-        incomes[0].amount,
-        incomes[0].text,
-        incomes[0].createdAt
-    );
-
-    console.log(cheapest);
+    const lowest =
+        numberOfIncomes === 0
+            ? 0
+            : createData(
+                  incomes[0].amount,
+                  incomes[0].text,
+                  incomes[0].createdAt
+              );
 
     const summary = {
         mostExpensive: mostExpensive,
