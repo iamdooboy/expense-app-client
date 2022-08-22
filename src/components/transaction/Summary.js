@@ -42,8 +42,8 @@ export const Summary = (props) => {
                 border: '1px solid',
                 color: 'primary.main',
                 overflow: 'hidden',
-            }}
-            marginTop='10px'>
+                mt: '18px',
+            }}>
             <Typography
                 p='10px'
                 color='text.primary'

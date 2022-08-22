@@ -16,6 +16,8 @@ import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
 import FormHelperText from '@mui/material/FormHelperText';
 import { CustomTextfield } from './CustomTextfield';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 export const NewTransaction = (props) => {
     const { budgetId } = props;
@@ -89,21 +91,19 @@ export const NewTransaction = (props) => {
                 color: 'primary.main',
                 overflow: 'hidden',
             }}>
-            {/* <CustomTextfield
-                    ref={textInput}
-                    text={'Text'}
-                    defaultValue={'test'}
-                    setFunc={setText}
-                    clearInput={clearInput}
-                    test={text}
-                /> */}
+            <Typography
+                p='10px'
+                color='text.primary'
+                sx={{ fontWeight: 'bold', bgcolor: 'primary.header' }}>
+                Add Transaction
+            </Typography>
             <TextField
                 onBlur={(e) => setText(e.target.value)}
                 inputRef={textInput}
                 autoComplete='off'
-                fullWidth
                 name='text'
                 placeholder='Text'
+                fullWidth
                 InputProps={{
                     endAdornment: (
                         <InputAdornment position='end'>
@@ -114,21 +114,29 @@ export const NewTransaction = (props) => {
                         </InputAdornment>
                     ),
                 }}
+                sx={{
+                    pl: '10px',
+                    pr: '14px',
+                    boxSizing: 'border-box',
+                }}
             />
             <TextField
                 onBlur={amountValidation}
                 inputRef={amountInput}
                 autoComplete='off'
-                fullWidth
                 type='text'
                 name='amount'
                 placeholder='Amount'
+                fullWidth
                 sx={{
                     'input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button':
                         {
                             '-webkit-appearance': 'none',
                             'margin': 'none',
                         },
+                    'pl': '10px',
+                    'pr': '14px',
+                    'boxSizing': 'border-box',
                 }}
                 InputProps={{
                     inputMode: 'numeric',
@@ -155,7 +163,15 @@ export const NewTransaction = (props) => {
                     onError={() => setError(!error)}
                     helperText={error ? 'asds' : 'indasfsdf'}
                     renderInput={(params) => (
-                        <TextField fullWidth {...params} />
+                        <TextField
+                            fullWidth
+                            sx={{
+                                pl: '10px',
+                                pr: '14px',
+                                boxSizing: 'border-box',
+                            }}
+                            {...params}
+                        />
                     )}
                 />
             </LocalizationProvider>
@@ -168,7 +184,12 @@ export const NewTransaction = (props) => {
                 value={transactionType}
                 exclusive
                 onChange={handleTransactionType}
-                fullWidth>
+                fullWidth
+                sx={{
+                    pl: '10px',
+                    pr: '14px',
+                    boxSizing: 'border-box',
+                }}>
                 <ToggleButton
                     sx={{
                         'color': 'success.main',
@@ -188,6 +209,11 @@ export const NewTransaction = (props) => {
                     value='income'>
                     Income
                 </ToggleButton>
+                <Divider
+                    flexItem
+                    orientation='vertical'
+                    sx={{ mx: 1, my: 1, borderColor: 'background.secondary' }}
+                />
                 <ToggleButton
                     sx={{
                         'color': 'error.main',
@@ -208,15 +234,16 @@ export const NewTransaction = (props) => {
                     Expense
                 </ToggleButton>
             </ToggleButtonGroup>
-            <ButtonGroup fullWidth sx={{ boxSizing: 'border-box' }}>
-                <Button
-                    disabled={disabledState}
-                    type='submit'
-                    sx={{
-                        margin: '10px',
-                    }}>
-                    Add Transaction
-                </Button>
+            <ButtonGroup
+                fullWidth
+                sx={{
+                    boxSizing: 'border-box',
+                    pl: '10px',
+                    pr: '14px',
+                    mt: '20px',
+                    mb: '14px',
+                }}>
+                <Button disabled={disabledState}>Add Transaction</Button>
             </ButtonGroup>
         </Box>
     );

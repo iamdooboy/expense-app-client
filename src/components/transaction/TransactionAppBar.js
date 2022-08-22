@@ -59,8 +59,8 @@ export const TransactionAppBar = (props) => {
         <Box
             component='form'
             sx={{
-                marginTop: '10px',
-                marginBottom: '10px',
+                marginTop: '14px',
+                marginBottom: '18px',
             }}>
             <Grid container spacing={2}>
                 <Grid item xs={1.8}>
@@ -127,7 +127,6 @@ export const TransactionAppBar = (props) => {
                             'backgroundColor': 'background.secondary',
                             'height': '7vh',
                             'display': 'flex',
-                            'flexDirection': { xs: 'column', md: 'row' },
                             'alignItems': 'center',
                             'justifyContent': 'center',
                             'transitionProperty': 'all',
@@ -186,10 +185,8 @@ export const TransactionAppBar = (props) => {
                             border: '1px solid',
                             boxShadow: '4px 4px',
                             color: 'primary.main',
-                            width: '100%',
                             backgroundColor: 'background.secondary',
                             height: '7vh',
-                            boxSizing: 'border-box',
                         }}>
                         <Stack
                             direction='row'

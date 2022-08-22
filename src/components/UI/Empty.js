@@ -10,7 +10,7 @@ export const Empty = (props) => {
                 boxShadow: '4px 4px',
                 border: '1px solid',
                 color: 'primary.main',
-                height: '70vh',
+                height: '76vh',
                 backgroundColor: 'background.secondary',
             }}>
             <Typography variant='h4' align='center' sx={{ paddingTop: '25%' }}>
