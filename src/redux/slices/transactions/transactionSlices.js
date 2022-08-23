@@ -7,7 +7,7 @@ const transactionActions = (actionType, HttpMethod) => {
         async (payload, { rejectWithValue, getState, dispatch }) => {
             //get user token from store
             const url = 'http://localhost:8000/api/transactions/';
-            const userToken = getState().users.userData.token;
+            const userToken = getState().users.userData;
             const config = {
                 headers: {
                     'Content-Type': 'application/json',

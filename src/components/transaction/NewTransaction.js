@@ -243,7 +243,9 @@ export const NewTransaction = (props) => {
                     mt: '20px',
                     mb: '14px',
                 }}>
-                <Button disabled={disabledState}>Add Transaction</Button>
+                <Button disabled={disabledState} type='submit'>
+                    Add Transaction
+                </Button>
             </ButtonGroup>
         </Box>
     );

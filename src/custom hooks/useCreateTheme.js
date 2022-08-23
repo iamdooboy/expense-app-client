@@ -131,7 +131,7 @@ export const useCreateTheme = (mode) => {
                         'boxShadow': '4px 4px',
                         'border': '1px solid',
                         'borderRadius': '0px',
-                        'margin': '10px',
+                        'marginTop': '10px',
                         'height': '40px',
                         'fontWeight': 'bold',
                         '&: hover': {
@@ -260,8 +260,8 @@ export const useCreateTheme = (mode) => {
                                         : LIGHT_MODE_COLORS.BOX_SHADOW
                                 }`,
                                 borderRadius: '0',
-                                left: '10px',
-                                right: '10px',
+                                // left: '10px',
+                                // right: '10px',
                             },
                             '&:hover fieldset': {
                                 transform: 'translateY(4px) translateX(4px)',
@@ -287,6 +287,7 @@ export const useCreateTheme = (mode) => {
                                         : LIGHT_MODE_COLORS.BOX_SHADOW
                                 }`,
                             },
+
                             '&.Mui-focused fieldset': {
                                 transform: 'translateY(4px) translateX(4px)',
                                 boxShadow: `0px 0px ${
@@ -325,9 +326,9 @@ export const useCreateTheme = (mode) => {
                     input: {
                         '&.MuiOutlinedInput-input': {
                             ...TRANSITION_ANIMATION,
-                            'marginRight': '10px',
-                            'marginLeft': '10px',
-                            'padding': '10px',
+                            // 'marginRight': '10px',
+                            // 'marginLeft': '10px',
+                            // 'padding': '10px',
                             '&:focus': {
                                 transform: 'translateY(4px) translateX(4px)',
                                 boxShadow: `0px 0px ${
@@ -336,6 +337,16 @@ export const useCreateTheme = (mode) => {
                                         : LIGHT_MODE_COLORS.BOX_SHADOW
                                 }`,
                             },
+                        },
+                    },
+                },
+            },
+            MuiInputLabel: {
+                styleOverrides: {
+                    root: {
+                        '&.MuiInputLabel-shrink': {
+                            left: '17px',
+                            top: '4px',
                         },
                     },
                 },

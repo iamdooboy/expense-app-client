@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toggleColorMode } from '../theme/themeSlice';
 
 const UserActions = (actionType, path) => {
     const action = createAsyncThunk(
@@ -16,11 +17,18 @@ const UserActions = (actionType, path) => {
             try {
                 const { data } = await axios.post(url, userData, config);
                 if (path === '/login') {
-                    localStorage.setItem('userId', JSON.stringify(data));
                     localStorage.setItem(
                         'theme',
                         JSON.stringify({ mode: 'light' })
                     );
+                    if (userData.remember) {
+                        localStorage.setItem(
+                            'token',
+                            JSON.stringify(data.token)
+                        );
+                    } else {
+                        document.cookie = `token=${data.token}; expires=0`;
+                    }
                 }
                 return data;
             } catch (error) {
@@ -44,8 +52,15 @@ export const logoutUserAction = createAsyncThunk(
     'user/logout',
     async (payload, { rejectWithValue, getState, dispatch }) => {
         try {
-            localStorage.removeItem('userId');
+            localStorage.removeItem('token');
+            dispatch(
+                toggleColorMode({
+                    mode: 'light',
+                })
+            );
             localStorage.removeItem('theme');
+            document.cookie =
+                'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         } catch (error) {
             if (!error?.response) {
                 throw error;
@@ -55,16 +70,17 @@ export const logoutUserAction = createAsyncThunk(
     }
 );
 
-//get user from local storage
-const getUserFromStorage = localStorage.getItem('userId')
-    ? JSON.parse(localStorage.getItem('userId'))
+const getUser = document.cookie
+    ? document.cookie.split('=')[1]
+    : localStorage.getItem('token')
+    ? JSON.parse(localStorage.getItem('token'))
     : undefined;
 
 //slices
 const userSlices = createSlice({
     name: 'users',
     initialState: {
-        userData: getUserFromStorage,
+        userData: getUser,
     },
 
     extraReducers: (builder) => {
@@ -77,7 +93,7 @@ const userSlices = createSlice({
 
         //fulfilled login
         builder.addCase(loginUserAction.fulfilled, (state, action) => {
-            state.userData = action?.payload;
+            state.userData = action?.payload.token;
             state.userLoading = false;
             state.userAppError = undefined;
             state.userServerError = undefined;

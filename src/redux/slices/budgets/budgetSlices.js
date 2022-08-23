@@ -6,7 +6,7 @@ const BudgetActions = (actionType, HttpMethod) => {
         actionType,
         async (payload, { rejectWithValue, getState, dispatch }) => {
             const url = `http://localhost:8000/api/budgets/`;
-            const userToken = getState().users.userData.token;
+            const userToken = getState().users.userData;
             const config = {
                 headers: {
                     'Content-Type': 'application/json',

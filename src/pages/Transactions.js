@@ -35,7 +35,7 @@ export const Transactions = () => {
 
     useEffect(() => {
         if (isFirstRender) {
-            console.log('First Render');
+            console.log('first render');
         } else {
             dispatch(
                 updateBudgetAmountAction({ id: budgetId._id, amount: balance })
