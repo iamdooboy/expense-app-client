@@ -11,8 +11,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import { loginUserAction } from '../redux/slices/users/usersSlices';
-import { CustomErrorField } from '../components/login/CustomErrorField';
+import { CustomAlert } from '../UI/CustomAlert';
 import Stack from '@mui/material/Stack';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
 
 const Copyright = (props) => {
     return (
@@ -31,24 +35,35 @@ const Copyright = (props) => {
     );
 };
 
+const inputStyle = { WebkitBoxShadow: '0 0 0 1000px white inset' };
+
 export const Login = () => {
+    const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [remember, setRemember] = useState(false);
 
-    //get data from stored
     const user = useSelector((state) => state.users);
     const { userData, userLoading, userAppError, userServerError } = user;
 
-    const errorLabel =
-        userAppError || userServerError ? (
-            <CustomErrorField>
-                {userAppError}
-                {userServerError}
-            </CustomErrorField>
-        ) : (
-            ''
-        );
+    const userAppErrorLabel = userAppError ? (
+        <CustomAlert severity='error'>{userAppError}</CustomAlert>
+    ) : (
+        ''
+    );
+    const userServerErrorLabel = userServerError ? (
+        <CustomAlert severity='error'>{userServerError}</CustomAlert>
+    ) : (
+        ''
+    );
+
+    const errorLabel = userAppErrorLabel
+        ? userAppErrorLabel
+        : userServerErrorLabel;
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     let loginBtn = (
         <Button
@@ -92,13 +107,25 @@ export const Login = () => {
         }
     }, [userData]);
 
+    const InputProps = {
+        endAdornment: (
+            <InputAdornment position='end'>
+                <IconButton onClick={handleClickShowPassword}>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+            </InputAdornment>
+        ),
+    };
+
     return (
         <Container component='main' maxWidth='xs'>
             <Box
                 sx={{
                     marginTop: '50%',
                 }}>
-                <Typography sx={{ my: 2 }} variant='h3'>
+                <Typography
+                    sx={{ my: 2, fontWeight: 'bold', fontSize: '2.4rem' }}
+                    variant='h3'>
                     Welcome Back
                 </Typography>
                 <Typography variant='subtitle1' sx={{ color: '#797F8E' }}>
@@ -114,20 +141,22 @@ export const Login = () => {
                         required
                         fullWidth
                         name='email'
-                        placeholder='Email Address'
                         type='email'
                         id='email'
+                        placeholder='Email Address'
                         margin='normal'
                         autoFocus
+                        inputProps={{ style: inputStyle }}
                     />
                     <TextField
                         required
                         fullWidth
                         name='password'
-                        placeholder='Password*'
-                        type='password'
-                        margin='normal'
+                        type={showPassword ? 'text' : 'password'}
                         id='password'
+                        placeholder='Password*'
+                        margin='normal'
+                        InputProps={InputProps}
                     />
                     <Stack
                         sx={{ my: 1 }}
@@ -160,15 +189,15 @@ export const Login = () => {
                         type='submit'
                         fullWidth
                         variant='contained'
-                        sx={{ mb: 3 }}>
+                        sx={{ mb: 3, bgcolor: '#646464', color: 'white' }}>
                         Sign In
                     </Button>
-
                     <Box sx={{ textAlign: 'center' }}>
                         <Link
                             variant='body2'
                             component={RouterLink}
-                            to='/register'>
+                            to='/register'
+                            reloadDocument={true}>
                             {"Don't have an account? "}
                             <strong>{'Sign Up'}</strong>
                         </Link>
