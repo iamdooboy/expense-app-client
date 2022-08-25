@@ -94,7 +94,12 @@ export const NewTransaction = (props) => {
             <Typography
                 p='10px'
                 color='text.primary'
-                sx={{ fontWeight: 'bold', bgcolor: 'primary.header' }}>
+                sx={{
+                    fontWeight: 'bold',
+                    bgcolor: 'primary.header',
+                    borderBottom: '1px solid',
+                    borderColor: 'primary.separator',
+                }}>
                 Add Transaction
             </Typography>
             <TextField

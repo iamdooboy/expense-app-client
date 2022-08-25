@@ -81,6 +81,7 @@ const userSlices = createSlice({
     name: 'users',
     initialState: {
         userData: getUser,
+        signUp: false,
     },
 
     extraReducers: (builder) => {
@@ -119,7 +120,7 @@ const userSlices = createSlice({
 
         //fulfilled register
         builder.addCase(registerUserAction.fulfilled, (state, action) => {
-            state.userData = action?.payload;
+            state.signUp = true;
             state.userLoading = false;
             state.userAppError = undefined;
             state.userServerError = undefined;

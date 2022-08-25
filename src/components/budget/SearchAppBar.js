@@ -12,6 +12,7 @@ import { toggleColorMode } from '../../redux/slices/theme/themeSlice';
 import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
@@ -38,6 +39,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+const inputStyle = { WebkitBoxShadow: '0 0 0 1000px white inset' };
+
 export const SearchAppBar = (props) => {
     const textInput = useRef(null);
 
@@ -63,18 +66,16 @@ export const SearchAppBar = (props) => {
                 boxShadow: '4px 4px',
                 border: '1px solid',
                 color: 'primary.main',
-                marginTop: '10px',
-                marginBottom: '10px',
+                marginTop: '14px',
+                marginBottom: '18px',
                 backgroundColor: 'background.secondary',
+                height: '7vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                px: '10px',
             }}>
-            <Grid
-                container
-                sx={{
-                    paddingTop: '5px',
-                    paddingBottom: '9px',
-                    paddingRight: '5px',
-                    paddingLeft: '9px',
-                }}>
+            <Grid container>
                 <Grid item xs={6}>
                     <Stack
                         direction='row'
@@ -123,29 +124,25 @@ export const SearchAppBar = (props) => {
                         </Grid>
                     </Stack>
                 </Grid>
-                <Grid item xs={6}>
-                    <Stack
-                        direction='row'
-                        justifyContent='flex-end'
-                        alignItems='center'
-                        sx={{ paddingRight: '10px' }}>
-                        <StyledInputBase
-                            inputRef={textInput}
-                            name='budget'
-                            placeholder='Budget Name'
-                        />
-
-                        <Button
-                            type='submit'
-                            sx={{
-                                minWidth: '70px',
-                                height: '32px',
-                                margin: '10px',
-                                fontSize: '12px',
-                            }}>
-                            Add Budget
-                        </Button>
-                    </Stack>
+                <Grid item xs={6} textAlign='right'>
+                    <TextField
+                        inputRef={textInput}
+                        name='budget'
+                        placeholder='Add a budget'
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                height: '36px',
+                            },
+                        }}
+                    />
+                    <Button
+                        type='submit'
+                        sx={{
+                            height: '36px',
+                            margin: '10px',
+                        }}>
+                        Add Budget
+                    </Button>
                 </Grid>
             </Grid>
         </Box>

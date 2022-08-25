@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import { SearchAppBar } from '../components/budget/SearchAppBar';
 import { fetchAllBudgetAction } from '../redux/slices/budgets/budgetSlices';
 import { BudgetList } from '../components/budget/BudgetList';
-import { Empty } from '../components/UI/Empty';
+import { Empty } from '../UI/Empty';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
@@ -41,7 +41,7 @@ export const Home = () => {
                         disableRipple
                         sx={{
                             width: '100%',
-                            height: '20vh',
+                            height: '12vh',
                         }}>
                         <Typography
                             variant='h1'

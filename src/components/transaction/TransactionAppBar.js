@@ -59,8 +59,7 @@ export const TransactionAppBar = (props) => {
         <Box
             component='form'
             sx={{
-                marginTop: '14px',
-                marginBottom: '18px',
+                m: '14px 0px 18px',
             }}>
             <Grid container spacing={2}>
                 <Grid item xs={1.8}>

@@ -39,6 +39,8 @@ const inputStyle = { WebkitBoxShadow: '0 0 0 1000px white inset' };
 
 export const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [remember, setRemember] = useState(false);
@@ -90,14 +92,13 @@ export const Login = () => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const userData = {
-            email: data.get('email'),
-            password: data.get('password'),
+        const data = {
+            email: email,
+            password: password,
             remember: remember,
         };
 
-        dispatch(loginUserAction(userData));
+        dispatch(loginUserAction(data));
     };
 
     //redirect
@@ -147,6 +148,7 @@ export const Login = () => {
                         margin='normal'
                         autoFocus
                         inputProps={{ style: inputStyle }}
+                        onBlur={(e) => setEmail(e.target.value)}
                     />
                     <TextField
                         required
@@ -157,6 +159,7 @@ export const Login = () => {
                         placeholder='Password*'
                         margin='normal'
                         InputProps={InputProps}
+                        onBlur={(e) => setPassword(e.target.value)}
                     />
                     <Stack
                         sx={{ my: 1 }}

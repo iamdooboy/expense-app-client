@@ -9,7 +9,7 @@ import { NewTransaction } from '../components/transaction/NewTransaction';
 import { TransactionAppBar } from '../components/transaction/TransactionAppBar';
 import { updateBudgetAmountAction } from '../redux/slices/budgets/budgetSlices';
 import { EditTransaction } from '../components/transaction/EditTransaction';
-import { Empty } from '../components/UI/Empty';
+import { Empty } from '../UI/Empty';
 import { useIsMount } from '../custom hooks/useIsMount';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';

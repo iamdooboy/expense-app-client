@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { registerUserAction } from '../redux/slices/users/usersSlices';
+import {
+    registerUserAction,
+    loginUserAction,
+} from '../redux/slices/users/usersSlices';
 import { CustomAlert } from '../UI/CustomAlert';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -35,12 +38,17 @@ const inputStyle = { WebkitBoxShadow: '0 0 0 1000px white inset' };
 
 export const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [matchingPasswords, setMatchingPasswords] = useState(false);
     const [passwordStrength, setPasswordStrength] = useState(false);
 
     const user = useSelector((state) => state.users);
-    const { userData, userLoading, userAppError, userServerError } = user;
+    const { signUp, userData, userLoading, userAppError, userServerError } =
+        user;
 
     const userAppErrorLabel = userAppError ? (
         <CustomAlert severity='error'>{userAppError}</CustomAlert>
@@ -69,21 +77,36 @@ export const Register = () => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-
-        if (data.get('email') && data.get('password')) {
-            if (data.get('password') === data.get('confirm')) {
-                const userData = {
-                    email: data.get('email'),
-                    password: data.get('password'),
+        if (email && password) {
+            if (password === confirm) {
+                const data = {
+                    email: email,
+                    password: password,
                 };
-                dispatch(registerUserAction(userData));
+                dispatch(registerUserAction(data));
             } else {
                 setMatchingPasswords(true);
                 setPasswordStrength(false);
             }
         }
     };
+
+    useEffect(() => {
+        if (signUp) {
+            const data = {
+                email: email,
+                password: password,
+                remember: false,
+            };
+            dispatch(loginUserAction(data));
+        }
+    }, [signUp]);
+
+    useEffect(() => {
+        if (userData) {
+            navigate('/', { replace: true });
+        }
+    }, [userData]);
 
     const InputProps = {
         endAdornment: (
@@ -95,6 +118,15 @@ export const Register = () => {
         ),
     };
 
+    const onBlurPasswordHandler = (e) => {
+        setPassword(e.target.value);
+        if (e.target.value.length < 6) {
+            setPasswordStrength(true);
+        } else {
+            setPasswordStrength(false);
+        }
+    };
+
     return (
         <Container component='main' maxWidth='xs'>
             <Box
@@ -102,7 +134,11 @@ export const Register = () => {
                     marginTop: '50%',
                 }}>
                 <Typography
-                    sx={{ my: 2, fontWeight: 'bold', fontSize: '2.4rem' }}
+                    sx={{
+                        my: 2,
+                        fontWeight: 'bold',
+                        fontSize: '2.4rem',
+                    }}
                     variant='h4'>
                     Create an account
                 </Typography>
@@ -126,6 +162,7 @@ export const Register = () => {
                         margin='normal'
                         autoFocus
                         inputProps={{ style: inputStyle }}
+                        onBlur={(e) => setEmail(e.target.value)}
                     />
                     <TextField
                         error={passwordStrength}
@@ -136,25 +173,23 @@ export const Register = () => {
                         id='password'
                         placeholder='Password*'
                         margin='normal'
-                        helperText={passwordStrength ? 'Password is weak' : ''}
-                        onBlur={(e) => {
-                            if (e.target.value.length < 6) {
-                                setPasswordStrength(true);
-                            } else {
-                                setPasswordStrength(false);
-                            }
-                        }}
+                        helperText={
+                            passwordStrength
+                                ? 'Password needs to be at 6 characters long'
+                                : ''
+                        }
+                        onBlur={onBlurPasswordHandler}
                         InputProps={InputProps}
                     />
                     <TextField
                         required
                         fullWidth
                         name='confirm'
-                        type={showPassword ? 'text' : 'password'}
+                        type='password'
                         id='confirm'
                         placeholder='Confirm Password*'
                         margin='dense'
-                        InputProps={InputProps}
+                        onBlur={(e) => setConfirm(e.target.value)}
                     />
                     <Button
                         type='submit'

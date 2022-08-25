@@ -246,6 +246,32 @@ export const useCreateTheme = (mode) => {
                 styleOverrides: {
                     root: {
                         '& .MuiOutlinedInput-root': {
+                            'input': {
+                                '&:-webkit-autofill': {
+                                    '-webkit-box-shadow': `0 0 0 100px ${
+                                        mode === 'dark'
+                                            ? DARK_MODE_COLORS.SECONDARY_BACKGROUND
+                                            : LIGHT_MODE_COLORS.SECONDARY_BACKGROUND
+                                    } inset`,
+                                    'borderRadius': '0px',
+                                    '-webkit-text-fill-color':
+                                        mode === 'dark'
+                                            ? COLORS.WHITE
+                                            : COLORS.BLACK,
+                                },
+                                '&:-webkit-autofill:hover': {
+                                    '-webkit-box-shadow': `0 0 0 100px ${
+                                        mode === 'dark'
+                                            ? DARK_MODE_COLORS.SECONDARY_BACKGROUND
+                                            : LIGHT_MODE_COLORS.SECONDARY_BACKGROUND
+                                    } inset`,
+                                    'borderRadius': '0px',
+                                    '-webkit-text-fill-color':
+                                        mode === 'dark'
+                                            ? COLORS.WHITE
+                                            : COLORS.BLACK,
+                                },
+                            },
                             'height': '50px',
                             '& fieldset': {
                                 ...TRANSITION_ANIMATION,
