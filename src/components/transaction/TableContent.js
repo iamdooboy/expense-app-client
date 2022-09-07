@@ -101,7 +101,6 @@ export const TableContent = (props) => {
     };
 
     const handleSelectAllClick = (event) => {
-        console.log(event.target.checked);
         if (event.target.checked) {
             const newSelecteds = props.transactions.map((n) => n._id);
             setSelected(newSelecteds);
@@ -120,7 +119,6 @@ export const TableContent = (props) => {
     };
 
     const deleteHandler = (id, edit) => {
-        console.log(id);
         if (edit) {
             dispatch(
                 updateTransactionEditAction({

@@ -6,8 +6,7 @@ const UserActions = (actionType, path) => {
     const action = createAsyncThunk(
         actionType,
         async (userData, { rejectWithValue, getState, dispatch }) => {
-            const url = `http://localhost:8000/api/users${path}`;
-
+            const url = `${process.env.REACT_APP_URI}/api/users${path}`;
             const config = {
                 headers: {
                     'Content-Type': 'application/json',

@@ -18,8 +18,6 @@ export const Summary = (props) => {
         numberOfIncomes,
     } = props.summary;
 
-    console.log(props.summary);
-
     function createData(title, data) {
         return { title, data };
     }

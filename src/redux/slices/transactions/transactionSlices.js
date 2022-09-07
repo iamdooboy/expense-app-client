@@ -6,7 +6,7 @@ const transactionActions = (actionType, HttpMethod) => {
         actionType,
         async (payload, { rejectWithValue, getState, dispatch }) => {
             //get user token from store
-            const url = 'http://localhost:8000/api/transactions/';
+            const url = `${process.env.REACT_APP_URI}/api/transactions/`;
             const userToken = getState().users.userData;
             const config = {
                 headers: {
@@ -33,7 +33,6 @@ const transactionActions = (actionType, HttpMethod) => {
                         return data;
                     } else {
                         const newUrl = `${url}${payload.id}`;
-                        console.log(newUrl);
                         const { data } = await axios.put(
                             newUrl,
                             payload,
@@ -53,7 +52,6 @@ const transactionActions = (actionType, HttpMethod) => {
                 }
             } catch (error) {
                 if (!error?.response) {
-                    console.log(error);
                     throw error;
                 }
                 return rejectWithValue(error?.response?.data);
@@ -95,19 +93,12 @@ const findDuplicates = (arr) => {
         if (set.has(num)) {
             set.delete(num);
         } else {
-            //console.log(num);
             return num;
         }
     });
 
     const set2 = Array.from(new Set(duplicates));
     return set2;
-
-    // if (duplicates.length === 0) {
-    //     return -1;
-    // } else {
-    //     return duplicates.length;
-    // }
 };
 
 const createData = (amount, text, date) => {
@@ -241,11 +232,8 @@ const transactionSlices = createSlice({
         transactionData: [],
     },
     extraReducers: {
-        [fetchAllTransactionAction.pending]: (state, action) => {
-            console.log('pending fetch transactions...');
-        },
+        [fetchAllTransactionAction.pending]: (state, action) => {},
         [fetchAllTransactionAction.fulfilled]: (state, action) => {
-            console.log('fulfilled fetch transactions...');
             state.transactionData = action.payload;
             state.summary = getSummary(state.transactionData);
             state.balance = totalBalance(state.transactionData);
@@ -268,21 +256,15 @@ const transactionSlices = createSlice({
             state.expense = totalExpense(state.transactionData);
             state.income = totalIncome(state.transactionData);
         },
-        [updateTransactionEditAction.pending]: (state, action) => {
-            console.log('pending transaction edit');
-        },
+        [updateTransactionEditAction.pending]: (state, action) => {},
         [updateTransactionEditAction.fulfilled]: (state, action) => {
-            console.log('fulfilled transaction edit');
             const foundIndex = state.transactionData.findIndex(
                 (trasaction) => trasaction._id === action.payload._id
             );
             state.transactionData.splice(foundIndex, 1, action.payload);
         },
-        [updateTransactionAction.pending]: (state, action) => {
-            console.log('pending update transaction');
-        },
+        [updateTransactionAction.pending]: (state, action) => {},
         [updateTransactionAction.fulfilled]: (state, action) => {
-            console.log('fulfilled update transaction');
             const foundIndex = state.transactionData.findIndex(
                 (trasaction) => trasaction._id === action.payload._id
             );

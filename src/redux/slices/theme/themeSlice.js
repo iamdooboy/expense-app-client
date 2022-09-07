@@ -4,8 +4,6 @@ const theme = localStorage.getItem('theme')
     ? JSON.parse(localStorage.getItem('theme'))
     : 'light';
 
-console.log(theme.mode);
-
 const themeSlice = createSlice({
     name: 'theme',
     initialState: {

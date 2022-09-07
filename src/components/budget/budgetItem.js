@@ -109,7 +109,6 @@ export const BudgetItem = (props) => {
                         <HighlightOffSharpIcon />
                     </CustomIconButton>
                     <CustomIconButton
-                        onClick={(e) => console.log(e.target.value)}
                         sx={{
                             paddingLeft: '10px',
                             paddingRight: '6px',

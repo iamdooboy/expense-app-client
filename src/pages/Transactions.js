@@ -34,9 +34,7 @@ export const Transactions = () => {
     const { disableMode } = useSelector((state) => state.disableTransaction);
 
     useEffect(() => {
-        if (isFirstRender) {
-            console.log('first render');
-        } else {
+        if (!isFirstRender) {
             dispatch(
                 updateBudgetAmountAction({ id: budgetId._id, amount: balance })
             );
@@ -63,9 +61,7 @@ export const Transactions = () => {
                         disableRipple
                         sx={{
                             width: '100%',
-                            color: 'primary.secondary',
                             height: '12vh',
-                            backgroundColor: 'background.secondary',
                         }}>
                         <Typography
                             variant='h1'

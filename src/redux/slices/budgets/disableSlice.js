@@ -7,7 +7,6 @@ const disableSlice = createSlice({
     },
     reducers: {
         changeDisableMode: (state, action) => {
-            console.log('changing disable mode');
             return (state = action.payload);
         },
     },

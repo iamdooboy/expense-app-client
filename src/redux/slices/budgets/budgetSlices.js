@@ -5,7 +5,7 @@ const BudgetActions = (actionType, HttpMethod) => {
     const action = createAsyncThunk(
         actionType,
         async (payload, { rejectWithValue, getState, dispatch }) => {
-            const url = `http://localhost:8000/api/budgets/`;
+            const url = `${process.env.REACT_APP_URI}/api/budgets/`;
             const userToken = getState().users.userData;
             const config = {
                 headers: {
@@ -78,28 +78,22 @@ const budgetSlices = createSlice({
     extraReducers: {
         [fetchAllBudgetAction.pending]: (state, action) => {
             state.budgetLoading = true;
-            console.log('fetching data');
         },
         [fetchAllBudgetAction.fulfilled]: (state, action) => {
             state.budgetLoading = false;
             state.data = action.payload.docs;
         },
-        [createBudgetAction.pending]: (state, action) => {
-            console.log('creating budget');
-        },
+        [createBudgetAction.pending]: (state, action) => {},
         [createBudgetAction.fulfilled]: (state, action) => {
             state.data.push(action.payload);
         },
-        [deleteBudgetAction.pending]: (state, action) => {
-            console.log('deleting budget');
-        },
+        [deleteBudgetAction.pending]: (state, action) => {},
         [deleteBudgetAction.fulfilled]: (state, action) => {
             state.data = state.data.filter(
                 (budget) => budget._id !== action.payload._id
             );
         },
         [updateBudgetTitleAction.pending]: (state, action) => {
-            console.log('updating budget title');
             state.loading = true;
         },
         [updateBudgetTitleAction.fulfilled]: (state, action) => {
@@ -109,15 +103,9 @@ const budgetSlices = createSlice({
             );
             state.data.splice(foundIndex, 1, action.payload);
         },
-        [updateBudgetAmountAction.pending]: (state, action) => {
-            console.log('pending update budget amount');
-        },
-        [updateBudgetAmountAction.fulfilled]: (state, action) => {
-            console.log('fulfilled update budget amount');
-        },
-        [updateBudgetEditAction.pending]: (state, action) => {
-            console.log('updating budget edit');
-        },
+        [updateBudgetAmountAction.pending]: (state, action) => {},
+        [updateBudgetAmountAction.fulfilled]: (state, action) => {},
+        [updateBudgetEditAction.pending]: (state, action) => {},
         [updateBudgetEditAction.fulfilled]: (state, action) => {
             const foundIndex = state.data.findIndex(
                 (budget) => budget._id === action.payload._id

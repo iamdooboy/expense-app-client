@@ -80,7 +80,8 @@ export const TableHeader = (props) => {
     ];
 
     return (
-        <TableHead>
+        <TableHead
+            sx={{ borderTop: '1px solid', borderColor: 'primary.separator' }}>
             <TableRow>
                 <StyledTableCell padding='checkbox'>
                     <Checkbox
