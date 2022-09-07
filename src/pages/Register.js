@@ -16,6 +16,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Copyright = (props) => {
     return (
@@ -127,6 +128,22 @@ export const Register = () => {
         }
     };
 
+    const loadingBtn = (
+        <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            disabled={userLoading}
+            sx={{
+                mt: 3,
+                mb: 3,
+                bgcolor: '#646464',
+                color: 'white',
+            }}>
+            {!userLoading ? 'Sign Up' : <CircularProgress size={30} />}
+        </Button>
+    );
+
     return (
         <Container component='main' maxWidth='xs'>
             <Box
@@ -191,18 +208,7 @@ export const Register = () => {
                         margin='dense'
                         onBlur={(e) => setConfirm(e.target.value)}
                     />
-                    <Button
-                        type='submit'
-                        fullWidth
-                        variant='contained'
-                        sx={{
-                            mt: 3,
-                            mb: 3,
-                            bgcolor: '#646464',
-                            color: 'white',
-                        }}>
-                        Sign Up
-                    </Button>
+                    {loadingBtn}
                     <Box sx={{ textAlign: 'center' }}>
                         <Link
                             variant='body2'

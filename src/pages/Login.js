@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -17,6 +16,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Copyright = (props) => {
     return (
@@ -72,23 +72,11 @@ export const Login = () => {
             type='submit'
             fullWidth
             variant='contained'
-            disabled
+            disabled={userLoading}
             sx={{ mt: 3, mb: 2 }}>
-            Loading please wait...
+            {!userLoading ? 'Sign In' : <CircularProgress size={30} />}
         </Button>
     );
-
-    if (!userLoading) {
-        loginBtn = (
-            <Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                sx={{ mt: 3, mb: 2 }}>
-                Sign In
-            </Button>
-        );
-    }
 
     const submitHandler = async (event) => {
         event.preventDefault();
@@ -188,13 +176,14 @@ export const Login = () => {
                         </Link>
                     </Stack>
 
-                    <Button
+                    {/* <Button
                         type='submit'
                         fullWidth
                         variant='contained'
                         sx={{ mb: 3, bgcolor: '#646464', color: 'white' }}>
                         Sign In
-                    </Button>
+                    </Button> */}
+                    {loginBtn}
                     <Box sx={{ textAlign: 'center' }}>
                         <Link
                             variant='body2'
